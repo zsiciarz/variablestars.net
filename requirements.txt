@@ -1,5 +1,6 @@
 https://www.djangoproject.com/m/releases/1.6/Django-1.6b3.tar.gz#egg=Django
 Fabric==1.7.0
+-e git+https://github.com/django-debug-toolbar/django-debug-toolbar.git#egg=debug_toolbar
 django-extensions==1.2.1
 django-twitter-bootstrap==3.0.0
 gunicorn==18.0
