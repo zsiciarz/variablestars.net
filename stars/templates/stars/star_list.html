@@ -5,6 +5,21 @@
 
 {% block content %}
     <h1>{% trans 'Stars' %}</h1>
+    <div class="row">
+        <div class="col-md-4 big-stat">
+            <h1>{{ total_star_count }}</h1>
+            <h2>{% trans "stars" %}</h2>
+        </div>
+        <div class="col-md-4 big-stat">
+            <h1>337</h1>
+            <h2>{% trans "observed in last month" %}</h2>
+        </div>
+        <div class="col-md-4 big-stat">
+            <h1>59</h1>
+            <h2>{% trans "observed by you" %}</h2>
+        </div>
+    </div>
+    <h2>{% trans "List of variable stars" %}</h2>
     <table class="table table-condensed">
         <thead>
             <tr>
@@ -18,10 +33,10 @@
         <tbody>
             {% for star in star_list %}
             <tr>
-                <td>{{ star.name }}</td>
+                <td><a href="#">{{ star.name }}</a></td>
                 <td>{{ star.variable_type }}</td>
                 <td>417</td>
-                <td>{{ star.max_magnitude }} - {{ star.min_magnitude }}</td>
+                <td>{{ star.max_magnitude }} - <span class="text-muted">{{ star.min_magnitude }}</span></td>
                 <td>{% trans "eclipse" %}</td>
             </tr>
             {% endfor %}

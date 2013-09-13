@@ -11,3 +11,8 @@ class StarListView(ListView):
     """
     model = Star
     paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super(StarListView, self).get_context_data(**kwargs)
+        context['total_star_count'] = Star.objects.count()
+        return context
