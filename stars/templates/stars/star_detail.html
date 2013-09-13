@@ -13,10 +13,12 @@
                     <span class="glyphicon glyphicon-star"></span>
                     <a href="{% url 'stars:constellation_list' constellation=star.constellation %}">{{ star.get_constellation_display }}</a>
                 </li>
-                <li>
-                    <span class="glyphicon glyphicon-tag"></span>
-                    <a href="{% url 'stars:variabilitytype_detail' code=star.variable_type %}">{{ star.variable_type }}</a>
-                </li>
+                {% if star.variable_type %}
+                    <li>
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <a href="{% url 'stars:variabilitytype_detail' code=star.variable_type %}">{{ star.variable_type }}</a>
+                    </li>
+                {% endif %}
                 <li>
                     <span class="glyphicon glyphicon-signal"></span>
                     {{ star.max_magnitude }} &ndash; <span class="text-muted">{{ star.min_magnitude }}</span> mag.
