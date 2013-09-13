@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'compressor',
     'debug_toolbar',
     'django_extensions',
     'twitter_bootstrap',
@@ -102,6 +103,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
 INTERNAL_IPS = ('127.0.0.1',)
 
 DEBUG_TOOLBAR_CONFIG = {
@@ -112,3 +119,8 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+if not DEBUG:
+    COMPRESS_PRECOMPILERS = (
+        ('text/less', 'lessc {infile} {outfile}'),
+    )

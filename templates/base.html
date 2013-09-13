@@ -1,4 +1,4 @@
-{% load url from future %}{% load i18n %}<!doctype html>
+{% load url from future %}{% load i18n %}{% load compress %}<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -7,9 +7,13 @@
   <meta name="description" content="">
   <meta name="author" content="@zsiciarz">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}less/bootstrap.less">
+  {% compress css %}
+    <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}less/bootstrap.less">
+  {% endcompress %}
   {% block extra-style %}{% endblock %}
-  <script src="{{ STATIC_URL }}js/libs/less-1.4.1.min.js"></script>
+  {% if debug %}
+    <script src="{{ STATIC_URL }}js/libs/less-1.4.1.min.js"></script>
+  {% endif %}
 </head>
 
 <body>
