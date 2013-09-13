@@ -39,7 +39,10 @@ INSTALLED_APPS = (
     'compressor',
     'debug_toolbar',
     'django_extensions',
+    'south',
     'twitter_bootstrap',
+
+    'stars',
 )
 
 MIDDLEWARE_CLASSES = (
