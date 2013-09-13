@@ -15,7 +15,7 @@
                 </li>
                 <li>
                     <span class="glyphicon glyphicon-tag"></span>
-                    <a href="#">{{ star.variable_type }}</a>
+                    <a href="{% url 'stars:variabilitytype_detail' code=star.variable_type %}">{{ star.variable_type }}</a>
                 </li>
                 <li>
                     <span class="glyphicon glyphicon-signal"></span>

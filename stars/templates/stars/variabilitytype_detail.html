@@ -6,7 +6,9 @@
     <div class="row">
         <div class="col-sm-12">
             <h1><span class="glyphicon glyphicon-star-empty"></span> {{ variabilitytype.code }}</h1>
-            {{ variabilitytype.short_description }}
+            {% if variabilitytype.short_description %}
+                {{ variabilitytype.short_description }}
+            {% endif %}
         </div>
     </div>
     <blockquote>

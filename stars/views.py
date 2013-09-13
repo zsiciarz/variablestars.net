@@ -76,3 +76,7 @@ class VariabilityTypeDetailView(DetailView):
     """
     model = VariabilityType
     slug_field = slug_url_kwarg = 'code'
+
+    def get_object(self):
+        code = self.kwargs['code'].replace(':', '')
+        return VariabilityType.objects.get(code=code)
