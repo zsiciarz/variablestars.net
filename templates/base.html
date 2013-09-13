@@ -17,20 +17,41 @@
 </head>
 
 <body>
+      <header class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <nav>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">{% trans "Toggle navigation" %}</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'main' %}">variablestars.net</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'main' %}">{% trans "Home" %}</a></li>
+                        <li><a href="#">{% trans "Stars" %}</a></li>
+                        <li><a href="#">{% trans "Observers" %}</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">{% trans "Sign in" %}</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+      </header>
+
     <div class="container">
-      <div class="header">
-        <ul class="nav pull-right">
-              <li><a href="{% url 'main' %}">{% trans 'Home' %}</a></li>
-          </ul>
-        <h3>variablestars.net</h3>
-      </div>
-
-    {% block content %}{% endblock %}
-
-    <div class="footer">
-        <p>&copy; <a href="http://siciarz.net">Zbigniew Siciarz</a> 2013</p>
+        {% block content %}{% endblock %}
     </div>
-  </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <a href="http://siciarz.net">Zbigniew Siciarz</a> 2013</p>
+        </div>
+    </footer>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/libs/jquery-2.0.3.min.js"><\/script>')</script>
