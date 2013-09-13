@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><span class="glyphicon glyphicon-star-empty"></span> {{ variabilitytype.code }}</h1>
+            {{ variabilitytype.short_description }}
+        </div>
+    </div>
+    <blockquote>
+        <p>{{ variabilitytype.long_description }}</p>
+        <small><cite>General Catalog of Variable Stars</cite></small>
+    </blockquote>
+
+{% endblock %}

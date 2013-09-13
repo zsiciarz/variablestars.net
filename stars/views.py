@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView
 import ephem
 from pygcvs import dict_to_body
 
-from .models import Star, CONSTELLATIONS_DICT
+from .models import Star, CONSTELLATIONS_DICT, VariabilityType
 
 
 class StarListView(ListView):
@@ -68,3 +68,11 @@ class StarDetailView(DetailView):
         body.compute(city)
         context['body'] = body
         return context
+
+
+class VariabilityTypeDetailView(DetailView):
+    """
+    Detailed view about a variability type.
+    """
+    model = VariabilityType
+    slug_field = slug_url_kwarg = 'code'

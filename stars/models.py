@@ -162,3 +162,7 @@ class VariabilityType(models.Model):
 
     def __str__(self):
         return self.code
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('stars:variabilitytype_detail', [], {'code': self.code})
