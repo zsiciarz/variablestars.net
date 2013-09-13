@@ -4,23 +4,35 @@
 {% load bootstrap_pagination %}
 
 {% block content %}
-    <div class="star-header">
-        <h1><span class="glyphicon glyphicon-star-empty"></span> {{ star }}</h1>
-        <ul class="list-inline">
-            <li>
-                <span class="glyphicon glyphicon-star"></span>
-                <a href="{% url 'stars:constellation_list' constellation=star.constellation %}">{{ star.get_constellation_display }}</a>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-tag"></span>
-                <a href="#">{{ star.variable_type }}</a>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-signal"></span>
-                {{ star.max_magnitude }} &ndash; <span class="text-muted">{{ star.min_magnitude }}</span> mag.
-            </li>
-        </ul>
+    <div class="row">
+        <div class="col-sm-9">
+            <h1><span class="glyphicon glyphicon-star-empty"></span> {{ star }}</h1>
+            <ul class="list-inline">
+                <li>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <a href="{% url 'stars:constellation_list' constellation=star.constellation %}">{{ star.get_constellation_display }}</a>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-tag"></span>
+                    <a href="#">{{ star.variable_type }}</a>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-signal"></span>
+                    {{ star.max_magnitude }} &ndash; <span class="text-muted">{{ star.min_magnitude }}</span> mag.
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <div class="well star-visibility">
+                <h3>{% trans "visible now!" %}</h3>
+                <ul class="list-inline">
+                    <li>{% trans "Alt." %} 24°</li>
+                    <li>{% trans "Az." %} 153°</li>
+                </ul>
+            </div>
+        </div>
     </div>
+    <hr>
     <div class="row">
         <div class="col-xs-4 big-stat">
             <h1>662</h1>
@@ -100,7 +112,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <h2>{% trans "Catalog data" %}</h2>
             <div class="well">
                 <dl class="dl-horizontal">
@@ -125,7 +137,7 @@
                 </dl>
             </div>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-7">
             <h2>{% trans "Links and references" %}</h2>
             <div class="well">
                 <ul>
