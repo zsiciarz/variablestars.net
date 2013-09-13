@@ -60,6 +60,23 @@
 @import "utilities.less";
 @import "responsive-utilities.less";
 
+.navbar {
+    border-radius: 0;
+}
+header.navbar {
+    margin-bottom: 0;
+}
+
+.navbar.secondary {
+    background: @gray-light;
+    color: #fff;
+    border-top: none;
+    height: 0.8 * @navbar-height;
+    min-height: 0.8 * @navbar-height;
+    p {
+        margin-top: 14px;
+    }
+}
 
 .big-stat {
     text-align: center;

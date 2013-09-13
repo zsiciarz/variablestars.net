@@ -42,6 +42,17 @@
             </nav>
         </div>
       </header>
+      <div class="navbar secondary">
+          <div class="container">
+              <p class="navbar-text navbar-left">JD: <span id="current-jd">0</span></p>
+              <form class="navbar-form navbar-right" role="search">
+                  <div class="form-group">
+                      <input type="text" name="q" class="form-control input-sm" placeholder="Enter star name">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-sm">Search</button>
+              </form>
+          </div>
+      </div>
 
     <div class="container">
         {% block content %}{% endblock %}
