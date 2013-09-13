@@ -1,1 +1,2 @@
 https://www.djangoproject.com/m/releases/1.6/Django-1.6b3.tar.gz
+django-twitter-bootstrap==3.0.0
