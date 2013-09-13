@@ -1,7 +1,32 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load i18n %}
+{% load bootstrap_pagination %}
 
 {% block content %}
     <h1>{% trans 'Stars' %}</h1>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Number of observations" %}</th>
+                <th>{% trans "Brightness" %}</th>
+                <th>{% trans "Events" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for star in star_list %}
+            <tr>
+                <td>{{ star.name }}</td>
+                <td>{{ star.variable_type }}</td>
+                <td>417</td>
+                <td>{{ star.max_magnitude }} - {{ star.min_magnitude }}</td>
+                <td>{% trans "eclipse" %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% bootstrap_paginate page_obj range=10 %}
 {% endblock %}

@@ -10,3 +10,4 @@ class StarListView(ListView):
     Display a list of variable stars.
     """
     model = Star
+    paginate_by = 20
