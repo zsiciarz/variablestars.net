@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
 
+from django.http import Http404
 from django.views.generic import ListView, DetailView
 
-from .models import Star
+from .models import Star, CONSTELLATIONS_DICT
 
 
 class StarListView(ListView):
@@ -14,7 +15,24 @@ class StarListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(StarListView, self).get_context_data(**kwargs)
-        context['total_star_count'] = Star.objects.count()
+        queryset = self.get_queryset()
+        context['total_star_count'] = queryset.count()
+        return context
+
+
+class ConstellationListView(StarListView):
+    """
+    List all stars in a given constellation.
+    """
+    allow_empty = False
+
+    def get_queryset(self):
+        return Star.objects.filter(constellation=self.kwargs['constellation'])
+
+    def get_context_data(self, **kwargs):
+        context = super(ConstellationListView, self).get_context_data(**kwargs)
+        name = CONSTELLATIONS_DICT.get(self.kwargs['constellation'])
+        context['constellation'] = name
         return context
 
 

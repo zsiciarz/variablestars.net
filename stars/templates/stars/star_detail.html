@@ -9,7 +9,7 @@
         <ul class="list-inline">
             <li>
                 <span class="glyphicon glyphicon-star"></span>
-                <a href="#">{{ star.get_constellation_display }}</a>
+                <a href="{% url 'stars:constellation_list' constellation=star.constellation %}">{{ star.get_constellation_display }}</a>
             </li>
             <li>
                 <span class="glyphicon glyphicon-tag"></span>

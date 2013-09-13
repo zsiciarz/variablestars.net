@@ -19,7 +19,7 @@
             <h2>{% trans "observed by you" %}</h2>
         </div>
     </div>
-    <h2>{% trans "List of variable stars" %}</h2>
+    <h2>{% trans "List of variable stars" %}{% if constellation %} {% trans "in" %} {{ constellation }}{% endif %}</h2>
 
     {% include "stars/stars_table.html" %}
 
