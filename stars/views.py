@@ -18,6 +18,19 @@ class StarListView(ListView):
         return context
 
 
+class StarSearchView(ListView):
+    """
+    Display a list of all stars matching submitted query.
+    """
+    model = Star
+    paginate_by = 20
+    template_name = "stars/star_search.html"
+
+    def get_queryset(self):
+        q = self.request.REQUEST.get('q')
+        return Star.objects.filter(name__icontains=q)
+
+
 class StarDetailView(DetailView):
     """
     Detailed information about a variable star.

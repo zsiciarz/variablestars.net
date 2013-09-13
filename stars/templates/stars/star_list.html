@@ -20,31 +20,10 @@
         </div>
     </div>
     <h2>{% trans "List of variable stars" %}</h2>
-    <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th>{% trans "Name" %}</th>
-                <th>{% trans "Type" %}</th>
-                <th class="hidden-xs">{% trans "Number of observations" %}</th>
-                <th>{% trans "Brightness" %}</th>
-                <th>{% trans "Events" %}</th>
-                <th class="hidden-xs">{% trans "Observing?" %}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for star in star_list %}
-            <tr>
-                <td><a href="{{ star.get_absolute_url }}">{{ star.name }}</a></td>
-                <td>{{ star.variable_type }}</td>
-                <td class="hidden-xs">417</td>
-                <td>{{ star.max_magnitude }} &ndash;
-                    <span class="{% if star.min_magnitude > 11 %}text-muted{% endif %}">{{ star.min_magnitude }}</span></td>
-                <td>{% trans "eclipse" %}</td>
-                <td class="hidden-xs"><span class="{% cycle 'text-muted' 'text-muted' '' %} glyphicon glyphicon-eye-open"></span></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
-    {% bootstrap_paginate page_obj range=10 %}
+    {% include "stars/stars_table.html" %}
+
+    {% if is_paginated %}
+        {% bootstrap_paginate page_obj range=10 %}
+    {% endif %}
 {% endblock %}
