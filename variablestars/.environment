@@ -1,0 +1,2 @@
+unset PYTHONPATH
+source $HOME/v/variablestars.net/bin/activate
