@@ -1,4 +1,8 @@
 https://www.djangoproject.com/m/releases/1.6/Django-1.6b3.tar.gz#egg=Django
+Fabric==1.7.0
 django-twitter-bootstrap==3.0.0
 gunicorn==18.0
 psycopg2==2.5.1
+paramiko==1.11.0
+pycrypto==2.6
+
