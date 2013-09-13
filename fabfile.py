@@ -50,7 +50,7 @@ def update_requirements():
 def migrate():
     with prepare_project():
         run("python manage.py syncdb")
-        #run("python manage.py migrate")
+        run("python manage.py migrate")
 
 
 @task
