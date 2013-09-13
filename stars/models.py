@@ -152,7 +152,9 @@ class VariabilityType(models.Model):
     A short description of variability type from GCVS.
     """
     code = models.CharField(_("Letter code"), max_length=12, db_index=True)
-    short_description = models.CharField(_("Short description"), max_length=100)
+    short_description = models.CharField(
+        _("Short description"), max_length=100, blank=True, default=''
+    )
     long_description = models.TextField(_("Long description"), default='')
 
     class Meta:
