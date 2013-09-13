@@ -1,7 +1,11 @@
 from __future__ import unicode_literals
 
+from django.forms.models import model_to_dict
 from django.http import Http404
 from django.views.generic import ListView, DetailView
+
+import ephem
+from pygcvs import dict_to_body
 
 from .models import Star, CONSTELLATIONS_DICT
 
@@ -54,3 +58,13 @@ class StarDetailView(DetailView):
     Detailed information about a variable star.
     """
     model = Star
+
+    def get_context_data(self, **kwargs):
+        context = super(StarDetailView, self).get_context_data(**kwargs)
+        star = context['star']
+        body = dict_to_body(model_to_dict(star))
+        # TODO: consider observer's location
+        city = ephem.city('Warsaw')
+        body.compute(city)
+        context['body'] = body
+        return context

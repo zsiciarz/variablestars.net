@@ -24,11 +24,15 @@
         </div>
         <div class="col-sm-3">
             <div class="well star-visibility">
-                <h3>{% trans "visible now!" %}</h3>
-                <ul class="list-inline">
-                    <li>{% trans "Alt." %} 24°</li>
-                    <li>{% trans "Az." %} 153°</li>
-                </ul>
+                {% if body.alt > 0 %}
+                    <h3>{% trans "visible now!" %}</h3>
+                    <ul class="list-inline">
+                        <li>{% trans "Alt." %} {{ body.alt }}°</li>
+                        <li>{% trans "Az." %} {{ body.az }}°</li>
+                    </ul>
+                {% else %}
+                    <h3 class="text-muted">{% trans "not visible" %}</h3>
+                {% endif %}
             </div>
         </div>
     </div>
