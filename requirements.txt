@@ -12,4 +12,5 @@ ipython==1.1.0
 psycopg2==2.5.1
 paramiko==1.11.0
 pycrypto==2.6
+pygcvs==0.1.1
 six==1.4.1
