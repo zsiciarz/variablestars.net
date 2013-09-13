@@ -132,3 +132,15 @@ class Star(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return('stars:star_detail', [], {'pk': self.pk})
+
+    def is_periodic(self):
+        """
+        Returns True if the star is periodic (has a defined period).
+        """
+        return self.period is not None
+
+    def get_gcvs_search_name(self):
+        """
+        Fixes GCVS inconsequence in handling escape characters.
+        """
+        return self.name.replace(' ', '+')

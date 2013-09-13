@@ -36,6 +36,14 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-12">
+            <h2>{{ star.name }} {% trans "lightcurve" %}</h2>
+            <div class="well">
+                <h3>To do...</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-3">
             <h2>{% trans "Top observers" %}</h2>
             <table class="table table-condensed">
@@ -89,6 +97,42 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <h2>{% trans "Catalog data" %}</h2>
+            <div class="well">
+                <dl class="dl-horizontal">
+                    <dt>{% trans "Name" %}</dt>
+                    <dd>{{ star.name }}</dd>
+                    <dt>{% trans "Type of variability" %}</dt>
+                    <dd>{{ star.variable_type }}</dd>
+                    <dt>{% trans "Right ascension" %}</dt>
+                    <dd>{{ star.ra }}</dd>
+                    <dt>{% trans "Declination" %}</dt>
+                    <dd>{{ star.dec }}</dd>
+                    <dt>{% trans "Maximum brightness" %}</dt>
+                    <dd>{{ star.max_magnitude }} mag.</dd>
+                    <dt>{% trans "Minimum brightness" %}</dt>
+                    <dd>{{ star.min_magnitude }} mag.</dd>
+                    {% if star.is_periodic %}
+                        <dt>{% trans "Epoch" %}</dt>
+                        <dd>JD {{ star.epoch }}</dd>
+                        <dt>{% trans "Period" %}</dt>
+                        <dd>{{ star.period }} {% trans "days" %}</dd>
+                    {% endif %}
+                </dl>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <h2>{% trans "Links and references" %}</h2>
+            <div class="well">
+                <ul>
+                    <li><a href="http://www.sai.msu.su/groups/cluster/gcvs/cgi-bin/search.cgi?search={{ star.get_gcvs_search_name }}">{% trans "Full GCVS query for" %} {{ star.name }}</a></li>
+                    <li><a href="http://www.aavso.org/cgi-bin/vsp.pl?name={{ star.name }}">{% trans "AAVSO chart for" %} {{ star.name }}</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
