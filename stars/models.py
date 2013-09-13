@@ -144,3 +144,21 @@ class Star(models.Model):
         Fixes GCVS inconsequence in handling escape characters.
         """
         return self.name.replace(' ', '+')
+
+
+@python_2_unicode_compatible
+class VariabilityType(models.Model):
+    """
+    A short description of variability type from GCVS.
+    """
+    code = models.CharField(_("Letter code"), max_length=12, db_index=True)
+    short_description = models.CharField(_("Short description"), max_length=100)
+    long_description = models.TextField(_("Long description"), default='')
+
+    class Meta:
+        verbose_name = _("Variability type")
+        verbose_name_plural = _("Variability types")
+        ordering = ('code',)
+
+    def __str__(self):
+        return self.code
