@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from .models import Star
+from .models import Star, VariabilityType
 
 
 class StarAdmin(admin.ModelAdmin):
@@ -13,4 +13,9 @@ class StarAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
 
 
+class VariabilityTypeAdmin(admin.ModelAdmin):
+    list_display = ('code', 'short_description')
+
+
 admin.site.register(Star, StarAdmin)
+admin.site.register(VariabilityType, VariabilityTypeAdmin)
