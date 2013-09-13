@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_pagination %}
+
+{% block content %}
+    <div class="star-header">
+        <h1><span class="glyphicon glyphicon-star-empty"></span> {{ star }}</h1>
+        <ul class="list-inline">
+            <li>
+                <span class="glyphicon glyphicon-star"></span>
+                <a href="#">{{ star.get_constellation_display }}</a>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-tag"></span>
+                <a href="#">{{ star.variable_type }}</a>
+            </li>
+            <li>
+                <span class="glyphicon glyphicon-signal"></span>
+                {{ star.max_magnitude }} &ndash; <span class="text-muted">{{ star.min_magnitude }}</span> mag.
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 big-stat">
+            <h1>662</h1>
+            <h2>{% trans "observations" %}</h2>
+        </div>
+        <div class="col-xs-4 big-stat">
+            <h1>53</h1>
+            <h2>{% trans "observers" %}</h2>
+        </div>
+        <div class="col-xs-4 big-stat">
+            <h1>46</h1>
+            <h2>{% trans "your observations" %}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h2>{% trans "Top observers" %}</h2>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>{% trans "Observer" %}</th>
+                        <th>{% trans "Observations" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#">XYZ</a></td>
+                        <td>851</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">SYF</a></td>
+                        <td>119</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">ZSI</a></td>
+                        <td>45</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-9">
+            <h2>{% trans "Recent observations" %}</h2>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>{% trans "Observer" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Brightness" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#">ZSI</a></td>
+                        <td>2456549.1234</td>
+                        <td>8.6</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">ZSI</a></td>
+                        <td>2456548.1234</td>
+                        <td>8.5</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">SYF</a></td>
+                        <td>2456545.1234</td>
+                        <td>7.6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

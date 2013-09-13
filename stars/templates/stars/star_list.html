@@ -34,7 +34,7 @@
         <tbody>
             {% for star in star_list %}
             <tr>
-                <td><a href="#">{{ star.name }}</a></td>
+                <td><a href="{{ star.get_absolute_url }}">{{ star.name }}</a></td>
                 <td>{{ star.variable_type }}</td>
                 <td class="hidden-xs">417</td>
                 <td>{{ star.max_magnitude }} &ndash;

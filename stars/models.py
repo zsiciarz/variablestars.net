@@ -127,3 +127,7 @@ class Star(models.Model):
 
     def __str__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return('stars:star_detail', [], {'pk': self.pk})
