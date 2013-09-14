@@ -33,7 +33,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{% url 'main' %}">{% trans "Home" %}</a></li>
                         <li><a href="{% url 'stars:star_list' %}">{% trans "Stars" %}</a></li>
-                        <li><a href="#">{% trans "Observers" %}</a></li>
+                        <li><a href="{% url 'observers:observer_list' %}">{% trans "Observers" %}</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
