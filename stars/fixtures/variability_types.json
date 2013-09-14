@@ -898,5 +898,104 @@
         "code": "*", 
         "long_description": "Unique variable stars outside the range of the classifications de-\r\n       scribed above. These probably represent either short stages of\r\n       transition from one variability type to another or the earliest\r\n       and latest evolutionary stages of these types, or they are\r\n       insufficiently studied members of future new types of variables."
     }
+},
+{
+    "pk": 101, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "", 
+        "code": "CWA", 
+        "long_description": "W Vir variables with periods longer than 8 days (W Vir)"
+    }
+},
+{
+    "pk": 102, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "", 
+        "code": "CWB", 
+        "long_description": "W Vir variables with periods shorter than 8 days (BL Her)."
+    }
+},
+{
+    "pk": 103, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "Orion variables of the T Tauri type.", 
+        "code": "IT", 
+        "long_description": "Stars are assigned to\r\n       this type on the basis of the following (purely spectroscopic)\r\n       criteria:  spectral types are in the range Fe-Me. The spectra of\r\n       most typical stars resemble the spectrum of the solar\r\n       chromosphere. The feature specific to the type is the presence of\r\n       the flourescent emission lines Fe II 4046, 4132 A (anomalously\r\n       intense in the spectra of these stars), emission lines [Si II] and\r\n       [O I], as well as the absorption line Li I 6707 A. These variables\r\n       are usually observed only in diffuse nebulae. If it is not\r\n       apparent that the star is associated with a nebula, the letter \"N\"\r\n       in the symbol for the type may be omitted, e.g., IT (RW AUR)"
+    }
+},
+{
+    "pk": 104, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "Orion variables.", 
+        "code": "INSB", 
+        "long_description": "Irregular, eruptive variables connected with bright or dark diffuse nebulae or observed in the regions of these nebulae. Some of them may show cyclic light variations caused by axial rotation. In the Spectrum-Luminosity diagram, they are found in the area of the main sequence and subgiants. They are probably young objects that, during the course of further evolution, will become light-constant stars on the zero-age main sequence (ZAMS). The range of brightness variations may reach several magnitudes. In the case of rapid light variations having been observed (up to 1 mag in 1-10 days), the letter \"S\" is added to the symbol for the type (INS)."
+    }
+},
+{
+    "pk": 105, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "Orion variables.", 
+        "code": "INSA", 
+        "long_description": " Irregular, eruptive variables connected with\r\n       bright or dark diffuse nebulae or observed in the regions of these\r\n       nebulae. Some of them may show cyclic light variations caused by\r\n       axial rotation. In the Spectrum-Luminosity diagram, they are\r\n       found in the area of the main sequence and subgiants. They are\r\n       probably young objects that, during the course of further\r\n       evolution, will become light-constant stars on the zero-age main\r\n       sequence (ZAMS). The range of brightness variations may reach\r\n       several magnitudes. In the case of rapid light variations having\r\n       been observed (up to 1 mag in 1-10 days), the letter \"S\" is added\r\n       to the symbol for the type (INS)."
+    }
+},
+{
+    "pk": 106, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "Orion variables. ", 
+        "code": "INS", 
+        "long_description": "Irregular, eruptive variables connected with\r\n       bright or dark diffuse nebulae or observed in the regions of these\r\n       nebulae. Some of them may show cyclic light variations caused by\r\n       axial rotation. In the Spectrum-Luminosity diagram, they are\r\n       found in the area of the main sequence and subgiants. They are\r\n       probably young objects that, during the course of further\r\n       evolution, will become light-constant stars on the zero-age main\r\n       sequence (ZAMS). The range of brightness variations may reach\r\n       several magnitudes. In the case of rapid light variations having\r\n       been observed (up to 1 mag in 1-10 days), the letter \"S\" is added\r\n       to the symbol for the type (INS)."
+    }
+},
+{
+    "pk": 107, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "", 
+        "code": "XM", 
+        "long_description": "X-ray systems consisting of a late-type dwarf (dK-dM) and a pulsar\r\n     with a strong magnetic field. Matter accretion on the compact\r\n       object's magnetic poles is accompanied by the appearance of\r\n       variable linear and circular polarization; hence, these systems\r\n       are sometimes known as \"polars\". The amplitudes of the light\r\n       changes are usually about 1 mag in V but, provided that the\r\n       primary component is irradiated by X rays, the mean brightness of\r\n       a system may increase by 3 mag in V. The total light amplitude may\r\n       reach 4-5 mag in V (AM Her, AN UMa)."
+    }
+},
+{
+    "pk": 108, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "Rapidly oscillating Alpha2 CVn variables. ", 
+        "code": "ACVO", 
+        "long_description": "These are nonradially\r\n       pulsating, rotating magnetic variables of Ap spectral type (DO\r\n       Eri). Pulsation periods are in the range of 6-12 mmag (0.004-0.01\r\n       days), while amplitudes of light variation caused by the pulsation\r\n       are about 0.01 mag in V. The pulsational variations are superposed\r\n       on those caused by rotation."
+    }
+},
+{
+    "pk": 109, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "Orion variables of the T Tauri type. ", 
+        "code": "INST", 
+        "long_description": "Stars are assigned to\r\n       this type on the basis of the following (purely spectroscopic)\r\n       criteria:  spectral types are in the range Fe-Me. The spectra of\r\n       most typical stars resemble the spectrum of the solar\r\n       chromosphere. The feature specific to the type is the presence of\r\n       the flourescent emission lines Fe II 4046, 4132 A (anomalously\r\n       intense in the spectra of these stars), emission lines [Si II] and\r\n       [O I], as well as the absorption line Li I 6707 A. These variables\r\n       are usually observed only in diffuse nebulae. "
+    }
+},
+{
+    "pk": 110, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "", 
+        "code": "IN(YY)", 
+        "long_description": "Some Orion variables (YY Ori) show the presence of absorption\r\n       components on the redward sides of emission lines, indicating the\r\n       infall of matter toward the stars' surfaces. In such cases, the\r\n       symbol for the type may be accompanied by the symbol \"YY\"."
+    }
+},
+{
+    "pk": 111, 
+    "model": "stars.variabilitytype", 
+    "fields": {
+        "short_description": "", 
+        "code": "LBV", 
+        "long_description": "The comparatively long-period pulsating B stars (periods exceeding one day)."
+    }
 }
 ]
