@@ -35,7 +35,7 @@
             {% for observer in observer_list %}
             <tr>
                 <td><a href="{{ observer.get_absolute_url }}">{{ observer.aavso_code }}</a></td>
-                <td>{{ observer.user.username }}</td>
+                <td>{{ observer }}</td>
                 <td>7246</td>
             </tr>
             {% endfor %}
