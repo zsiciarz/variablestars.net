@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'registration',
     'twitter_bootstrap',
 
+    'observations',
     'observers',
     'stars',
 )
