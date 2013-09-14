@@ -132,8 +132,7 @@ LOGIN_URL = reverse_lazy('auth_login')
 LOGOUT_URL = reverse_lazy('auth_logout')
 
 ABSOLUTE_URL_OVERRIDES = {
-    # redirect to homepage until observer profiles are done
-    'auth.user': lambda o: '/',
+    'auth.user': lambda u: u.observer.get_absolute_url(),
 }
 
 INTERNAL_IPS = ('127.0.0.1',)
