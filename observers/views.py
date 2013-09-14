@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from __future__ import unicode_literals
 
-# Create your views here.
+from django.views.generic import ListView, DetailView
+
+from .models import Observer
+
+
+class ObserverDetailView(DetailView):
+    """
+    Public profile of an observer.
+    """
+    model = Observer

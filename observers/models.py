@@ -33,6 +33,10 @@ class Observer(TimeStampedModel):
     def __str__(self):
         return str(self.user)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('observers:observer_detail', [], {'pk': self.pk})
+
 
 def create_observer(sender, instance, created, **kwargs):
     if created:

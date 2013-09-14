@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_pagination %}
+
+{% block title %}{{ observer.aavso_code }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-9">
+            <h1><span class="glyphicon glyphicon-user"></span> {{ observer.aavso_code }}</h1>
+            <ul class="list-inline">
+                <li>
+                    <span class="glyphicon glyphicon-map-marker"></span>
+                    <a href="#">Warsaw</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <div class="well">
+                TODO
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-4 big-stat">
+            <h1>33861</h1>
+            <h2>{% trans "observations" %}</h2>
+        </div>
+        <div class="col-xs-4 big-stat">
+            <h1>650</h1>
+            <h2>{% trans "stars" %}</h2>
+        </div>
+        <div class="col-xs-4 big-stat">
+            <h1>45</h1>
+            <h2>{% trans "stars in common with you" %}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <h2>{% trans "Top stars" %}</h2>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>{% trans "Star" %}</th>
+                        <th>{% trans "Observations" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#">GO CYG</a></td>
+                        <td>521</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">V1339 DEL</a></td>
+                        <td>450</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">BET LYR</a></td>
+                        <td>338</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-9">
+            <h2>{% trans "Recent observations" %}</h2>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>{% trans "Star" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Brightness" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#">RZ CAS</a></td>
+                        <td>2456549.1234</td>
+                        <td>8.6</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">CQ CEP</a></td>
+                        <td>2456548.1234</td>
+                        <td>8.5</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">ETA AQL</a></td>
+                        <td>2456545.1234</td>
+                        <td>7.6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
