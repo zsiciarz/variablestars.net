@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.forms.models import model_to_dict
-from django.http import Http404
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
 
 import ephem
@@ -50,9 +50,21 @@ class StarSearchView(StarListView):
     template_name = "stars/star_search.html"
 
     def get_queryset(self):
-        q = self.request.REQUEST.get('q')
+        q = self.request.REQUEST.get('q', '').strip()
         queryset = super(StarSearchView, self).get_queryset()
-        return queryset.filter(name__icontains=q)
+        self.exact_match = None
+        try:
+            self.exact_match = queryset.filter(name__iexact=q)[0]
+            # doesn't matter what queryset is returned here
+            # as we will redirect to exact match anyway
+            return queryset
+        except IndexError:
+            return queryset.filter(name__icontains=q)
+
+    def render_to_response(self, context, **kwargs):
+        if self.exact_match:
+            return redirect(self.exact_match)
+        return super(StarSearchView, self).render_to_response(context, **kwargs)
 
 
 class StarDetailView(DetailView):
