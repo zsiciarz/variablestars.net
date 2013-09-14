@@ -14,7 +14,7 @@ from registration.signals import user_registered
 
 @python_2_unicode_compatible
 class Observer(TimeStampedModel):
-    user = models.OneToOneField('auth.User')
+    user = models.OneToOneField('auth.User', editable=False)
     aavso_code = models.CharField(
         max_length=10, blank=True, default='',
         verbose_name=_("AAVSO-assigned observer code")
