@@ -5,6 +5,7 @@ from django.views.generic.edit import UpdateView
 
 from braces.views import LoginRequiredMixin
 
+from .forms import ObserverForm
 from .models import Observer
 
 
@@ -34,6 +35,7 @@ class ObserverEditView(LoginRequiredMixin, UpdateView):
     Edit current user's observer profile.
     """
     model = Observer
+    form_class = ObserverForm
     template_name_suffix = '_edit'
 
     def get_object(self):
