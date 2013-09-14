@@ -31,12 +31,16 @@
             <div class="well star-visibility">
                 {% if body.alt > 0 %}
                     <h3>{% trans "visible now!" %}</h3>
-                    <ul class="list-inline">
-                        <li>{% trans "Alt." %} {{ body.alt|round_degrees }}°</li>
-                        <li>{% trans "Az." %} {{ body.az|round_degrees }}°</li>
-                    </ul>
+                    {% trans "Alt." %} {{ body.alt|round_degrees }}°
+                    &nbsp;
+                    {% trans "Az." %} {{ body.az|round_degrees }}°
                 {% else %}
                     <h3 class="text-muted">{% trans "not visible" %}</h3>
+                    {% if next_rising %}
+                        {% trans "Next rising" %}: {{ next_rising }}
+                    {% else %}
+                        {% trans "Never rises at this location." %}
+                    {% endif %}
                 {% endif %}
             </div>
         </div>

@@ -80,7 +80,12 @@ class StarDetailView(DetailView):
         # TODO: consider observer's location
         city = ephem.city('Warsaw')
         body.compute(city)
+        try:
+            next_rising = city.next_rising(body)
+        except ephem.CircumpolarError:
+            next_rising = None
         context['body'] = body
+        context['next_rising'] = next_rising
         return context
 
 
