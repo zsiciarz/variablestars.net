@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Upload observations" %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-9">
+            <h1><span class="glyphicon glyphicon-user"></span> {% trans "Upload observations" %}</h1>
+        </div>
+        <div class="col-sm-3">
+        </div>
+    </div>
+    <form class="sign-in" enctype="multipart/form-data" action="{% url 'observations:upload_observations' %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Upload observations" %}</button>
+    </form>
+{% endblock %}
