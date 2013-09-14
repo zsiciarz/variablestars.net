@@ -131,6 +131,7 @@ STATICFILES_FINDERS = (
 
 LOGIN_URL = reverse_lazy('auth_login')
 LOGOUT_URL = reverse_lazy('auth_logout')
+LOGIN_REDIRECT_URL = reverse_lazy('main')
 
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: u.observer.get_absolute_url(),
