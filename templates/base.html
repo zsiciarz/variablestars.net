@@ -36,7 +36,13 @@
                         <li><a href="#">{% trans "Observers" %}</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">{% trans "Sign in" %}</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="#">{% trans "My account" %}</a></li>
+                            <li><a href="{% url 'logout' %}?next={{ request.path }}">{% trans "Sign out" %}</a></li>
+                        {% else %}
+                            <li><a href="#">{% trans "Create account" %}</a></li>
+                            <li><a href="#">{% trans "Sign in" %}</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>
