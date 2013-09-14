@@ -38,9 +38,11 @@ INSTALLED_APPS = (
 
     'bootstrap-pagination',
     'compressor',
+    'crispy_forms',
     'debug_toolbar',
     'django_extensions',
     'south',
+    'registration',
     'twitter_bootstrap',
 
     'stars',
@@ -123,11 +125,18 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+ABSOLUTE_URL_OVERRIDES = {
+    # redirect to homepage until observer profiles are done
+    'auth.user': lambda o: '/',
+}
+
 INTERNAL_IPS = ('127.0.0.1',)
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 try:
     from local_settings import *
