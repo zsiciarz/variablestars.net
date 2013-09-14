@@ -44,8 +44,12 @@
             <h2>{% trans "stars" %}</h2>
         </div>
         <div class="col-xs-4 big-stat">
-            <h1>45</h1>
-            <h2>{% trans "stars in common with you" %}</h2>
+            {% if observer == current_observer %}
+                <a href="#" class="btn btn-lg btn-primary" style="margin-top: 20px;">{% trans "Submit observations!" %}</a>
+            {% else %}
+                <h1>45</h1>
+                <h2>{% trans "stars in common with you" %}</h2>
+            {% endif %}
         </div>
     </div>
 
