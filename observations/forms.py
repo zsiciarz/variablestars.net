@@ -17,7 +17,8 @@ class BatchUploadForm(forms.Form):
 
     def process_file(self):
         fp = self.cleaned_data['aavso_file']
-        reader = VisualFormatReader(fp)
+        # force the input to be a real Python generator
+        reader = VisualFormatReader(line for line in fp)
         observer = Observer.objects.get(aavso_code=reader.observer_code)
         with transaction.atomic():
             for row in reader:
