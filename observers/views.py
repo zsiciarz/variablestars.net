@@ -1,6 +1,9 @@
 from __future__ import unicode_literals
 
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import UpdateView
+
+from braces.views import LoginRequiredMixin
 
 from .models import Observer
 
@@ -24,3 +27,14 @@ class ObserverDetailView(DetailView):
     Public profile of an observer.
     """
     model = Observer
+
+
+class ObserverEditView(LoginRequiredMixin, UpdateView):
+    """
+    Edit current user's observer profile.
+    """
+    model = Observer
+    template_name_suffix = '_edit'
+
+    def get_object(self):
+        return Observer.objects.get(user=self.request.user)

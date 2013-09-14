@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Edit profile" %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <h1><span class="glyphicon glyphicon-cog"></span> {% trans "Edit profile" %}</h1>
+    <form class="sign-in" action="{% url 'observers:observer_edit' %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Save" %}</button>
+    </form>
+
+{% endblock %}
