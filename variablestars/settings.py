@@ -59,6 +59,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'observers.middleware.ObserverMiddleware',
 )
 
 ROOT_URLCONF = 'variablestars.urls'
