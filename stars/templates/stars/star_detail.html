@@ -23,7 +23,7 @@
                 {% endif %}
                 <li>
                     <span class="glyphicon glyphicon-signal"></span>
-                    {{ star.max_magnitude }} &ndash; <span class="text-muted">{{ star.min_magnitude }}</span> mag.
+                    {% magnitude star.max_magnitude %} &ndash; {% magnitude star.min_magnitude %} mag.
                 </li>
             </ul>
         </div>

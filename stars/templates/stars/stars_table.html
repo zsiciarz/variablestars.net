@@ -1,5 +1,6 @@
 {% load url from future %}
 {% load i18n %}
+{% load stars_tags %}
 
     <table class="table table-condensed">
         <thead>
@@ -18,8 +19,7 @@
                 <td><a href="{{ star.get_absolute_url }}">{{ star.name }}</a></td>
                 <td>{% if star.variability_type %}<a href="{{ star.variability_type.get_absolute_url }}">{{ star.variability_type }}</a>{% endif %}</td>
                 <td class="hidden-xs">417</td>
-                <td>{{ star.max_magnitude }} &ndash;
-                    <span class="{% if star.min_magnitude > 11 %}text-muted{% endif %}">{{ star.min_magnitude }}</span></td>
+                <td>{% magnitude star.max_magnitude %} &ndash; {% magnitude star.min_magnitude %}</td>
                 <td>{% trans "eclipse" %}</td>
                 <td class="hidden-xs"><span class="{% cycle 'text-muted' 'text-muted' '' %} glyphicon glyphicon-eye-open"></span></td>
             </tr>
