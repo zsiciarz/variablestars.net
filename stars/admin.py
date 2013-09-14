@@ -7,7 +7,7 @@ from .models import Star, VariabilityType
 
 class StarAdmin(admin.ModelAdmin):
     list_display = (
-        'get_constellation_display', 'name', 'variable_type',
+        'get_constellation_display', 'name', 'variability_type',
         'min_magnitude', 'max_magnitude',
     )
     list_display_links = ('name',)

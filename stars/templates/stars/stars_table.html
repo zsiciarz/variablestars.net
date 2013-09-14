@@ -16,7 +16,7 @@
             {% for star in star_list %}
             <tr>
                 <td><a href="{{ star.get_absolute_url }}">{{ star.name }}</a></td>
-                <td>{% if star.variable_type %}<a href="{% url 'stars:variabilitytype_detail' code=star.variable_type %}">{{ star.variable_type }}</a>{% endif %}</td>
+                <td>{% if star.variability_type %}<a href="{{ star.variability_type.get_absolute_url }}">{{ star.variability_type }}</a>{% endif %}</td>
                 <td class="hidden-xs">417</td>
                 <td>{{ star.max_magnitude }} &ndash;
                     <span class="{% if star.min_magnitude > 11 %}text-muted{% endif %}">{{ star.min_magnitude }}</span></td>

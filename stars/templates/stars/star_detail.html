@@ -13,10 +13,10 @@
                     <span class="glyphicon glyphicon-star"></span>
                     <a href="{% url 'stars:constellation_list' constellation=star.constellation %}">{{ star.get_constellation_display }}</a>
                 </li>
-                {% if star.variable_type %}
+                {% if star.variability_type %}
                     <li>
                         <span class="glyphicon glyphicon-tag"></span>
-                        <a href="{% url 'stars:variabilitytype_detail' code=star.variable_type %}">{{ star.variable_type }}</a>
+                        <a href="{{ star.variability_type.get_absolute_url }}">{{ star.variability_type }}</a>
                     </li>
                 {% endif %}
                 <li>
@@ -126,7 +126,7 @@
                     <dt>{% trans "Name" %}</dt>
                     <dd>{{ star.name }}</dd>
                     <dt>{% trans "Type of variability" %}</dt>
-                    <dd>{{ star.variable_type }}</dd>
+                    <dd>{{ star.variability_type }}</dd>
                     <dt>{% trans "Right ascension" %}</dt>
                     <dd>{{ star.ra }}</dd>
                     <dt>{% trans "Declination" %}</dt>
