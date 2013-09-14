@@ -8,6 +8,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+from django.core.urlresolvers import reverse_lazy
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -125,6 +127,9 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
+
+LOGIN_URL = reverse_lazy('auth_login')
+LOGOUT_URL = reverse_lazy('auth_logout')
 
 ABSOLUTE_URL_OVERRIDES = {
     # redirect to homepage until observer profiles are done
