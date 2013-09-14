@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Sign in" %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <h1><span class="glyphicon glyphicon-user"></span> {% trans "Sign in" %}</h1>
+    <form class="sign-in" action="{% url 'auth_login' %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="hidden" name="next" value="/" />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Sign in" %}</button>
+    </form>
+{% endblock %}

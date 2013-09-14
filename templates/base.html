@@ -41,7 +41,7 @@
                             <li><a href="{% url 'auth_logout' %}?next={{ request.path }}">{% trans "Sign out" %}</a></li>
                         {% else %}
                             <li><a href="{% url 'registration_register' %}">{% trans "Create account" %}</a></li>
-                            <li><a href="#">{% trans "Sign in" %}</a></li>
+                            <li><a href="{% url 'auth_login' %}">{% trans "Sign in" %}</a></li>
                         {% endif %}
                     </ul>
                 </div>
