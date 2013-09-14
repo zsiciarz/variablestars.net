@@ -17,8 +17,14 @@
             </ul>
         </div>
         <div class="col-sm-3">
-            <div class="well">
-                TODO
+            <div class="well observer-box">
+                {% if observer == current_observer %}
+                    <h3>{% trans "This is you!" %}</h3>
+                    <a href="{% url 'observers:observer_edit' %}">{% trans "Edit profile" %}</a>
+                {% else %}
+                    <h3 class="text-muted">TODO</h3>
+                    <span class="text-muted">TODO</span>
+                {% endif %}
             </div>
         </div>
     </div>
