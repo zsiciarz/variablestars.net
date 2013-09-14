@@ -3,6 +3,8 @@
 {% load i18n %}
 {% load bootstrap_pagination %}
 
+{% block title %}{% trans "List of variable stars" %}{% if constellation %} {% trans "in" %} {{ constellation }}{% endif %} | {{ block.super }}{% endblock %}
+
 {% block content %}
     <h1><span class="glyphicon glyphicon-star-empty"></span> {% trans 'Stars' %}</h1>
     <div class="row">

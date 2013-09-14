@@ -3,8 +3,10 @@
 {% load i18n %}
 {% load bootstrap_pagination %}
 
+{% block title %}{% trans "Search results" %} | {{ block.super }}{% endblock %}
+
 {% block content %}
-    <h1><span class="glyphicon glyphicon-star-empty"></span> {% trans 'Search results' %}</h1>
+    <h1><span class="glyphicon glyphicon-star-empty"></span> {% trans "Search results" %}</h1>
     {% include "stars/stars_table.html" %}
 
     {% if is_paginated %}

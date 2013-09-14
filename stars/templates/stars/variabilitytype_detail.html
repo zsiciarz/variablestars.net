@@ -2,6 +2,8 @@
 {% load url from future %}
 {% load i18n %}
 
+{% block title %}{% trans "Type of variability" %}: {{ variabilitytype.code }} | {{ block.super }}{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-sm-12">

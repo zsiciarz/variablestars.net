@@ -4,6 +4,8 @@
 {% load bootstrap_pagination %}
 {% load stars_tags %}
 
+{% block title %}{{ star.name }} | {{ block.super }}{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-sm-9">
