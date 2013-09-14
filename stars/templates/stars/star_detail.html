@@ -36,11 +36,13 @@
                     {% trans "Az." %} {{ body.az|round_degrees }}°
                 {% else %}
                     <h3 class="text-muted">{% trans "not visible" %}</h3>
-                    {% if next_rising %}
-                        {% trans "Next rising" %}: {{ next_rising }}
-                    {% else %}
-                        {% trans "Never rises at this location." %}
-                    {% endif %}
+                    <span class="text-muted">
+                        {% if next_rising %}
+                            {% trans "Next rising" %}: {{ next_rising }}
+                        {% else %}
+                            {% trans "Never rises at this location." %}
+                        {% endif %}
+                    </span>
                 {% endif %}
             </div>
         </div>
