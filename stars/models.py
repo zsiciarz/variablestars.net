@@ -168,4 +168,4 @@ class VariabilityType(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('stars:variabilitytype_detail', [], {'code': self.code})
+        return ('stars:variabilitytype_detail', [], {'pk': self.pk})
