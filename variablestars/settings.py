@@ -103,6 +103,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
+    'observers.context_processors.get_current_observer',
 )
 
 # Static files (CSS, JavaScript, Images)
