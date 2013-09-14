@@ -113,9 +113,6 @@ class Star(models.Model):
     name = models.CharField(_("Name"), max_length=20, db_index=True)
     ra = models.CharField(_("Right Ascension"), max_length=15, default='')
     dec = models.CharField(_("Declination"), max_length=15, default='')
-    variable_type = models.CharField(
-        _("Type of variability"), max_length=15, default=''
-    )
     variability_type = models.ForeignKey(
         'stars.VariabilityType', null=True, blank=True,
         verbose_name=_("Type of variability"),
