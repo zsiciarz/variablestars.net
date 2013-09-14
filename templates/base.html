@@ -37,6 +37,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
+                            <li><p class="navbar-text">{{ current_observer }}</p></li>
                             <li><a href="#">{% trans "My account" %}</a></li>
                             <li><a href="{% url 'auth_logout' %}?next={{ request.path }}">{% trans "Sign out" %}</a></li>
                         {% else %}
