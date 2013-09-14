@@ -19,11 +19,13 @@ class Observer(TimeStampedModel):
     )
     aavso_code = models.CharField(
         max_length=10, blank=True, default='',
-        verbose_name=_("AAVSO-assigned observer code")
+        verbose_name=_("AAVSO observer code"),
+        help_text=_("This is the code that is officially assigned to you by AAVSO.")
     )
     limiting_magnitude = models.FloatField(
         blank=True, null=True, default=6.0,
-        verbose_name=_("Limiting magnitude of your equipment")
+        verbose_name=_("Limiting magnitude of your equipment"),
+        help_text=_("The magnitude of the faintest stars you can see with your eyes/binoculars/telescope. Setting this value will affect which stars will have their brightness value(s) grayed out.")
     )
     # TODO: location field
 

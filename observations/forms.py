@@ -13,7 +13,10 @@ from observers.models import Observer
 
 
 class BatchUploadForm(forms.Form):
-    aavso_file = forms.FileField(label=_("Observations file"))
+    aavso_file = forms.FileField(
+        label=_("Observations file"),
+        help_text=_("Upload a file in <a href=\"http://www.aavso.org/aavso-visual-file-format\">AAVSO Visual File Format.")
+    )
 
     def process_file(self):
         fp = self.cleaned_data['aavso_file']
