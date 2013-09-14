@@ -3,13 +3,18 @@
 {% load i18n %}
 {% load bootstrap_pagination %}
 
-{% block title %}{{ observer.aavso_code }} | {{ block.super }}{% endblock %}
+{% block title %}{{ observer }} | {{ block.super }}{% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-sm-9">
-            <h1><span class="glyphicon glyphicon-user"></span> {{ observer.aavso_code }}</h1>
+            <h1><span class="glyphicon glyphicon-user"></span> {{ observer }}</h1>
             <ul class="list-inline">
+                {% if observer.aavso_code %}
+                    <li>
+                        <span class="text-muted">AAVSO:</span> {{ observer.aavso_code }}
+                    </li>
+                {% endif %}
                 <li>
                     <span class="glyphicon glyphicon-map-marker"></span>
                     <a href="#">Warsaw</a>

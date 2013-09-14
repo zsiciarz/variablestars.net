@@ -33,7 +33,11 @@ class Observer(TimeStampedModel):
         ordering = ('-created',)
 
     def __str__(self):
-        return str(self.user)
+        full_name = self.user.get_full_name()
+        if full_name:
+            return '%s (%s)' % (self.user, full_name)
+        else:
+            return str(self.user)
 
     @models.permalink
     def get_absolute_url(self):
