@@ -116,6 +116,10 @@ class Star(models.Model):
     variable_type = models.CharField(
         _("Type of variability"), max_length=15, default=''
     )
+    variability_type = models.ForeignKey(
+        'stars.VariabilityType', null=True, blank=True,
+        verbose_name=_("Type of variability"),
+    )
     max_magnitude = models.FloatField(_("Maximum brightness"), null=True)
     min_magnitude = models.FloatField(_("Minimum brightness"), null=True)
     epoch = models.FloatField(_("Epoch"), null=True)
