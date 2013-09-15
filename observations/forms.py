@@ -26,7 +26,12 @@ class BatchUploadForm(forms.Form):
         with transaction.atomic():
             for row in reader:
                 try:
-                    star = Star.objects.get(name=row['name'])
+                    name = row['name']
+                    # normalize with GCVS names, for example: V339 -> V0339
+                    digits = '123456789'
+                    if name[0] == 'V' and name[1] in digits and name[4] not in digits:
+                        name = 'V0' + name[1:]
+                    star = Star.objects.get(name=name)
                     fainter_than = '<' in row['magnitude']
                     magnitude = float(row['magnitude'].replace('<', ''))
                     jd = float(row['date'])
