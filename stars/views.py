@@ -22,7 +22,7 @@ class StarListView(SelectRelatedMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(StarListView, self).get_context_data(**kwargs)
         queryset = self.get_queryset()
-        context.update(queryset.get_total_stats())
+        context.update(queryset.get_total_stats(self.request.observer))
         return context
 
 

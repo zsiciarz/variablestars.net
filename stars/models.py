@@ -109,12 +109,15 @@ CONSTELLATIONS_DICT = dict(CONSTELLATIONS)
 
 
 class StarQuerySet(QuerySet):
-    def get_total_stats(self):
+    def get_total_stats(self, observer=None):
         last_month = jd_now() - 30
         star_ids = Observation.objects.filter(jd__gt=last_month).values('star')
+        if observer:
+            observed_ids = observer.observations.values('star')
         return {
             'total_star_count': self.count(),
             'observed_last_month_count': self.filter(pk__in=star_ids).count(),
+            'observed_by_you_count': self.filter(pk__in=observed_ids).count(),
         }
 
 
