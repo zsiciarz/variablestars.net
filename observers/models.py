@@ -67,7 +67,9 @@ class Observer(TimeStampedModel):
         return ('observers:observer_detail', [], {'pk': self.pk})
 
     def top_stars(self):
-        return self.observations.values('star_id', 'star__name').annotate(observations_count=Count('star')).order_by('-observations_count')
+        queryset = self.observations.values('star_id', 'star__name')
+        queryset = queryset.annotate(observations_count=Count('star'))
+        return queryset.order_by('-observations_count')
 
     def recent_observations(self):
         return self.observations.order_by('-jd')
