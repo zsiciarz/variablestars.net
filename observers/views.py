@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-from django.db.models import Count
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView
 
@@ -14,12 +13,8 @@ class ObserverListView(ListView):
     """
     Display a list of observers.
     """
-    model = Observer
+    queryset = Observer.objects.with_observations_count()
     paginate_by = 20
-
-    def get_queryset(self):
-        queryset = super(ObserverListView, self).get_queryset()
-        return queryset.annotate(observations_count=Count('observations'))
 
     def get_context_data(self, **kwargs):
         context = super(ObserverListView, self).get_context_data(**kwargs)

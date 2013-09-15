@@ -5,12 +5,19 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db import models
 from django.db.models import Count
+from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
 from registration.signals import user_registered
+
+
+class ObserverQuerySet(QuerySet):
+    def with_observations_count(self):
+        return self.annotate(observations_count=Count('observations'))
 
 
 @python_2_unicode_compatible
@@ -29,6 +36,8 @@ class Observer(TimeStampedModel):
         help_text=_("The magnitude of the faintest stars you can see with your eyes/binoculars/telescope. Setting this value will affect which stars will have their brightness value(s) grayed out.")
     )
     # TODO: location field
+
+    objects = PassThroughManager.for_queryset_class(ObserverQuerySet)()
 
     class Meta:
         verbose_name = _("Observer")
