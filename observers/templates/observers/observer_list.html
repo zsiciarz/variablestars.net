@@ -36,7 +36,7 @@
             <tr>
                 <td><a href="{{ observer.get_absolute_url }}">{{ observer.aavso_code }}</a></td>
                 <td>{{ observer }}</td>
-                <td>7246</td>
+                <td>{{ observer.observations_count }}</td>
             </tr>
             {% endfor %}
         </tbody>
