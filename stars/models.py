@@ -169,6 +169,11 @@ class Star(models.Model):
         """
         return self.name.replace(' ', '+')
 
+    def top_observers(self):
+        queryset = self.observations.values('observer_id', 'observer__aavso_code')
+        queryset = queryset.annotate(observations_count=Count('observer'))
+        return queryset.order_by('-observations_count')
+
 
 @python_2_unicode_compatible
 class VariabilityType(models.Model):

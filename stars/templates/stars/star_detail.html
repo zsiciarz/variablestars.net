@@ -81,18 +81,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for observer in star.top_observers|slice:":5" %}
                     <tr>
-                        <td><a href="#">XYZ</a></td>
-                        <td>851</td>
+                        <td><a href="{% url 'observers:observer_detail' pk=observer.observer_id %}">{{ observer.observer__aavso_code }}</a></td>
+                        <td>{{ observer.observations_count }}</td>
                     </tr>
-                    <tr>
-                        <td><a href="#">SYF</a></td>
-                        <td>119</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">ZSI</a></td>
-                        <td>45</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
