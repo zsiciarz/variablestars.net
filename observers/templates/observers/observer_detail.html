@@ -64,18 +64,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for star in observer.top_stars|slice:":5"%}
                     <tr>
-                        <td><a href="#">GO CYG</a></td>
-                        <td>521</td>
+                        <td><a href="{% url 'stars:star_detail' pk=star.star_id %}">{{ star.star__name }}</a></td>
+                        <td>{{ star.observations_count }}</td>
                     </tr>
-                    <tr>
-                        <td><a href="#">V1339 DEL</a></td>
-                        <td>450</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">BET LYR</a></td>
-                        <td>338</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -90,21 +84,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for observation in observer.recent_observations|slice:":5"%}
                     <tr>
-                        <td><a href="#">RZ CAS</a></td>
-                        <td>2456549.1234</td>
-                        <td>8.6</td>
+                        <td><a href="{{ observation.star.get_absolute_url }}">{{ observation.star }}</a></td>
+                        <td>{{ observation.jd }}</td>
+                        <td>{{ observation.magnitude }}</td>
                     </tr>
-                    <tr>
-                        <td><a href="#">CQ CEP</a></td>
-                        <td>2456548.1234</td>
-                        <td>8.5</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">ETA AQL</a></td>
-                        <td>2456545.1234</td>
-                        <td>7.6</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

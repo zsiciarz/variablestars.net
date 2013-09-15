@@ -66,6 +66,12 @@ class Observer(TimeStampedModel):
     def get_absolute_url(self):
         return ('observers:observer_detail', [], {'pk': self.pk})
 
+    def top_stars(self):
+        return self.observations.values('star_id', 'star__name').annotate(observations_count=Count('star')).order_by('-observations_count')
+
+    def recent_observations(self):
+        return self.observations.order_by('-jd')
+
     def observed_stars_count(self):
         return self.observations.aggregate(c=Count('star', distinct=True))['c']
 
