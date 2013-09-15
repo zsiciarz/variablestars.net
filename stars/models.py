@@ -174,6 +174,9 @@ class Star(models.Model):
         queryset = queryset.annotate(observations_count=Count('observer'))
         return queryset.order_by('-observations_count')
 
+    def recent_observations(self):
+        return self.observations.select_related('observer').order_by('-jd')
+
 
 @python_2_unicode_compatible
 class VariabilityType(models.Model):
