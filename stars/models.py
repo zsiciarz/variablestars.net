@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import time
-
 from django.db import models
 from django.db.models import Count
 from django.db.models.query import QuerySet
@@ -13,6 +11,7 @@ from model_utils import Choices
 from model_utils.managers import PassThroughManager
 
 from observations.models import Observation
+from observations.utils import jd_now
 
 
 CONSTELLATIONS = Choices(
@@ -111,13 +110,11 @@ CONSTELLATIONS_DICT = dict(CONSTELLATIONS)
 
 class StarQuerySet(QuerySet):
     def get_total_stats(self):
-        current_jd = 2440587.5 + time.time() / 86400.0
-        last_month = current_jd - 30
-        queryset = Observation.objects.filter(jd__gt=last_month)
-        queryset = queryset.aggregate(star_count=Count('star', distinct=True))
+        last_month = jd_now() - 30
+        star_ids = Observation.objects.filter(jd__gt=last_month).values('star')
         return {
             'total_star_count': self.count(),
-            'observed_last_month_count': queryset['star_count'],
+            'observed_last_month_count': self.filter(pk__in=star_ids).count(),
         }
 
 
