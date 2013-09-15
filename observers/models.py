@@ -72,7 +72,7 @@ class Observer(TimeStampedModel):
         return queryset.order_by('-observations_count')
 
     def recent_observations(self):
-        return self.observations.order_by('-jd')
+        return self.observations.select_related('star').order_by('-jd')
 
     def observed_stars_count(self):
         return self.observations.aggregate(c=Count('star', distinct=True))['c']
