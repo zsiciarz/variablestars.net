@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db import models
+from django.db.models import Count
 from django.db.models.signals import post_save
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
@@ -44,6 +45,9 @@ class Observer(TimeStampedModel):
     @models.permalink
     def get_absolute_url(self):
         return ('observers:observer_detail', [], {'pk': self.pk})
+
+    def observed_stars_count(self):
+        return self.observations.aggregate(c=Count('star', distinct=True))['c']
 
 
 def create_observer(sender, instance, created, **kwargs):
