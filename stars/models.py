@@ -114,6 +114,8 @@ class StarQuerySet(QuerySet):
         star_ids = Observation.objects.filter(jd__gt=last_month).values('star')
         if observer:
             observed_ids = observer.observations.values('star')
+        else:
+            observed_ids = []
         return {
             'total_star_count': self.count(),
             'observed_last_month_count': self.filter(pk__in=star_ids).count(),
