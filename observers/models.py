@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from datetime import date, timedelta
+
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db import models
@@ -18,6 +20,15 @@ from registration.signals import user_registered
 class ObserverQuerySet(QuerySet):
     def with_observations_count(self):
         return self.annotate(observations_count=Count('observations'))
+
+    def get_total_stats(self):
+        last_month = date.today() - timedelta(days=30)
+        last_week = date.today() - timedelta(days=7)
+        return {
+            'total_observer_count': self.count(),
+            'last_month_active_count': self.filter(user__last_login__gt=last_month).count(),
+            'last_week_active_count': self.filter(user__last_login__gt=last_week).count(),
+        }
 
 
 @python_2_unicode_compatible

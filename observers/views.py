@@ -19,7 +19,7 @@ class ObserverListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ObserverListView, self).get_context_data(**kwargs)
         queryset = self.get_queryset()
-        context['total_observer_count'] = queryset.count()
+        context.update(queryset.get_total_stats())
         return context
 
 
