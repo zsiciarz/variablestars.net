@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import time
+
 from django.db import models
+from django.db.models import Count
+from django.db.models.query import QuerySet
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from model_utils import Choices
+from model_utils.managers import PassThroughManager
+
+from observations.models import Observation
 
 
 CONSTELLATIONS = Choices(
@@ -102,6 +109,18 @@ CONSTELLATIONS = Choices(
 CONSTELLATIONS_DICT = dict(CONSTELLATIONS)
 
 
+class StarQuerySet(QuerySet):
+    def get_total_stats(self):
+        current_jd = 2440587.5 + time.time() / 86400.0
+        last_month = current_jd - 30
+        queryset = Observation.objects.filter(jd__gt=last_month)
+        queryset = queryset.aggregate(star_count=Count('star', distinct=True))
+        return {
+            'total_star_count': self.count(),
+            'observed_last_month_count': queryset['star_count'],
+        }
+
+
 @python_2_unicode_compatible
 class Star(models.Model):
     """
@@ -121,6 +140,8 @@ class Star(models.Model):
     min_magnitude = models.FloatField(_("Minimum brightness"), null=True)
     epoch = models.FloatField(_("Epoch"), null=True)
     period = models.FloatField(_("Period"), null=True)
+
+    objects = PassThroughManager.for_queryset_class(StarQuerySet)()
 
     class Meta:
         verbose_name = _("Variable star")
