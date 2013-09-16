@@ -19,6 +19,14 @@ class StarListView(SelectRelatedMixin, ListView):
     select_related = ('variability_type',)
     paginate_by = 20
 
+    def get_queryset(self):
+        queryset = super(StarListView, self).get_queryset()
+        try:
+            magnitude = float(self.request.session['limiting_magnitude'])
+            return queryset.filter(max_magnitude__lt=magnitude)
+        except Exception:
+            return queryset
+
     def get_context_data(self, **kwargs):
         context = super(StarListView, self).get_context_data(**kwargs)
         queryset = self.get_queryset()

@@ -6,7 +6,35 @@
 {% block title %}{% trans "List of variable stars" %}{% if constellation %} {% trans "in" %} {{ constellation }}{% endif %} | {{ block.super }}{% endblock %}
 
 {% block content %}
-    <h1><span class="glyphicon glyphicon-star-empty"></span> {% trans 'Stars' %}</h1>
+    <div class="row">
+        <div class="col-sm-9">
+            <h1><span class="glyphicon glyphicon-star-empty"></span> {% trans 'Stars' %}</h1>
+        </div>
+        <div class="col-sm-3">
+            <div class="well star-visibility">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        {% trans "Filter" %}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        {% if request.session.limiting_magnitude %}
+                            <li><a href="?limiting_magnitude=None"><span class="glyphicon glyphicon-ok"></span> {% trans "stars visible for me" %}</a></li>
+                        {% else %}
+                        <li><a href="?limiting_magnitude={% if current_observer %}{{ current_observer.limiting_magnitude }}{% else %}6.0{% endif %}"><span class="glyphicon glyphicon-ok" style="visibility: hidden;"></span> {% trans "stars visible for me" %}</a></li>
+                        {% endif %}
+                        <li><a href="#"><span class="glyphicon glyphicon-ok" style="visibility: hidden;"></span> {% trans "stars with observations" %}</a></li>
+                    </ul>
+
+                </div>
+                {% if request.session.limiting_magnitude %}
+                    <p>{% trans "Showing stars &gt;" %} <strong>{{ request.session.limiting_magnitude }}</strong> mag.</p>
+                {% else %}
+                    <p>{% trans "Showing <strong>all</strong> stars" %}</p>
+                {% endif %}
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col-xs-4 big-stat">
             <h1>{{ total_star_count }}</h1>
