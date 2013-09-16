@@ -9,7 +9,7 @@
                 <th>{% trans "Type" %}</th>
                 <th class="hidden-xs">{% trans "Number of observations" %}</th>
                 <th>{% trans "Brightness" %}</th>
-                <th>{% trans "Events" %}</th>
+                {# <th>{% trans "Events" %}</th> #}
                 <th class="hidden-xs">{% trans "Observing?" %}</th>
             </tr>
         </thead>
@@ -20,7 +20,7 @@
                 <td>{% if star.variability_type %}<a href="{{ star.variability_type.get_absolute_url }}">{{ star.variability_type }}</a>{% endif %}</td>
                 <td class="hidden-xs">{{ star.observations.count }}</td>
                 <td>{% magnitude star.max_magnitude %} &ndash; {% magnitude star.min_magnitude %}</td>
-                <td>{% trans "eclipse" %}</td>
+                {# <td>{% trans "eclipse" %}</td> #}
                 <td class="hidden-xs"><span class="{% cycle 'text-muted' 'text-muted' '' %} glyphicon glyphicon-eye-open"></span></td>
             </tr>
             {% endfor %}
