@@ -1,0 +1,31 @@
+{% load url from future %}
+{% load i18n %}
+
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {% trans "Filter" %}
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        {% if request.session.limiting_magnitude %}
+            <li><a href="?limiting_magnitude=None"><span class="glyphicon glyphicon-ok"></span> {% trans "stars visible for me" %}</a></li>
+        {% else %}
+        <li><a href="?limiting_magnitude={% if current_observer %}{{ current_observer.limiting_magnitude }}{% else %}6.0{% endif %}"><span class="glyphicon glyphicon-ok" style="visibility: hidden;"></span> {% trans "stars visible for me" %}</a></li>
+        {% endif %}
+        {% if request.session.stars_with_observations %}
+            <li><a href="?stars_with_observations=False"><span class="glyphicon glyphicon-ok"></span> {% trans "stars with observations" %}</a></li>
+        {% else %}
+        <li><a href="?stars_with_observations=True"><span class="glyphicon glyphicon-ok" style="visibility: hidden;"></span> {% trans "stars with observations" %}</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% if request.session.limiting_magnitude %}
+    <p>{% trans "Showing stars &gt;" %} <strong>{{ request.session.limiting_magnitude }}</strong> mag.
+{% else %}
+    <p>{% trans "Showing <strong>all</strong> stars" %}
+{% endif %}
+{% if request.session.stars_with_observations %}
+    <br>
+    {% trans "<strong>with</strong> observations" %}
+{% endif %}
+</p>

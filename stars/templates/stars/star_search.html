@@ -6,8 +6,22 @@
 {% block title %}{% trans "Search results" %} | {{ block.super }}{% endblock %}
 
 {% block content %}
-    <h1><span class="glyphicon glyphicon-star-empty"></span> {% trans "Search results" %}</h1>
-    {% include "stars/stars_table.html" %}
+    <div class="row">
+        <div class="col-sm-9">
+            <h1><span class="glyphicon glyphicon-star-empty"></span> {% trans "Search results" %}</h1>
+        </div>
+        <div class="col-sm-3">
+            <div class="well star-visibility">
+                {% include "stars/stars_filter.html" %}
+            </div>
+        </div>
+    </div>
+
+    {% if star_list %}
+        {% include "stars/stars_table.html" %}
+    {% else %}
+        <p>{% trans "There are no variable stars matching the criteria." %}</p>
+    {% endif %}
 
     {% if is_paginated %}
         {% bootstrap_paginate page_obj range=10 %}
