@@ -23,6 +23,23 @@
         <p>{{ variabilitytype.long_description }}</p>
         <small><cite>General Catalog of Variable Stars</cite></small>
     </blockquote>
+    <div class="row">
+        <div class="col-xs-4 big-stat">
+            <h1>{{ total_star_count }}</h1>
+            <h2>{% trans "stars" %}</h2>
+        </div>
+        <div class="col-xs-4 big-stat">
+            <h1>{{ observed_last_month_count }}</h1>
+            <h2>{% trans "observed in last month" %}</h2>
+        </div>
+        <div class="col-xs-4 big-stat">
+            {% if current_observer %}
+                <h1>{{ observed_by_you_count }}</h1>
+                <h2>{% trans "observed by you" %}</h2>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
 
     {% if star_list %}
         {% include "stars/stars_table.html" %}
