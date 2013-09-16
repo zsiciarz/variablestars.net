@@ -105,8 +105,18 @@ class StarDetailView(DetailView):
         return context
 
 
-class VariabilityTypeDetailView(DetailView):
+class VariabilityTypeDetailView(StarListView):
     """
     Detailed view about a variability type.
     """
-    model = VariabilityType
+    template_name = "stars/variabilitytype_detail.html"
+
+    def get_queryset(self):
+        queryset = super(VariabilityTypeDetailView, self).get_queryset()
+        return queryset.filter(variability_type_id=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super(VariabilityTypeDetailView, self).get_context_data(**kwargs)
+        print self.kwargs
+        context['variabilitytype'] = VariabilityType.objects.get(pk=self.kwargs['pk'])
+        return context

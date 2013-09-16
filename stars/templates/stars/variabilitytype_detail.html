@@ -1,21 +1,37 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load i18n %}
+{% load bootstrap_pagination %}
 
 {% block title %}{% trans "Type of variability" %}: {{ variabilitytype.code }} | {{ block.super }}{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-9">
             <h1><span class="glyphicon glyphicon-tag"></span>{% trans "Type of variability" %}: {{ variabilitytype.code }}</h1>
             {% if variabilitytype.short_description %}
                 {{ variabilitytype.short_description }}
             {% endif %}
+        </div>
+        <div class="col-sm-3">
+            <div class="well star-visibility">
+                {% include "stars/stars_filter.html" %}
+            </div>
         </div>
     </div>
     <blockquote>
         <p>{{ variabilitytype.long_description }}</p>
         <small><cite>General Catalog of Variable Stars</cite></small>
     </blockquote>
+
+    {% if star_list %}
+        {% include "stars/stars_table.html" %}
+    {% else %}
+        <p>{% trans "There are no variable stars matching the criteria." %}</p>
+    {% endif %}
+
+    {% if is_paginated %}
+        {% bootstrap_paginate page_obj range=10 %}
+    {% endif %}
 
 {% endblock %}
