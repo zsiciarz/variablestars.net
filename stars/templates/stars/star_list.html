@@ -23,18 +23,26 @@
                         {% else %}
                         <li><a href="?limiting_magnitude={% if current_observer %}{{ current_observer.limiting_magnitude }}{% else %}6.0{% endif %}"><span class="glyphicon glyphicon-ok" style="visibility: hidden;"></span> {% trans "stars visible for me" %}</a></li>
                         {% endif %}
-                        <li><a href="#"><span class="glyphicon glyphicon-ok" style="visibility: hidden;"></span> {% trans "stars with observations" %}</a></li>
+                        {% if request.session.stars_with_observations %}
+                            <li><a href="?stars_with_observations=False"><span class="glyphicon glyphicon-ok"></span> {% trans "stars with observations" %}</a></li>
+                        {% else %}
+                        <li><a href="?stars_with_observations=True"><span class="glyphicon glyphicon-ok" style="visibility: hidden;"></span> {% trans "stars with observations" %}</a></li>
+                        {% endif %}
                     </ul>
 
                 </div>
                 {% if request.session.limiting_magnitude %}
-                    <p>{% trans "Showing stars &gt;" %} <strong>{{ request.session.limiting_magnitude }}</strong> mag.</p>
+                    <p>{% trans "Showing stars &gt;" %} <strong>{{ request.session.limiting_magnitude }}</strong> mag.
                 {% else %}
-                    <p>{% trans "Showing <strong>all</strong> stars" %}</p>
+                    <p>{% trans "Showing <strong>all</strong> stars" %}
                 {% endif %}
+                {% if request.session.stars_with_observations %}
+                    <br>
+                    {% trans "<strong>with</strong> observations" %}
+                {% endif %}
+                </p>
         </div>
     </div>
-    <hr>
     <div class="row">
         <div class="col-xs-4 big-stat">
             <h1>{{ total_star_count }}</h1>

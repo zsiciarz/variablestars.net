@@ -13,3 +13,10 @@ class StarFilterMiddleware(object):
             if limiting_magnitude == 'None':
                 limiting_magnitude = None
             request.session['limiting_magnitude'] = limiting_magnitude
+        stars_with_observations = request.GET.get('stars_with_observations')
+        if stars_with_observations:
+            if stars_with_observations == 'True':
+                stars_with_observations = True
+            else:
+                stars_with_observations = False
+            request.session['stars_with_observations'] = stars_with_observations
