@@ -61,7 +61,11 @@
     </div>
     <h2>{% trans "List of variable stars" %}{% if constellation %} {% trans "in" %} {{ constellation }}{% endif %}</h2>
 
-    {% include "stars/stars_table.html" %}
+    {% if star_list %}
+        {% include "stars/stars_table.html" %}
+    {% else %}
+        <p>{% trans "There are no variable stars matching the criteria." %}</p>
+    {% endif %}
 
     {% if is_paginated %}
         {% bootstrap_paginate page_obj range=10 %}

@@ -21,11 +21,19 @@ class StarListView(SelectRelatedMixin, ListView):
 
     def get_queryset(self):
         queryset = super(StarListView, self).get_queryset()
+        queryset = queryset.with_observations_count()
         try:
             magnitude = float(self.request.session['limiting_magnitude'])
-            return queryset.filter(max_magnitude__lt=magnitude)
+            queryset = queryset.filter(max_magnitude__lt=magnitude)
         except Exception:
-            return queryset
+            pass
+        try:
+            stars_with_observations = self.request.session['stars_with_observations']
+            if stars_with_observations:
+                queryset = queryset.filter(observations_count__gt=0)
+        except Exception:
+            pass
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super(StarListView, self).get_context_data(**kwargs)
@@ -38,8 +46,6 @@ class ConstellationListView(StarListView):
     """
     List all stars in a given constellation.
     """
-    allow_empty = False
-
     def get_queryset(self):
         queryset = super(ConstellationListView, self).get_queryset()
         return queryset.filter(constellation=self.kwargs['constellation'])
