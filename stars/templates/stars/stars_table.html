@@ -18,10 +18,10 @@
             <tr>
                 <td><a href="{{ star.get_absolute_url }}">{{ star.name }}</a></td>
                 <td>{% if star.variability_type %}<a href="{{ star.variability_type.get_absolute_url }}">{{ star.variability_type }}</a>{% endif %}</td>
-                <td class="hidden-xs">{{ star.observations.count }}</td>
+                <td class="hidden-xs">{{ star.observations_count }}</td>
                 <td>{% magnitude star.max_magnitude %} &ndash; {% magnitude star.min_magnitude %}</td>
                 {# <td>{% trans "eclipse" %}</td> #}
-                <td class="hidden-xs"><span class="{% cycle 'text-muted' 'text-muted' '' %} glyphicon glyphicon-eye-open"></span></td>
+                <td class="hidden-xs"><span class="{% if star.observations_count == 0 %}text-muted{% endif %} glyphicon glyphicon-eye-open"></span></td>
             </tr>
             {% endfor %}
         </tbody>
