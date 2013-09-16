@@ -86,6 +86,8 @@ class StarDetailView(DetailView):
             next_rising = None
         context['body'] = body
         context['next_rising'] = next_rising
+        observations = star.get_observations_by_observer(self.request.observer)
+        context['observations_by_observer'] = observations
         return context
 
 

@@ -54,12 +54,17 @@
             <h2>{% trans "observations" %}</h2>
         </div>
         <div class="col-xs-4 big-stat">
-            <h1>53</h1>
+            <h1>{{ star.observers_count }}</h1>
             <h2>{% trans "observers" %}</h2>
         </div>
         <div class="col-xs-4 big-stat">
-            <h1>46</h1>
-            <h2>{% trans "your observations" %}</h2>
+            {% if current_observer %}
+                <h1>{{ observations_by_observer.count }}</h1>
+                <h2>{% trans "your observations" %}</h2>
+            {% else %}
+                <h1>21</h1>
+                <h2>TODO</h2>
+            {% endif %}
         </div>
     </div>
     <div class="row">

@@ -174,8 +174,14 @@ class Star(models.Model):
         queryset = queryset.annotate(observations_count=Count('observer'))
         return queryset.order_by('-observations_count')
 
+    def observers_count(self):
+        return self.observations.aggregate(c=Count('observer', distinct=True))['c']
+
     def recent_observations(self):
         return self.observations.select_related('observer').order_by('-jd')
+
+    def get_observations_by_observer(self, observer):
+        return self.observations.filter(observer=observer)
 
 
 @python_2_unicode_compatible
