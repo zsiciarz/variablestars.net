@@ -156,4 +156,5 @@ except ImportError:
 if not DEBUG:
     COMPRESS_PRECOMPILERS = (
         ('text/less', 'lessc {infile} {outfile}'),
+        ('text/coffeescript', 'coffee --compile --stdio'),
     )
