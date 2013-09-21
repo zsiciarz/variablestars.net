@@ -89,5 +89,11 @@
   <script defer src="{{ STATIC_URL }}js/dropdown.js"></script>
   <script defer src="{{ STATIC_URL }}js/script.js"></script>
   {% block extra-script %}{% endblock %}
+  <script type="text/coffeescript">
+      console.log "Hello, CS"
+  </script>
+  {% if debug %}
+    <script defer src="{{ STATIC_URL }}js/libs/coffee-script.js"></script>
+  {% endif %}
 </body>
 </html>
