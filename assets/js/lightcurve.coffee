@@ -1,8 +1,7 @@
 $ = jQuery
 $ ->
-    if $('.lightcurve').length
-        csvUrl = $('.lightcurve').data 'csvSource'
-        console.log csvUrl
-        d3.csv csvUrl, (data) ->
-            for row in data
-                console.log row
+    csvUrl = $('.lightcurve').data 'csvSource'
+    console.log csvUrl
+    d3.csv csvUrl, (data) ->
+        for row in data
+            console.log row
