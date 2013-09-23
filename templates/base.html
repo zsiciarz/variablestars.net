@@ -88,10 +88,9 @@
   <script defer src="{{ STATIC_URL }}js/transition.js"></script>
   <script defer src="{{ STATIC_URL }}js/collapse.js"></script>
   <script defer src="{{ STATIC_URL }}js/dropdown.js"></script>
-  {% block extra-script %}{% endblock %}
   {% compress js %}
     <script defer type="text/coffeescript" src="{{ STATIC_URL }}js/script.coffee"></script>
-    <script defer type="text/coffeescript" src="{{ STATIC_URL }}js/lightcurve.coffee"></script>
+    {% block extra-script %}{% endblock %}
   {% endcompress %}
   {% if debug %}
     <script defer src="{{ STATIC_URL }}js/libs/coffee-script.js"></script>

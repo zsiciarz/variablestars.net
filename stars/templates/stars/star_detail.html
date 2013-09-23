@@ -155,3 +155,7 @@
     </div>
 
 {% endblock %}
+
+{% block extra-script %}
+    <script defer type="text/coffeescript" src="{{ STATIC_URL }}js/lightcurve.coffee"></script>
+{% endblock %}
