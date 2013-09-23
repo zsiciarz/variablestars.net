@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     url(r'^(?P<constellation>[A-Z]{3})/$', ConstellationListView.as_view(), name='constellation_list'),
     url(r'^search/$', StarSearchView.as_view(), name='star_search'),
     url(r'^type/(?P<pk>\d+)/$', VariabilityTypeDetailView.as_view(), name='variabilitytype_detail'),
+
+    url(r'^(?P<pk>\d+)\.csv$', 'stars.views.recent_observations', name='recent_observations'),
 )

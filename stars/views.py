@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
+import csv
+from django.http import HttpResponse
 from django.forms.models import model_to_dict
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 
 import ephem
@@ -9,6 +11,7 @@ from braces.views import SelectRelatedMixin
 from pygcvs import dict_to_body
 
 from .models import Star, CONSTELLATIONS_DICT, VariabilityType
+from observations.utils import jd_now
 
 
 class StarListView(SelectRelatedMixin, ListView):
@@ -120,3 +123,19 @@ class VariabilityTypeDetailView(StarListView):
         print self.kwargs
         context['variabilitytype'] = VariabilityType.objects.get(pk=self.kwargs['pk'])
         return context
+
+
+def recent_observations(request, pk):
+    """
+    Poor man's CSV data dump of recent observations of given star.
+
+    TODO: separate the code elsewhere (or use some API framework)
+    """
+    star = get_object_or_404(Star, pk=pk)
+    min_jd = jd_now() - 5000.0
+    observations = star.observations.filter(jd__gt=min_jd)
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    for observation in observations:
+        writer.writerow([observation.jd, observation.magnitude])
+    return response
