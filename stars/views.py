@@ -136,6 +136,7 @@ def recent_observations(request, pk):
     observations = star.observations.filter(jd__gt=min_jd)
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response)
+    writer.writerow(['jd', 'magnitude'])
     for observation in observations:
         writer.writerow([observation.jd, observation.magnitude])
     return response
