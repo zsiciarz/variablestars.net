@@ -21,13 +21,19 @@ $ ->
                 .attr
                     transform: "translate(#{@margin.left},#{@margin.top})"
 
+        getScales: ->
+            [
+                d3.scale.linear().range([0, @width]).nice()
+                d3.scale.linear().range([0, @height]).nice()
+            ]
+
+
     selector = '.lightcurve'
     lc = new LightCurve(selector)
     width = lc.width
     height = lc.height
     svg = lc.getSvg()
-    xScale = d3.scale.linear().range([0, width]).nice()
-    yScale = d3.scale.linear().range([0, height]).nice()
+    [xScale, yScale] = lc.getScales()
     csvUrl = $(selector).data 'csvSource'
     d3.csv(
         csvUrl,
