@@ -153,7 +153,10 @@ try:
 except ImportError:
     pass
 
-if not DEBUG:
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type('text/coffeescript', '.coffee')
+else:
     COMPRESS_PRECOMPILERS = (
         ('text/less', 'lessc {infile} {outfile}'),
         ('text/coffeescript', 'coffee --compile --stdio'),
