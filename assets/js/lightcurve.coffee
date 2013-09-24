@@ -27,21 +27,8 @@ $ ->
                 d3.scale.linear().range([0, @height]).nice()
             ]
 
-
-    selector = '.lightcurve'
-    lc = new LightCurve(selector)
-    width = lc.width
-    height = lc.height
-    svg = lc.getSvg()
-    [xScale, yScale] = lc.getScales()
-    csvUrl = $(selector).data 'csvSource'
-    d3.csv(
-        csvUrl,
-        ((d) ->
-            jd: +d.jd
-            magnitude: +d.magnitude
-        ),
-        ((error, data) ->
+        drawData: (svg, data) ->
+            [xScale, yScale] = @getScales()
             xScale.domain d3.extent data, (d) -> d.jd
             yScale.domain d3.extent data, (d) -> d.magnitude
             xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(10)
@@ -49,12 +36,12 @@ $ ->
             svg.append('g')
                 .attr
                     class: 'x axis'
-                    transform: "translate(0,#{height})"
-                .call(xAxis.tickSize(-height, 0, 0))
+                    transform: "translate(0,#{@height})"
+                .call(xAxis.tickSize(-@height, 0, 0))
             svg.append('g')
                 .attr
                     class: 'y axis'
-                .call(yAxis.tickSize(-width, 0, 0))
+                .call(yAxis.tickSize(-@width, 0, 0))
             svg.selectAll('circle')
                 .data(data)
                 .enter()
@@ -64,5 +51,19 @@ $ ->
                     cy: (d) -> yScale d.magnitude
                     fill: 'red'
                     r: '2'
-            )
+
+
+    selector = '.lightcurve'
+    lc = new LightCurve(selector)
+    svg = lc.getSvg()
+    csvUrl = $(selector).data 'csvSource'
+    d3.csv(
+        csvUrl,
+        ((d) ->
+            jd: +d.jd
+            magnitude: +d.magnitude
+        ),
+        ((error, data) ->
+            lc.drawData svg, data
         )
+    )
