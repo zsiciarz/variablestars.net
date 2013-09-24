@@ -2,9 +2,9 @@ $ = jQuery
 $ ->
     margin =
         top: 20
-        right: 30
+        right: 20
         bottom: 20
-        left: 30
+        left: 40
     width = $('.lightcurve').width()
     height = 0.3 * width
     width = width - margin.left - margin.right
