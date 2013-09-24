@@ -118,7 +118,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-5 catalog-data">
             <h2>{% trans "Catalog data" %}</h2>
             <div class="well">
                 <dl class="dl-horizontal">
@@ -136,9 +136,9 @@
                     <dd>{{ star.min_magnitude }} mag.</dd>
                     {% if star.is_periodic %}
                         <dt>{% trans "Epoch" %}</dt>
-                        <dd>JD {{ star.epoch }}</dd>
+                        <dd>JD <span class="epoch">{{ star.epoch }}</span></dd>
                         <dt>{% trans "Period" %}</dt>
-                        <dd>{{ star.period }} {% trans "days" %}</dd>
+                        <dd><span class="period">{{ star.period }}</span> {% trans "days" %}</dd>
                     {% endif %}
                 </dl>
             </div>

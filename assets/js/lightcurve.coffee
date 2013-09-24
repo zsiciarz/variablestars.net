@@ -1,9 +1,10 @@
 $ = jQuery
 $ ->
     class LightCurve
-        constructor: (@selector) ->
+        constructor: (@selector, @epoch, @period) ->
             @setGeometry()
             @svg = @getSvg(@selector)
+            @isPeriodic = @epoch and @period
 
         setGeometry: ->
             @margin =
@@ -30,6 +31,13 @@ $ ->
                 d3.scale.linear().range([0, @width]).nice()
                 d3.scale.linear().range([0, @height]).nice()
             ]
+
+        getPhase: (jd) =>
+            if @isPeriodic
+                periods = (jd - @epoch) / @period
+                phase = periods % 1
+            else
+                0.0
 
         drawData: (data) ->
             [xScale, yScale] = @getScales()
@@ -58,13 +66,16 @@ $ ->
 
 
     selector = '.lightcurve'
-    lc = new LightCurve(selector)
+    epoch = +$('.catalog-data .epoch').text()
+    period = +$('.catalog-data .period').text()
+    lc = new LightCurve(selector, epoch, period)
     csvUrl = $(selector).data 'csvSource'
     d3.csv(
         csvUrl,
         ((d) ->
             jd: +d.jd
             magnitude: +d.magnitude
+            phase: lc.getPhase +d.jd
         ),
         ((error, data) ->
             lc.drawData data
