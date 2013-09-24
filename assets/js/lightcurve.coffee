@@ -2,6 +2,10 @@ $ = jQuery
 $ ->
     class LightCurve
         constructor: (@selector) ->
+            @setGeometry()
+            @svg = @getSvg(@selector)
+
+        setGeometry: ->
             @margin =
                 top: 20
                 right: 20
@@ -12,8 +16,8 @@ $ ->
             @width = @width - @margin.left - @margin.right
             @height = @height - @margin.top - @margin.bottom
 
-        getSvg: ->
-            d3.select(@selector).append('svg')
+        getSvg: (selector) ->
+            d3.select(selector).append('svg')
                 .attr
                     width: @width + @margin.left + @margin.right
                     height: @height + @margin.top + @margin.bottom
@@ -27,22 +31,22 @@ $ ->
                 d3.scale.linear().range([0, @height]).nice()
             ]
 
-        drawData: (svg, data) ->
+        drawData: (data) ->
             [xScale, yScale] = @getScales()
             xScale.domain d3.extent data, (d) -> d.jd
             yScale.domain d3.extent data, (d) -> d.magnitude
             xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(10)
             yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(10)
-            svg.append('g')
+            @svg.append('g')
                 .attr
                     class: 'x axis'
                     transform: "translate(0,#{@height})"
                 .call(xAxis.tickSize(-@height, 0, 0))
-            svg.append('g')
+            @svg.append('g')
                 .attr
                     class: 'y axis'
                 .call(yAxis.tickSize(-@width, 0, 0))
-            svg.selectAll('circle')
+            @svg.selectAll('circle')
                 .data(data)
                 .enter()
                 .append('circle')
@@ -55,7 +59,6 @@ $ ->
 
     selector = '.lightcurve'
     lc = new LightCurve(selector)
-    svg = lc.getSvg()
     csvUrl = $(selector).data 'csvSource'
     d3.csv(
         csvUrl,
@@ -64,6 +67,6 @@ $ ->
             magnitude: +d.magnitude
         ),
         ((error, data) ->
-            lc.drawData svg, data
+            lc.drawData data
         )
     )
