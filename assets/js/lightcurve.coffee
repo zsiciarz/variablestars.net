@@ -1,15 +1,16 @@
 $ = jQuery
 $ ->
+    selector = '.lightcurve'
     margin =
         top: 20
         right: 20
         bottom: 20
         left: 40
-    width = $('.lightcurve').width()
+    width = $(selector).width()
     height = 0.3 * width
     width = width - margin.left - margin.right
     height = height - margin.top - margin.bottom
-    svg = d3.select('.lightcurve').append('svg')
+    svg = d3.select(selector).append('svg')
         .attr
             width: width + margin.left + margin.right
             height: height + margin.top + margin.bottom
@@ -18,7 +19,7 @@ $ ->
             transform: "translate(#{margin.left},#{margin.top})"
     xScale = d3.scale.linear().range([0, width]).nice()
     yScale = d3.scale.linear().range([0, height]).nice()
-    csvUrl = $('.lightcurve').data 'csvSource'
+    csvUrl = $(selector).data 'csvSource'
     d3.csv(
         csvUrl,
         ((d) ->
