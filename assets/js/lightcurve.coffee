@@ -17,23 +17,31 @@ $ ->
     x = d3.scale.linear().range([0, width]).nice()
     y = d3.scale.linear().range([0, height]).nice()
     csvUrl = $('.lightcurve').data 'csvSource'
-    d3.csv csvUrl, (data) ->
-        x.domain d3.extent data, (d) -> +d.jd
-        y.domain d3.extent data, (d) -> +d.magnitude
-        xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(10)
-        yAxis = d3.svg.axis().scale(y).orient('left').ticks(10)
-        svg.append('g')
-            .attr('class', 'x axis')
-            .attr('transform', "translate(0,#{height})")
-            .call(xAxis.tickSize(-height, 0, 0))
-        svg.append('g')
-            .attr('class', 'y axis')
-            .call(yAxis.tickSize(-width, 0, 0))
-        svg.selectAll('circle')
-            .data(data)
-            .enter()
-            .append('circle')
-            .attr('cx', (d) -> x +d.jd)
-            .attr('cy', (d) -> y +d.magnitude)
-            .attr('fill', 'red')
-            .attr('r', '2')
+    d3.csv(
+        csvUrl,
+        ((d) ->
+            jd: +d.jd
+            magnitude: +d.magnitude
+        ),
+        ((error, data) ->
+            x.domain d3.extent data, (d) -> d.jd
+            y.domain d3.extent data, (d) -> d.magnitude
+            xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(10)
+            yAxis = d3.svg.axis().scale(y).orient('left').ticks(10)
+            svg.append('g')
+                .attr('class', 'x axis')
+                .attr('transform', "translate(0,#{height})")
+                .call(xAxis.tickSize(-height, 0, 0))
+            svg.append('g')
+                .attr('class', 'y axis')
+                .call(yAxis.tickSize(-width, 0, 0))
+            svg.selectAll('circle')
+                .data(data)
+                .enter()
+                .append('circle')
+                .attr('cx', (d) -> x d.jd)
+                .attr('cy', (d) -> y d.magnitude)
+                .attr('fill', 'red')
+                .attr('r', '2')
+            )
+        )
