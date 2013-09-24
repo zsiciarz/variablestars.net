@@ -1,22 +1,31 @@
 $ = jQuery
 $ ->
+    class LightCurve
+        constructor: (@selector) ->
+            @margin =
+                top: 20
+                right: 20
+                bottom: 20
+                left: 40
+            @width = $(@selector).width()
+            @height = 0.3 * @width
+            @width = @width - @margin.left - @margin.right
+            @height = @height - @margin.top - @margin.bottom
+
+        getSvg: ->
+            d3.select(@selector).append('svg')
+                .attr
+                    width: @width + @margin.left + @margin.right
+                    height: @height + @margin.top + @margin.bottom
+                .append('g')
+                .attr
+                    transform: "translate(#{@margin.left},#{@margin.top})"
+
     selector = '.lightcurve'
-    margin =
-        top: 20
-        right: 20
-        bottom: 20
-        left: 40
-    width = $(selector).width()
-    height = 0.3 * width
-    width = width - margin.left - margin.right
-    height = height - margin.top - margin.bottom
-    svg = d3.select(selector).append('svg')
-        .attr
-            width: width + margin.left + margin.right
-            height: height + margin.top + margin.bottom
-        .append('g')
-        .attr
-            transform: "translate(#{margin.left},#{margin.top})"
+    lc = new LightCurve(selector)
+    width = lc.width
+    height = lc.height
+    svg = lc.getSvg()
     xScale = d3.scale.linear().range([0, width]).nice()
     yScale = d3.scale.linear().range([0, height]).nice()
     csvUrl = $(selector).data 'csvSource'
