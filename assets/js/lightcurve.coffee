@@ -70,6 +70,8 @@ $ ->
             @svg.select('.x.axis')
                 .call(@xAxis)
             @svg.selectAll('circle')
+                .transition()
+                .duration(1000)
                 .attr
                     cx: (d) => @xScale if isPhaseChart then d.phase else d.jd
 
