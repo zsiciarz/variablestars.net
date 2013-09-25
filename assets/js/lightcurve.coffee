@@ -50,8 +50,6 @@ $ ->
         drawChart: ->
             @xScale.domain d3.extent @data, (d) -> d.jd
             @yScale.domain d3.extent @data, (d) -> d.magnitude
-            @xAxis.scale(@xScale)
-            @yAxis.scale(@yScale)
             @svg.select('.x.axis')
                 .call(@xAxis)
             @svg.select('.y.axis')
