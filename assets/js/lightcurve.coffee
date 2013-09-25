@@ -64,6 +64,15 @@ $ ->
                     fill: 'red'
                     r: '2'
 
+        updateChart: (isPhaseChart) ->
+            xDomain = if isPhaseChart then [0, 1] else d3.extent @data, (d) -> d.jd
+            @xScale.domain xDomain
+            @svg.select('.x.axis')
+                .call(@xAxis)
+            @svg.selectAll('circle')
+                .attr
+                    cx: (d) => @xScale if isPhaseChart then d.phase else d.jd
+
 
     selector = '.lightcurve'
     epoch = +$('.catalog-data .epoch').text()
