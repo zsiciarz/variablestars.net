@@ -18,15 +18,25 @@ $ ->
             @height = @height - @margin.top - @margin.bottom
             @xScale = d3.scale.linear().range([0, @width]).nice()
             @yScale = d3.scale.linear().range([0, @height]).nice()
+            @xAxis = d3.svg.axis().scale(@xScale).orient('bottom').ticks(10).tickSize(-@height, 0, 0)
+            @yAxis = d3.svg.axis().scale(@yScale).orient('left').ticks(10).tickSize(-@width, 0, 0)
 
         getSvg: (selector) ->
-            d3.select(selector).append('svg')
+            @svg = d3.select(selector).append('svg')
                 .attr
                     width: @width + @margin.left + @margin.right
                     height: @height + @margin.top + @margin.bottom
                 .append('g')
                 .attr
                     transform: "translate(#{@margin.left},#{@margin.top})"
+            @svg.append('g')
+                .attr
+                    class: 'x axis'
+                    transform: "translate(0,#{@height})"
+            @svg.append('g')
+                .attr
+                    class: 'y axis'
+            @svg
 
         getPhase: (jd) =>
             if @isPeriodic
@@ -38,17 +48,12 @@ $ ->
         drawData: (data) ->
             @xScale.domain d3.extent data, (d) -> d.jd
             @yScale.domain d3.extent data, (d) -> d.magnitude
-            xAxis = d3.svg.axis().scale(@xScale).orient('bottom').ticks(10).tickSize(-@height, 0, 0)
-            yAxis = d3.svg.axis().scale(@yScale).orient('left').ticks(10).tickSize(-@width, 0, 0)
-            @svg.append('g')
-                .attr
-                    class: 'x axis'
-                    transform: "translate(0,#{@height})"
-                .call(xAxis)
-            @svg.append('g')
-                .attr
-                    class: 'y axis'
-                .call(yAxis)
+            @xAxis.scale(@xScale)
+            @yAxis.scale(@yScale)
+            @svg.select('.x.axis')
+                .call(@xAxis)
+            @svg.select('.y.axis')
+                .call(@yAxis)
             @svg.selectAll('circle')
                 .data(data)
                 .enter()
