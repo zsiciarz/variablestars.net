@@ -96,7 +96,8 @@ $ ->
     )
     d3.select('#toggle-chart')
         .on('click', =>
-            isPhaseChart = not isPhaseChart
-            lc.updateChart isPhaseChart
+            if lc.isPeriodic
+                isPhaseChart = not isPhaseChart
+                lc.updateChart isPhaseChart
             d3.event.preventDefault()
         )
