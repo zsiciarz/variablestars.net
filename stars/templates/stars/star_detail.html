@@ -139,9 +139,11 @@
                     <dd>{{ star.max_magnitude }} mag.</dd>
                     <dt>{% trans "Minimum brightness" %}</dt>
                     <dd>{{ star.min_magnitude }} mag.</dd>
-                    {% if star.is_periodic %}
+                    {% if star.epoch %}
                         <dt>{% trans "Epoch" %}</dt>
                         <dd>JD <span class="epoch">{{ star.epoch }}</span></dd>
+                    {% endif %}
+                    {% if star.period %}
                         <dt>{% trans "Period" %}</dt>
                         <dd><span class="period">{{ star.period }}</span> {% trans "days" %}</dd>
                     {% endif %}
