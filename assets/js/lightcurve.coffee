@@ -9,9 +9,9 @@ $ ->
         setGeometry: ->
             @margin =
                 top: 20
-                right: 20
+                right: 10
                 bottom: 40
-                left: 40
+                left: 50
             @width = $(@selector).width()
             @height = 0.3 * @width
             @width = @width - @margin.left - @margin.right
@@ -37,6 +37,10 @@ $ ->
                 .attr
                     class: 'axisTitle'
                     transform: "translate(#{@width / 2},#{@height + @margin.bottom})"
+            @yTitle = @svg.append('text')
+                .attr
+                    class: 'axisTitle'
+                    transform: "rotate(-90) translate(-#{@height / 2}, -#{@margin.left / 1.3})"
             @svg.append('g')
                 .attr
                     class: 'y axis'
@@ -68,6 +72,7 @@ $ ->
                     fill: 'red'
                     r: '2'
             @xTitle.text 'Julian Date'
+            @yTitle.text 'Magnitude'
 
         updateChart: (isPhaseChart) ->
             xDomain = if isPhaseChart then [0, 1] else d3.extent @data, (d) -> d.jd
