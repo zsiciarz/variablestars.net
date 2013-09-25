@@ -45,9 +45,11 @@ $ ->
             else
                 0.0
 
-        drawData: (data) ->
-            @xScale.domain d3.extent data, (d) -> d.jd
-            @yScale.domain d3.extent data, (d) -> d.magnitude
+        setData: (@data) ->
+
+        drawChart: ->
+            @xScale.domain d3.extent @data, (d) -> d.jd
+            @yScale.domain d3.extent @data, (d) -> d.magnitude
             @xAxis.scale(@xScale)
             @yAxis.scale(@yScale)
             @svg.select('.x.axis')
@@ -55,7 +57,7 @@ $ ->
             @svg.select('.y.axis')
                 .call(@yAxis)
             @svg.selectAll('circle')
-                .data(data)
+                .data(@data)
                 .enter()
                 .append('circle')
                 .attr
@@ -78,6 +80,7 @@ $ ->
             phase: lc.getPhase +d.jd
         ),
         ((error, data) ->
-            lc.drawData data
+            lc.setData data
+            lc.drawChart()
         )
     )
