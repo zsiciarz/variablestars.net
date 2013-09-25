@@ -16,6 +16,8 @@ $ ->
             @height = 0.3 * @width
             @width = @width - @margin.left - @margin.right
             @height = @height - @margin.top - @margin.bottom
+            @xScale = d3.scale.linear().range([0, @width]).nice()
+            @yScale = d3.scale.linear().range([0, @height]).nice()
 
         getSvg: (selector) ->
             d3.select(selector).append('svg')
@@ -26,12 +28,6 @@ $ ->
                 .attr
                     transform: "translate(#{@margin.left},#{@margin.top})"
 
-        getScales: ->
-            [
-                d3.scale.linear().range([0, @width]).nice()
-                d3.scale.linear().range([0, @height]).nice()
-            ]
-
         getPhase: (jd) =>
             if @isPeriodic
                 periods = (jd - @epoch) / @period
@@ -40,11 +36,10 @@ $ ->
                 0.0
 
         drawData: (data) ->
-            [xScale, yScale] = @getScales()
-            xScale.domain d3.extent data, (d) -> d.jd
-            yScale.domain d3.extent data, (d) -> d.magnitude
-            xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(10)
-            yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(10)
+            @xScale.domain d3.extent data, (d) -> d.jd
+            @yScale.domain d3.extent data, (d) -> d.magnitude
+            xAxis = d3.svg.axis().scale(@xScale).orient('bottom').ticks(10)
+            yAxis = d3.svg.axis().scale(@yScale).orient('left').ticks(10)
             @svg.append('g')
                 .attr
                     class: 'x axis'
@@ -59,8 +54,8 @@ $ ->
                 .enter()
                 .append('circle')
                 .attr
-                    cx: (d) -> xScale d.jd
-                    cy: (d) -> yScale d.magnitude
+                    cx: (d) => @xScale d.jd
+                    cy: (d) => @yScale d.magnitude
                     fill: 'red'
                     r: '2'
 
