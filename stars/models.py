@@ -162,7 +162,7 @@ class Star(models.Model):
 
     def is_periodic(self):
         """
-        Returns True if the star is periodic (has a defined period).
+        Returns True if the star is periodic (has a defined period and epoch).
         """
         return self.epoch is not None and self.period is not None
 
