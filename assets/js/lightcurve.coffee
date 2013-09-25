@@ -79,6 +79,7 @@ $ ->
     period = +$('.catalog-data .period').text()
     lc = new LightCurve(selector, epoch, period)
     csvUrl = $(selector).data 'csvSource'
+    isPhaseChart = false
     d3.csv(
         csvUrl,
         ((d) ->
@@ -91,3 +92,9 @@ $ ->
             lc.drawChart()
         )
     )
+    d3.select('#toggle-chart')
+        .on('click', =>
+            isPhaseChart = not isPhaseChart
+            lc.updateChart isPhaseChart
+            d3.event.preventDefault()
+        )
