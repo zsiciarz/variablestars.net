@@ -72,7 +72,9 @@
         <div class="col-sm-12">
             <h2>
                 {{ star.name }} {% trans "lightcurve" %}
-                <a href="#" id="toggle-chart" class="btn btn-primary">{% trans "Toggle" %}</a>
+                {% if star.is_periodic %}
+                    <a href="#" id="toggle-chart" class="btn btn-primary">{% trans "Toggle phase chart" %}</a>
+                {% endif %}
             </h2>
             <div class="well lightcurve" data-csv-source="{% url 'stars:recent_observations' pk=star.pk %}">
             </div>
