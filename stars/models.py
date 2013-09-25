@@ -164,7 +164,7 @@ class Star(models.Model):
         """
         Returns True if the star is periodic (has a defined period).
         """
-        return self.period is not None
+        return self.epoch is not None and self.period is not None
 
     def get_gcvs_search_name(self):
         """
