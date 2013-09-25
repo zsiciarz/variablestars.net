@@ -10,7 +10,7 @@ $ ->
             @margin =
                 top: 20
                 right: 20
-                bottom: 20
+                bottom: 40
                 left: 40
             @width = $(@selector).width()
             @height = 0.3 * @width
@@ -33,6 +33,10 @@ $ ->
                 .attr
                     class: 'x axis'
                     transform: "translate(0,#{@height})"
+            @xTitle = @svg.append('text')
+                .attr
+                    class: 'axisTitle'
+                    transform: "translate(#{@width / 2},#{@height + @margin.bottom})"
             @svg.append('g')
                 .attr
                     class: 'y axis'
@@ -63,6 +67,7 @@ $ ->
                     cy: (d) => @yScale d.magnitude
                     fill: 'red'
                     r: '2'
+            @xTitle.text 'Julian Date'
 
         updateChart: (isPhaseChart) ->
             xDomain = if isPhaseChart then [0, 1] else d3.extent @data, (d) -> d.jd
