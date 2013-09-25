@@ -79,6 +79,7 @@ $ ->
                 .duration(1000)
                 .attr
                     cx: (d) => @xScale if isPhaseChart then d.phase else d.jd
+            @xTitle.text if isPhaseChart then 'Phase' else 'Julian Date'
 
 
     selector = '.lightcurve'
