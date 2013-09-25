@@ -38,17 +38,17 @@ $ ->
         drawData: (data) ->
             @xScale.domain d3.extent data, (d) -> d.jd
             @yScale.domain d3.extent data, (d) -> d.magnitude
-            xAxis = d3.svg.axis().scale(@xScale).orient('bottom').ticks(10)
-            yAxis = d3.svg.axis().scale(@yScale).orient('left').ticks(10)
+            xAxis = d3.svg.axis().scale(@xScale).orient('bottom').ticks(10).tickSize(-@height, 0, 0)
+            yAxis = d3.svg.axis().scale(@yScale).orient('left').ticks(10).tickSize(-@width, 0, 0)
             @svg.append('g')
                 .attr
                     class: 'x axis'
                     transform: "translate(0,#{@height})"
-                .call(xAxis.tickSize(-@height, 0, 0))
+                .call(xAxis)
             @svg.append('g')
                 .attr
                     class: 'y axis'
-                .call(yAxis.tickSize(-@width, 0, 0))
+                .call(yAxis)
             @svg.selectAll('circle')
                 .data(data)
                 .enter()
