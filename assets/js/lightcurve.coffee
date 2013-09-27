@@ -69,7 +69,6 @@ $ ->
                 .attr
                     cx: (d) => @xScale d.jd
                     cy: (d) => @yScale d.magnitude
-                    fill: 'red'
                     r: '2'
             @xTitle.text 'Julian Date'
             @yTitle.text 'Magnitude'
