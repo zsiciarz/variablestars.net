@@ -11,12 +11,13 @@ django-extensions==1.2.2
 django-model-utils==1.5.0
 django-registration==1.0
 django-twitter-bootstrap==3.0.0
+ecdsa==0.8
 frogress==0.9.1
 gunicorn==18.0
 ipython==1.1.0
 lxml==3.2.3
 psycopg2==2.5.1
-paramiko==1.11.1
+paramiko==1.12.0
 pyaavso==0.1.1
 pycrypto==2.6
 pyephem==3.7.5.1
