@@ -70,6 +70,12 @@ $ ->
                     cx: (d) => @xScale d.jd
                     cy: (d) => @yScale d.magnitude
                     r: '2'
+                .on('mouseover', ->
+                    d3.select(@).transition().duration(150).attr('r', '10')
+                )
+                .on('mouseout', ->
+                    d3.select(@).transition().duration(150).attr('r', '2')
+                )
             @xTitle.text 'Julian Date'
             @yTitle.text 'Magnitude'
 
