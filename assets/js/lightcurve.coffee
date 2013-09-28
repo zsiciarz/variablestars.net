@@ -97,23 +97,24 @@ $ ->
     period = +$('.catalog-data .period').text()
     lc = new LightCurve(selector, epoch, period)
     csvUrl = $(selector).data 'csvSource'
-    isPhaseChart = false
-    d3.csv(
-        csvUrl,
-        ((d) ->
-            jd: +d.jd
-            magnitude: +d.magnitude
-            phase: lc.getPhase +d.jd
-        ),
-        ((error, data) ->
-            lc.setData data
-            lc.drawChart()
+    if csvUrl
+        isPhaseChart = false
+        d3.csv(
+            csvUrl,
+            ((d) ->
+                jd: +d.jd
+                magnitude: +d.magnitude
+                phase: lc.getPhase +d.jd
+            ),
+            ((error, data) ->
+                lc.setData data
+                lc.drawChart()
+            )
         )
-    )
-    d3.select('#toggle-chart')
-        .on('click', =>
-            if lc.isPeriodic
-                isPhaseChart = not isPhaseChart
-                lc.updateChart isPhaseChart
-            d3.event.preventDefault()
-        )
+        d3.select('#toggle-chart')
+            .on('click', =>
+                if lc.isPeriodic
+                    isPhaseChart = not isPhaseChart
+                    lc.updateChart isPhaseChart
+                d3.event.preventDefault()
+            )
