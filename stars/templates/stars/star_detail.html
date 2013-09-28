@@ -30,11 +30,11 @@
         </div>
         <div class="col-sm-3">
             <div class="well star-visibility">
-                {% if body.alt > 0 %}
+                {% if star_altitude > 0 %}
                     <h3>{% trans "visible now!" %}</h3>
-                    {% trans "Alt." %} {{ body.alt|round_degrees }}°
+                    {% trans "Alt." %} {{ star_altitude|round_degrees }}°
                     &nbsp;
-                    {% trans "Az." %} {{ body.az|round_degrees }}°
+                    {% trans "Az." %} {{ star_azimuth|round_degrees }}°
                 {% else %}
                     <h3 class="text-muted">{% trans "not visible" %}</h3>
                     <span class="text-muted">

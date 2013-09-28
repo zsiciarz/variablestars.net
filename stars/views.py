@@ -96,6 +96,8 @@ class StarDetailView(DetailView):
         # TODO: consider observer's location
         city = ephem.city('Warsaw')
         body.compute(city)
+        context['star_altitude'] = body.alt
+        context['star_azimuth'] = body.az
         try:
             next_rising = city.next_rising(body)
         except ephem.CircumpolarError:
