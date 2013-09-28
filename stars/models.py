@@ -109,9 +109,6 @@ CONSTELLATIONS_DICT = dict(CONSTELLATIONS)
 
 
 class StarQuerySet(QuerySet):
-    def with_observations_count(self):
-        return self.annotate(observations_count=Count('observations'))
-
     def get_total_stats(self, observer=None):
         last_month = jd_now() - 30
         star_ids = Observation.objects.filter(jd__gt=last_month).values('star')
@@ -145,6 +142,9 @@ class Star(models.Model):
     min_magnitude = models.FloatField(_("Minimum brightness"), null=True)
     epoch = models.FloatField(_("Epoch"), null=True)
     period = models.FloatField(_("Period"), null=True)
+
+    # denormalization
+    observations_count = models.PositiveIntegerField(default=0, editable=False)
 
     objects = PassThroughManager.for_queryset_class(StarQuerySet)()
 

@@ -24,7 +24,6 @@ class StarListView(SelectRelatedMixin, ListView):
 
     def get_queryset(self):
         queryset = super(StarListView, self).get_queryset()
-        queryset = queryset.with_observations_count()
         try:
             magnitude = float(self.request.session['limiting_magnitude'])
             queryset = queryset.filter(max_magnitude__lt=magnitude)
