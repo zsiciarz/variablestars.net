@@ -48,3 +48,9 @@ class Observation(models.Model):
 
     def __str__(self):
         return "%s %s %s" % (self.star, self.jd, self.magnitude)
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            self.star.observations_count += 1
+            self.star.save()
+        super(Observation, self).save(*args, **kwargs)
