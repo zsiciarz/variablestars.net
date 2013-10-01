@@ -7,6 +7,11 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('observers', '0001_initial'),
+        ('stars', '0001_initial'),
+    )
+
     def forwards(self, orm):
         # Adding model 'Observation'
         db.create_table(u'observations_observation', (
