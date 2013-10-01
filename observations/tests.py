@@ -48,4 +48,5 @@ class ObservationModelTestCase(TestCase):
             jd=2456567.2550,
             magnitude=8.5,
         )
-        self.assertEqual(self.star.observations_count, 1)
+        star = Star.objects.get(pk=self.star.pk)
+        self.assertEqual(star.observations_count, 1)
