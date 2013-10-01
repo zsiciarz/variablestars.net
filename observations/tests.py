@@ -42,7 +42,7 @@ class ObservationModelTestCase(TestCase):
         denormalized field.
         """
         self.assertEqual(self.star.observations_count, 0)
-        Observation.objects.create(
+        observation = Observation.objects.create(
             observer=self.observer,
             star=self.star,
             jd=2456567.2550,
@@ -50,3 +50,6 @@ class ObservationModelTestCase(TestCase):
         )
         star = Star.objects.get(pk=self.star.pk)
         self.assertEqual(star.observations_count, 1)
+        observation.delete()
+        star = Star.objects.get(pk=self.star.pk)
+        self.assertEqual(star.observations_count, 0)
