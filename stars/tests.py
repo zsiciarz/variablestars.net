@@ -45,3 +45,14 @@ class StarModelTestCase(BaseTestCase):
         Check that space is replaced by + in GCVS search name.
         """
         self.assertEqual(self.star.get_gcvs_search_name(), 'R+LEO')
+
+
+class VariabilityTypeModelTestCase(BaseTestCase):
+    """
+    Tests for VariabilityType model.
+    """
+    def test_str(self):
+        """
+        String representation of variability type is its short GCVS code.
+        """
+        self.assertEqual(str(self.variability_type), self.variability_type.code)
