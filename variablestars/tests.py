@@ -34,4 +34,17 @@ class BaseTestCase(TestCase):
             variability_type=self.variability_type,
             max_magnitude=4.4,
             min_magnitude=11.3,
+            period=None,
+            epoch=None,
+        )
+        self.periodic_star = Star.objects.create(
+            constellation='CEP',
+            name='T CEP',
+            ra='21:09:31.8',
+            dec='+68:29:27',
+            variability_type=self.variability_type,
+            max_magnitude=5.2,
+            min_magnitude=11.3,
+            period=388.14,
+            epoch=2444177.0,
         )
