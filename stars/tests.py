@@ -39,3 +39,9 @@ class StarModelTestCase(BaseTestCase):
         self.assertIsNotNone(self.periodic_star.period)
         self.assertIsNotNone(self.periodic_star.epoch)
         self.assertTrue(self.periodic_star.is_periodic())
+
+    def test_gcvs_name(self):
+        """
+        Check that space is replaced by + in GCVS search name.
+        """
+        self.assertEqual(self.star.get_gcvs_search_name(), 'R+LEO')
