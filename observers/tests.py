@@ -2,6 +2,9 @@
 
 from __future__ import unicode_literals
 
+from mock import MagicMock
+
+from .middleware import ObserverMiddleware
 from observations.models import Observation
 from variablestars.tests import BaseTestCase
 
@@ -48,3 +51,22 @@ class ObserverModelTestCase(BaseTestCase):
 
     def test_observed_star_count(self):
         self.assertEqual(self.observer.observed_stars_count(), 2)
+
+
+class ObserverMiddlewareTestCase(BaseTestCase):
+    """
+    Tests for ``observers.middleware.ObserverMiddleware`` class.
+    """
+    def setUp(self):
+        super(ObserverMiddlewareTestCase, self).setUp()
+        self.request = MagicMock()
+        self.request.user = self.user
+
+    def test_authenticated_user(self):
+        """
+        Check that the middleware attaches an Observer instance to the request
+        for authenticated users.
+        """
+        middleware = ObserverMiddleware()
+        middleware.process_request(self.request)
+        self.assertEqual(self.request.observer, self.observer)
