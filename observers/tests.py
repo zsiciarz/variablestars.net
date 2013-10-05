@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+from django.contrib.auth.models import AnonymousUser
+
 from mock import MagicMock
 
 from .middleware import ObserverMiddleware
@@ -70,3 +72,12 @@ class ObserverMiddlewareTestCase(BaseTestCase):
         middleware = ObserverMiddleware()
         middleware.process_request(self.request)
         self.assertEqual(self.request.observer, self.observer)
+
+    def test_anonymous_user(self):
+        """
+        Check that request.observer is None for anonymous users.
+        """
+        self.request.user = AnonymousUser()
+        middleware = ObserverMiddleware()
+        middleware.process_request(self.request)
+        self.assertIsNone(self.request.observer)
