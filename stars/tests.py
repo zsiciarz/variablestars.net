@@ -90,3 +90,23 @@ class StarFilterMiddlewareTestCase(BaseTestCase):
         middleware.process_request(self.request)
         self.assertIn('limiting_magnitude', self.request.session)
         self.assertIsNone(self.request.session['limiting_magnitude'])
+
+    def test_stars_with_observations_true(self):
+        """
+        Check that 'True' value sets session attribute to True.
+        """
+        middleware = StarFilterMiddleware()
+        self.request.GET['stars_with_observations'] = 'True'
+        middleware.process_request(self.request)
+        self.assertIn('stars_with_observations', self.request.session)
+        self.assertTrue(self.request.session['stars_with_observations'])
+
+    def test_stars_with_observations_false(self):
+        """
+        Check that other values set session attribute to False.
+        """
+        middleware = StarFilterMiddleware()
+        self.request.GET['stars_with_observations'] = 'False'
+        middleware.process_request(self.request)
+        self.assertIn('stars_with_observations', self.request.session)
+        self.assertFalse(self.request.session['stars_with_observations'])
