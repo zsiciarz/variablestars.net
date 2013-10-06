@@ -2,6 +2,9 @@
 
 from __future__ import unicode_literals
 
+from mock import MagicMock
+
+from .middleware import StarFilterMiddleware
 from variablestars.tests import BaseTestCase
 
 
@@ -56,3 +59,34 @@ class VariabilityTypeModelTestCase(BaseTestCase):
         String representation of variability type is its short GCVS code.
         """
         self.assertEqual(str(self.variability_type), self.variability_type.code)
+
+
+class StarFilterMiddlewareTestCase(BaseTestCase):
+    """
+    Tests for ``stars.middleware.StarFilterMiddleware`` class.
+    """
+    def setUp(self):
+        super(StarFilterMiddlewareTestCase, self).setUp()
+        self.request = MagicMock()
+        self.request.GET = {}
+        self.request.session = {}
+
+    def test_limiting_magnitude(self):
+        """
+        Check that the middleware stores limiting magnitude in current session.
+        """
+        middleware = StarFilterMiddleware()
+        self.request.GET['limiting_magnitude'] = 9.0
+        middleware.process_request(self.request)
+        self.assertIn('limiting_magnitude', self.request.session)
+        self.assertEqual(self.request.session['limiting_magnitude'], 9.0)
+
+    def test_limiting_magnitude_none(self):
+        """
+        Check that 'None' value for limiting magnitude is a Pythonic None.
+        """
+        middleware = StarFilterMiddleware()
+        self.request.GET['limiting_magnitude'] = 'None'
+        middleware.process_request(self.request)
+        self.assertIn('limiting_magnitude', self.request.session)
+        self.assertIsNone(self.request.session['limiting_magnitude'])
