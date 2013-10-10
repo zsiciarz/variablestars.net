@@ -7,8 +7,10 @@ from django.contrib.auth.models import AnonymousUser
 from mock import MagicMock
 
 from .middleware import ObserverMiddleware
+from .models import Observer
 from observations.models import Observation
 from variablestars.tests import BaseTestCase
+
 
 
 class ObserverModelTestCase(BaseTestCase):
@@ -85,3 +87,25 @@ class ObserverMiddlewareTestCase(BaseTestCase):
         middleware = ObserverMiddleware()
         middleware.process_request(self.request)
         self.assertIsNone(self.request.observer)
+
+
+class ObserverQuerySetTestCase(ObserverModelTestCase):
+    """
+    Tests for ObserverQuerySet class (accessed through a manager).
+    """
+
+    def test_observations_count(self):
+        """
+        Check that returned Observer instances have are annotated with
+        number of observations.
+        """
+        observers = Observer.objects.with_observations_count()
+        self.assertEqual(observers[0], self.observer)
+        observations_count = Observation.objects.filter(
+            observer=self.observer
+        ).count()
+        self.assertEqual(observers[0].observations_count, observations_count)
+
+    def test_total_stats(self):
+        stats = Observer.objects.get_total_stats()
+        self.assertEqual(stats['total_observer_count'], 1)
