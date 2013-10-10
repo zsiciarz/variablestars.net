@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from datetime import date, timedelta
+from datetime import timedelta
 
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -9,6 +9,7 @@ from django.db import models
 from django.db.models import Count
 from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
+from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
@@ -22,8 +23,9 @@ class ObserverQuerySet(QuerySet):
         return self.annotate(observations_count=Count('observations'))
 
     def get_total_stats(self):
-        last_month = date.today() - timedelta(days=30)
-        last_week = date.today() - timedelta(days=7)
+        today = timezone.now()
+        last_month = today - timedelta(days=30)
+        last_week = today - timedelta(days=7)
         return {
             'total_observer_count': self.count(),
             'last_month_active_count': self.filter(user__last_login__gt=last_month).count(),
