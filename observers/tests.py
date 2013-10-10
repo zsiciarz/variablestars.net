@@ -29,7 +29,7 @@ class ObserverModelTestCase(BaseTestCase):
             Observation.objects.create(
                 observer=self.observer,
                 star=self.periodic_star,
-                jd=2456567.2550 + i,
+                jd=2456587.2550 + i,
                 magnitude=6.5 - 0.2 * i,
             )
 
@@ -50,6 +50,10 @@ class ObserverModelTestCase(BaseTestCase):
         ]
         top_stars = list(self.observer.top_stars())
         self.assertEqual(top_stars, expected)
+
+    def test_recent_observations(self):
+        observations = self.observer.recent_observations()
+        self.assertEqual(observations[0].star, self.periodic_star)
 
     def test_observed_star_count(self):
         self.assertEqual(self.observer.observed_stars_count(), 2)
