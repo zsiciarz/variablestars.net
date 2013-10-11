@@ -12,4 +12,18 @@
         {% endblocktrans %}
         </p>
     </div>
+    <div class="row">
+        <div class="col-xs-4 big-stat">
+            <h1>{{ stars_count }}</h1>
+            <h2>{% trans "stars" %}</h2>
+        </div>
+        <div class="col-xs-4 big-stat">
+            <h1>{{ observers_count }}</h1>
+            <h2>{% trans "observers" %}</h2>
+        </div>
+        <div class="col-xs-4 big-stat">
+            <h1>{{ observations_count }}</h1>
+            <h2>{% trans "observations" %}</h2>
+        </div>
+    </div>
 {% endblock %}
