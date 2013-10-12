@@ -26,4 +26,25 @@
             <h2>{% trans "observations" %}</h2>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h2>{% trans "Top stars" %}</h2>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>{% trans "Star" %}</th>
+                        <th>{% trans "Observations" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for star in top_stars|slice:":5"%}
+                    <tr>
+                        <td><a href="{% url 'stars:star_detail' pk=star.star_id %}">{{ star.star__name }}</a></td>
+                        <td>{{ star.observations_count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
