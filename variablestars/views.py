@@ -15,4 +15,5 @@ def index(request):
         'observers_count': Observer.objects.count(),
         'observations_count': Observation.objects.count(),
         'top_stars': Observation.objects.top_stars(),
+        'recent_observations': Observation.objects.recent_observations(),
     })
