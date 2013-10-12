@@ -13,6 +13,9 @@ class ObservationManager(models.Manager):
         queryset = queryset.annotate(observations_count=Count('star'))
         return queryset.order_by('-observations_count')
 
+    def recent_observations(self):
+        return self.select_related('star', 'observer').order_by('-jd')
+
 
 @python_2_unicode_compatible
 class Observation(models.Model):
