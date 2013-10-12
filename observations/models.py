@@ -2,8 +2,16 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models import Count
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+
+
+class ObservationManager(models.Manager):
+    def top_stars(self):
+        queryset = self.values('star_id', 'star__name')
+        queryset = queryset.annotate(observations_count=Count('star'))
+        return queryset.order_by('-observations_count')
 
 
 @python_2_unicode_compatible
@@ -41,6 +49,8 @@ class Observation(models.Model):
         max_length=100, blank=True, default='',
         verbose_name=_("Additional notes")
     )
+
+    objects = ObservationManager()
 
     class Meta:
         verbose_name = _("Observation")
