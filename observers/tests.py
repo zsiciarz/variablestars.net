@@ -17,9 +17,6 @@ class ObserverModelTestCase(BaseTestCase):
     Tests for Observer model.
     """
 
-    def setUp(self):
-        super(ObserverModelTestCase, self).setUp()
-
     def test_str(self):
         """
         String representation of an observer is his username (sometimes with
