@@ -13,6 +13,11 @@ class ObservationManager(models.Manager):
         queryset = queryset.annotate(observations_count=Count('star'))
         return queryset.order_by('-observations_count')
 
+    def top_observers(self):
+        queryset = self.values('observer_id', 'observer__aavso_code')
+        queryset = queryset.annotate(observations_count=Count('observer'))
+        return queryset.order_by('-observations_count')
+
     def recent_observations(self):
         return self.select_related('star', 'observer').order_by('-jd')
 
