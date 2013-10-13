@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from observations.models import Observation
+from observations.utils import jd_now
 from stars.models import Star, VariabilityType
 
 
@@ -61,20 +62,20 @@ class BaseTestCase(TestCase):
             Observation.objects.create(
                 observer=self.observer,
                 star=self.star,
-                jd=2456567.2550 + i,
+                jd=jd_now() - i,
                 magnitude=8.5 + 0.1 * i,
             )
         for i in range(5):
             Observation.objects.create(
                 observer=self.observer,
                 star=self.periodic_star,
-                jd=2456587.2550 + i,
+                jd=jd_now() - 30 - i,
                 magnitude=6.5 - 0.2 * i,
             )
         for i in range(3):
             Observation.objects.create(
                 observer=self.observer2,
                 star=self.periodic_star,
-                jd=2456123.5 + 0.05 * i,
+                jd=jd_now() - 10 - 0.05 * i,
                 magnitude=6.4 - 0.25 * i,
             )
