@@ -71,3 +71,10 @@ class BaseTestCase(TestCase):
                 jd=2456587.2550 + i,
                 magnitude=6.5 - 0.2 * i,
             )
+        for i in range(3):
+            Observation.objects.create(
+                observer=self.observer2,
+                star=self.periodic_star,
+                jd=2456123.5 + 0.05 * i,
+                magnitude=6.4 - 0.25 * i,
+            )
