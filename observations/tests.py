@@ -82,6 +82,10 @@ class ObservationManagerTestCase(BaseTestCase):
         top_observers = list(Observation.objects.top_observers())
         self.assertEqual(top_observers, expected)
 
+    def test_recent_observations(self):
+        observations = Observation.objects.recent_observations()
+        self.assertEqual(observations[0].observer, self.observer)
+
 
 class JdNowTestCase(TestCase):
     """
