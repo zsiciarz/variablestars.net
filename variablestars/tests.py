@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+from observations.models import Observation
 from stars.models import Star, VariabilityType
 
 
@@ -48,3 +49,17 @@ class BaseTestCase(TestCase):
             period=388.14,
             epoch=2444177.0,
         )
+        for i in range(10):
+            Observation.objects.create(
+                observer=self.observer,
+                star=self.star,
+                jd=2456567.2550 + i,
+                magnitude=8.5 + 0.1 * i,
+            )
+        for i in range(5):
+            Observation.objects.create(
+                observer=self.observer,
+                star=self.periodic_star,
+                jd=2456587.2550 + i,
+                magnitude=6.5 - 0.2 * i,
+            )

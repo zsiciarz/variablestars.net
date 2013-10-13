@@ -12,7 +12,6 @@ from observations.models import Observation
 from variablestars.tests import BaseTestCase
 
 
-
 class ObserverModelTestCase(BaseTestCase):
     """
     Tests for Observer model.
@@ -20,20 +19,6 @@ class ObserverModelTestCase(BaseTestCase):
 
     def setUp(self):
         super(ObserverModelTestCase, self).setUp()
-        for i in range(10):
-            Observation.objects.create(
-                observer=self.observer,
-                star=self.star,
-                jd=2456567.2550 + i,
-                magnitude=8.5 + 0.1 * i,
-            )
-        for i in range(5):
-            Observation.objects.create(
-                observer=self.observer,
-                star=self.periodic_star,
-                jd=2456587.2550 + i,
-                magnitude=6.5 - 0.2 * i,
-            )
 
     def test_str(self):
         """
