@@ -37,6 +37,8 @@ class ObserverModelTestCase(BaseTestCase):
 
     def test_recent_observations(self):
         observations = self.observer.recent_observations()
+        self.assertEqual(observations[0].star, self.star)
+        observations = self.observer2.recent_observations()
         self.assertEqual(observations[0].star, self.periodic_star)
 
     def test_observed_star_count(self):

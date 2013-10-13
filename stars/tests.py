@@ -74,7 +74,7 @@ class StarModelTestCase(BaseTestCase):
 
     def test_recent_observations(self):
         observations = self.periodic_star.recent_observations()
-        self.assertEqual(observations[0].observer, self.observer)
+        self.assertEqual(observations[0].observer, self.observer2)
 
     def test_observations_by_observer(self):
         observations = self.periodic_star.get_observations_by_observer(self.observer)
