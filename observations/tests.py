@@ -62,6 +62,26 @@ class ObservationManagerTestCase(BaseTestCase):
         top_stars = list(Observation.objects.top_stars())
         self.assertEqual(top_stars, expected)
 
+    def test_top_observers(self):
+        """
+        Check that top_observers() returns a list of people ordered by
+        the number of observations.
+        """
+        expected = [
+            {
+                'observer_id': self.observer.id,
+                'observer__aavso_code': self.observer.aavso_code,
+                'observations_count': 15,
+            },
+            {
+                'observer_id': self.observer2.id,
+                'observer__aavso_code': self.observer2.aavso_code,
+                'observations_count': 3,
+            },
+        ]
+        top_observers = list(Observation.objects.top_observers())
+        self.assertEqual(top_observers, expected)
+
 
 class JdNowTestCase(TestCase):
     """
