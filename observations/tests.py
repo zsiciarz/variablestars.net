@@ -57,7 +57,7 @@ class ObservationManagerTestCase(BaseTestCase):
     def test_top_stars(self):
         expected = [
             {'star_id': self.star.id, 'star__name': self.star.name, 'observations_count': 10},
-            {'star_id': self.periodic_star.id, 'star__name': self.periodic_star.name, 'observations_count': 5},
+            {'star_id': self.periodic_star.id, 'star__name': self.periodic_star.name, 'observations_count': 8},
         ]
         top_stars = list(Observation.objects.top_stars())
         self.assertEqual(top_stars, expected)
