@@ -72,6 +72,16 @@ class StarModelTestCase(BaseTestCase):
         self.assertEqual(self.star.observers_count(), 1)
         self.assertEqual(self.periodic_star.observers_count(), 2)
 
+    def test_recent_observations(self):
+        observations = self.periodic_star.recent_observations()
+        self.assertEqual(observations[0].observer, self.observer)
+
+    def test_observations_by_observer(self):
+        observations = self.periodic_star.get_observations_by_observer(self.observer)
+        self.assertEqual(observations.count(), 5)
+        observations = self.periodic_star.get_observations_by_observer(self.observer2)
+        self.assertEqual(observations.count(), 3)
+
 
 class VariabilityTypeModelTestCase(BaseTestCase):
     """
