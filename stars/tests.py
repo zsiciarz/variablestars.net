@@ -49,6 +49,25 @@ class StarModelTestCase(BaseTestCase):
         """
         self.assertEqual(self.star.get_gcvs_search_name(), 'R+LEO')
 
+    def test_top_observers(self):
+        """
+        Check the list of people with most observations of the given star.
+        """
+        expected = [
+            {
+                'observer_id': self.observer.id,
+                'observer__aavso_code': self.observer.aavso_code,
+                'observations_count': 5,
+            },
+            {
+                'observer_id': self.observer2.id,
+                'observer__aavso_code': self.observer2.aavso_code,
+                'observations_count': 3,
+            },
+        ]
+        top_observers = list(self.periodic_star.top_observers())
+        self.assertEqual(top_observers, expected)
+
 
 class VariabilityTypeModelTestCase(BaseTestCase):
     """
