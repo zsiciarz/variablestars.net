@@ -17,6 +17,8 @@ from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
 from registration.signals import user_registered
 
+from observations.models import Observation
+
 
 class ObserverQuerySet(QuerySet):
     def with_observations_count(self):
@@ -69,9 +71,7 @@ class Observer(TimeStampedModel):
         return ('observers:observer_detail', [], {'pk': self.pk})
 
     def top_stars(self):
-        queryset = self.observations.values('star_id', 'star__name')
-        queryset = queryset.annotate(observations_count=Count('star'))
-        return queryset.order_by('-observations_count')
+        return Observation.objects.top_stars().filter(observer=self)
 
     def recent_observations(self):
         return self.observations.select_related('star').order_by('-jd')
