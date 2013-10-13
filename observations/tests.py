@@ -53,6 +53,16 @@ class ObservationModelTestCase(BaseTestCase):
         self.assertEqual(star.observations_count, 10)
 
 
+class ObservationManagerTestCase(BaseTestCase):
+    def test_top_stars(self):
+        expected = [
+            {'star_id': self.star.id, 'star__name': self.star.name, 'observations_count': 10},
+            {'star_id': self.periodic_star.id, 'star__name': self.periodic_star.name, 'observations_count': 5},
+        ]
+        top_stars = list(Observation.objects.top_stars())
+        self.assertEqual(top_stars, expected)
+
+
 class JdNowTestCase(TestCase):
     """
     Tests for ``observations.utils.jd_now`` function.
