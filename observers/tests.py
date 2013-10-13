@@ -81,7 +81,7 @@ class ObserverQuerySetTestCase(ObserverModelTestCase):
         Check that returned Observer instances have are annotated with
         number of observations.
         """
-        observers = Observer.objects.with_observations_count()
+        observers = Observer.objects.with_observations_count().order_by('pk')
         self.assertEqual(observers[0], self.observer)
         observations_count = Observation.objects.filter(
             observer=self.observer
@@ -90,4 +90,4 @@ class ObserverQuerySetTestCase(ObserverModelTestCase):
 
     def test_total_stats(self):
         stats = Observer.objects.get_total_stats()
-        self.assertEqual(stats['total_observer_count'], 1)
+        self.assertEqual(stats['total_observer_count'], 2)

@@ -23,6 +23,14 @@ class BaseTestCase(TestCase):
         self.observer = self.user.observer
         self.observer.aavso_code = 'XYZ'
         self.observer.save()
+        self.user2 = User.objects.create_user(
+            'kepler',
+            'kepler@example.com',
+            'johannes',
+        )
+        self.observer2 = self.user2.observer
+        self.observer2.aavso_code = 'JKL'
+        self.observer2.save()
         self.variability_type = VariabilityType.objects.create(
             code='M',
             long_description='Mira stars',
