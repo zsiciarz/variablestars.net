@@ -39,7 +39,7 @@ class ObservationModelTestCase(BaseTestCase):
         Check that creating new observations updates star's observations_count
         denormalized field.
         """
-        self.assertEqual(self.star.observations_count, 0)
+        self.assertEqual(self.star.observations_count, 10)
         observation = Observation.objects.create(
             observer=self.observer,
             star=self.star,
@@ -47,10 +47,10 @@ class ObservationModelTestCase(BaseTestCase):
             magnitude=8.5,
         )
         star = Star.objects.get(pk=self.star.pk)
-        self.assertEqual(star.observations_count, 1)
+        self.assertEqual(star.observations_count, 11)
         observation.delete()
         star = Star.objects.get(pk=self.star.pk)
-        self.assertEqual(star.observations_count, 0)
+        self.assertEqual(star.observations_count, 10)
 
 
 class JdNowTestCase(TestCase):
