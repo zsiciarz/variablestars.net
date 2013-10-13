@@ -173,9 +173,7 @@ class Star(models.Model):
         return self.name.replace(' ', '+')
 
     def top_observers(self):
-        queryset = self.observations.values('observer_id', 'observer__aavso_code')
-        queryset = queryset.annotate(observations_count=Count('observer'))
-        return queryset.order_by('-observations_count')
+        return Observation.objects.top_observers().filter(star=self)
 
     def observers_count(self):
         return self.observations.aggregate(c=Count('observer', distinct=True))['c']
