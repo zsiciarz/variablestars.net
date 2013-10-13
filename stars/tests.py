@@ -5,7 +5,24 @@ from __future__ import unicode_literals
 from mock import MagicMock
 
 from .middleware import StarFilterMiddleware
+from .models import Star
 from variablestars.tests import BaseTestCase
+
+
+class StarQuerySetTestCase(BaseTestCase):
+    """
+    Tests for ``StarQuerySet`` class.
+    """
+
+    def test_total_stats(self):
+        stats = Star.objects.get_total_stats()
+        self.assertEqual(stats['total_star_count'], 2)
+        self.assertEqual(stats['observed_last_month_count'], 2)
+        self.assertEqual(stats['observed_by_you_count'], 0)
+
+    def test_total_stats_with_observer(self):
+        stats = Star.objects.get_total_stats(self.observer)
+        self.assertEqual(stats['observed_by_you_count'], 2)
 
 
 class StarModelTestCase(BaseTestCase):
