@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import AnonymousUser
+from django.core.urlresolvers import reverse
 
 from mock import MagicMock
 
@@ -93,3 +94,13 @@ class ObserverQuerySetTestCase(ObserverModelTestCase):
     def test_total_stats(self):
         stats = Observer.objects.get_total_stats()
         self.assertEqual(stats['total_observer_count'], 2)
+
+
+class LoginTestCase(BaseTestCase):
+    def test_redirect_to_profile(self):
+        url = reverse('auth_login')
+        response = self.client.post(url, {
+            'username': self.user.username,
+            'password': '123456',
+        }, follow=True)
+        self.assertRedirects(response, self.observer.get_absolute_url())
