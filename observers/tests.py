@@ -104,3 +104,11 @@ class LoginTestCase(BaseTestCase):
             'password': '123456',
         }, follow=True)
         self.assertRedirects(response, self.observer.get_absolute_url())
+
+
+class ObserverListViewTestCase(BaseTestCase):
+    def test_response(self):
+        url = reverse('observers:observer_list')
+        response = self.client.get(url)
+        self.assertContains(response, self.observer.aavso_code)
+        self.assertTemplateUsed(response, 'observers/observer_list.html')
