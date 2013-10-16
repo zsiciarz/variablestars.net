@@ -121,7 +121,6 @@ class VariabilityTypeDetailView(StarListView):
 
     def get_context_data(self, **kwargs):
         context = super(VariabilityTypeDetailView, self).get_context_data(**kwargs)
-        print self.kwargs
         context['variabilitytype'] = VariabilityType.objects.get(pk=self.kwargs['pk'])
         return context
 

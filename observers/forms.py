@@ -26,7 +26,6 @@ class ObserverForm(forms.ModelForm):
         ]
 
     def save(self, *args, **kwargs):
-        print self.cleaned_data
         observer = super(ObserverForm, self).save(*args, **kwargs)
         observer.user.first_name = self.cleaned_data.get('first_name')
         observer.user.last_name = self.cleaned_data.get('last_name')
