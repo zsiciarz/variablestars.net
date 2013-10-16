@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from mock import MagicMock
 
@@ -112,3 +113,17 @@ class ObserverListViewTestCase(BaseTestCase):
         response = self.client.get(url)
         self.assertContains(response, self.observer.aavso_code)
         self.assertTemplateUsed(response, 'observers/observer_list.html')
+
+
+class ObserverEditViewTestCase(BaseTestCase):
+    def test_anonymous_user(self):
+        url = reverse('observers:observer_edit')
+        response = self.client.get(url)
+        self.assertRedirects(response, reverse('auth_login') + '?next=' + url)
+
+    def test_response(self):
+        url = reverse('observers:observer_edit')
+        self.client.login(username='stargazer', password='123456')
+        response = self.client.get(url)
+        self.assertContains(response, _("Edit profile"))
+        self.assertTemplateUsed(response, 'observers/observer_edit.html')
