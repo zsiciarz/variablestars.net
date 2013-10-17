@@ -132,7 +132,7 @@ def recent_observations(request, pk):
     TODO: separate the code elsewhere (or use some API framework)
     """
     star = get_object_or_404(Star, pk=pk)
-    min_jd = jd_now() - 5000.0
+    min_jd = jd_now() - 5000.0  # TODO: would be nice to customize this
     observations = star.observations.filter(jd__gt=min_jd)
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response)
