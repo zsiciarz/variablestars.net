@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+from django.core.urlresolvers import reverse
+
 from mock import MagicMock
 
 from .middleware import StarFilterMiddleware
@@ -160,3 +162,32 @@ class StarFilterMiddlewareTestCase(BaseTestCase):
         middleware.process_request(self.request)
         self.assertIn('stars_with_observations', self.request.session)
         self.assertFalse(self.request.session['stars_with_observations'])
+
+
+class StarListViewTestCase(BaseTestCase):
+    """
+    Tests for ``stars.views.StarListView`` class.
+    """
+    def setUp(self):
+        super(StarListViewTestCase, self).setUp()
+        self.star_without_observations = Star.objects.create(
+            constellation='LEP',
+            name='R LEP',
+            ra='04:59:36.4',
+            dec='-14:48:23',
+            variability_type=self.variability_type,
+            max_magnitude=5.5,
+            min_magnitude=11.7,
+        )
+        # log in as some user and send a dummy request so that
+        # client.session is a real session
+        self.client.login(username='stargazer', password='123456')
+        self.client.get('/')
+
+    def test_response(self):
+        url = reverse('stars:star_list')
+        response = self.client.get(url)
+        self.assertContains(response, self.star.name)
+        self.assertContains(response, self.periodic_star.name)
+        self.assertContains(response, self.star_without_observations.name)
+        self.assertTemplateUsed(response, "stars/star_list.html")
