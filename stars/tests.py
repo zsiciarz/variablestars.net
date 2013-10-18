@@ -191,3 +191,13 @@ class StarListViewTestCase(BaseTestCase):
         self.assertContains(response, self.periodic_star.name)
         self.assertContains(response, self.star_without_observations.name)
         self.assertTemplateUsed(response, "stars/star_list.html")
+
+    def test_only_with_observations(self):
+        url = reverse('stars:star_list')
+        session = self.client.session
+        session['stars_with_observations'] = True
+        session.save()
+        response = self.client.get(url)
+        self.assertContains(response, self.star.name)
+        self.assertContains(response, self.periodic_star.name)
+        self.assertNotContains(response, self.star_without_observations.name)
