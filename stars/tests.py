@@ -201,3 +201,13 @@ class StarListViewTestCase(BaseTestCase):
         self.assertContains(response, self.star.name)
         self.assertContains(response, self.periodic_star.name)
         self.assertNotContains(response, self.star_without_observations.name)
+
+    def test_limiting_magnitude(self):
+        url = reverse('stars:star_list')
+        session = self.client.session
+        session['limiting_magnitude'] = 5.0
+        session.save()
+        response = self.client.get(url)
+        self.assertContains(response, self.star.name)
+        self.assertNotContains(response, self.periodic_star.name)
+        self.assertNotContains(response, self.star_without_observations.name)
