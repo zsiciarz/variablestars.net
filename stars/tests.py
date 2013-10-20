@@ -211,3 +211,19 @@ class StarListViewTestCase(BaseTestCase):
         self.assertContains(response, self.star.name)
         self.assertNotContains(response, self.periodic_star.name)
         self.assertNotContains(response, self.star_without_observations.name)
+
+
+class ConstellationListViewTestCase(BaseTestCase):
+    def test_response(self):
+        url = reverse('stars:constellation_list', kwargs={
+            'constellation': self.star.constellation,
+        })
+        response = self.client.get(url)
+        self.assertContains(response, self.star.get_constellation_display())
+        self.assertTemplateUsed(response, "stars/star_list.html")
+
+    def test_filtered_stars(self):
+        url = reverse('stars:constellation_list', kwargs={'constellation': 'LEO'})
+        response = self.client.get(url)
+        self.assertContains(response, self.star.name)
+        self.assertNotContains(response, self.periodic_star.name)
