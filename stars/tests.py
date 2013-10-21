@@ -240,3 +240,10 @@ class StarSearchViewTestCase(BaseTestCase):
         url = reverse('stars:star_search')
         response = self.client.get(url, {'q': self.star.name})
         self.assertRedirects(response, self.star.get_absolute_url())
+
+
+class StarDetailViewTestCase(BaseTestCase):
+    def test_response(self):
+        url = self.star.get_absolute_url()
+        response = self.client.get(url)
+        self.assertTemplateUsed(response, "stars/star_detail.html")
