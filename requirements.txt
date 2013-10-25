@@ -1,5 +1,5 @@
 BeautifulSoup==3.2.1
-https://www.djangoproject.com/m/releases/1.6/Django-1.6b4.tar.gz#egg=Django
+https://www.djangoproject.com/m/releases/1.6/Django-1.6c1.tar.gz
 Fabric==1.8.0
 South==0.8.2
 coverage==3.7
