@@ -263,3 +263,13 @@ class VariabilityTypeDetailViewTestCase(BaseTestCase):
         response = self.client.get(url)
         self.assertTemplateUsed("stars/variabilitytype_detail.html")
         self.assertContains(response, self.variability_type.long_description)
+
+
+class RecentObservationsTestCase(BaseTestCase):
+    def setUp(self):
+        super(RecentObservationsTestCase, self).setUp()
+        self.url = reverse('stars:recent_observations', kwargs={'pk': self.star.pk})
+
+    def test_csv_response(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response['Content-Type'], 'text/csv')
