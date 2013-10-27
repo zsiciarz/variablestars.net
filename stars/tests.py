@@ -248,3 +248,10 @@ class StarDetailViewTestCase(BaseTestCase):
         response = self.client.get(url)
         self.assertTemplateUsed(response, "stars/star_detail.html")
         self.assertIsNotNone(response.context['next_rising'])
+
+    def test_circumpolar_star(self):
+        self.star.dec = '+89:00:00'
+        self.star.save()
+        url = self.star.get_absolute_url()
+        response = self.client.get(url)
+        self.assertIsNone(response.context['next_rising'])
