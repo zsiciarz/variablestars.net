@@ -247,3 +247,4 @@ class StarDetailViewTestCase(BaseTestCase):
         url = self.star.get_absolute_url()
         response = self.client.get(url)
         self.assertTemplateUsed(response, "stars/star_detail.html")
+        self.assertIsNotNone(response.context['next_rising'])
