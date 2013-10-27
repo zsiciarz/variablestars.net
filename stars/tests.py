@@ -236,7 +236,7 @@ class StarSearchViewTestCase(BaseTestCase):
         self.assertContains(response, self.star.name)
         self.assertTemplateUsed(response, "stars/star_search.html")
 
-    def _test_exact_search(self):
+    def test_exact_search(self):
         url = reverse('stars:star_search')
         response = self.client.get(url, {'q': self.star.name})
         self.assertRedirects(response, self.star.get_absolute_url())
