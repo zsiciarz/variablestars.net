@@ -255,3 +255,10 @@ class StarDetailViewTestCase(BaseTestCase):
         url = self.star.get_absolute_url()
         response = self.client.get(url)
         self.assertIsNone(response.context['next_rising'])
+
+
+class VariabilityTypeDetailViewTestCase(BaseTestCase):
+    def test_response(self):
+        url = self.variability_type.get_absolute_url()
+        response = self.client.get(url)
+        self.assertContains(response, self.variability_type.long_description)
