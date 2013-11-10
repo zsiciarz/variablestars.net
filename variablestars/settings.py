@@ -153,6 +153,8 @@ SOUTH_TESTS_MIGRATE = False
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+COMPRESS_PARSER = 'compressor.parser.HtmlParser'
+
 try:
     from local_settings import *
 except ImportError:
