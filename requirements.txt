@@ -1,7 +1,7 @@
 beautifulsoup4==4.3.2
 Django==1.6
 Fabric==1.8.0
-South==0.8.3
+South==0.8.4
 coverage==3.7
 django-appconf==0.6
 -e git+https://github.com/sonarun/django-bootstrap-pagination.git#egg=bootstrap-pagination
