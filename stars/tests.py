@@ -2,10 +2,12 @@
 
 from __future__ import unicode_literals
 
+from django.contrib.admin.sites import AdminSite
 from django.core.urlresolvers import reverse
 
 from mock import MagicMock
 
+from .admin import StarAdmin
 from .middleware import StarFilterMiddleware
 from .models import Star
 from variablestars.tests import BaseTestCase
@@ -111,6 +113,25 @@ class VariabilityTypeModelTestCase(BaseTestCase):
         String representation of variability type is its short GCVS code.
         """
         self.assertEqual(str(self.variability_type), self.variability_type.code)
+
+
+class StarAdminTestCase(BaseTestCase):
+    """
+    Tests for Star-related admin customizations.
+    """
+    def setUp(self):
+        super(StarAdminTestCase, self).setUp()
+        self.site = AdminSite()
+
+    def test_queries_count(self):
+        """
+        Check that no extra queries are executed when iterating over queryset.
+        """
+        admin = StarAdmin(Star, self.site)
+        with self.assertNumQueries(1):
+            stars = admin.get_queryset(request=None)
+            types = [str(star.variability_type) for star in stars]
+            self.assertEqual(len(types), 2)
 
 
 class StarFilterMiddlewareTestCase(BaseTestCase):
