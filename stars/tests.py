@@ -202,7 +202,7 @@ class StarListViewTestCase(BaseTestCase):
         )
         # log in as some user and send a dummy request so that
         # client.session is a real session
-        self.client.login(username='stargazer', password='123456')
+        self.client.login_observer()
         self.client.get('/')
 
     def test_response(self):
