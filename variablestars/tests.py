@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from observations.models import Observation
@@ -79,3 +80,14 @@ class BaseTestCase(TestCase):
                 jd=jd_now() - 10 - 0.05 * i,
                 magnitude=6.4 - 0.25 * i,
             )
+
+
+class MainViewTestCase(BaseTestCase):
+    def setUp(self):
+        super(MainViewTestCase, self).setUp()
+        self.url = reverse('main')
+
+    def test_redirect_to_user_profile(self):
+        self.client.login(username='stargazer', password='123456')
+        response = self.client.get(self.url)
+        self.assertRedirects(response, self.observer.get_absolute_url())
