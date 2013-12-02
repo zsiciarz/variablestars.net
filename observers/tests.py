@@ -107,6 +107,31 @@ class LoginTestCase(BaseTestCase):
         self.assertRedirects(response, self.observer.get_absolute_url())
 
 
+class RegisterTestCase(BaseTestCase):
+    def setUp(self):
+        super(RegisterTestCase, self).setUp()
+        self.url = reverse('registration_register')
+
+    def test_invalid_form(self):
+        response = self.client.post(self.url, {
+            'username': 'newuser',
+            'email': '',
+        })
+        self.assertFormError(response, 'form', 'email', _('This field is required.'))
+
+    def test_valid_form(self):
+        response = self.client.post(self.url, {
+            'username': 'newuser',
+            'email': 'newuser@example.com',
+            'password1': 'hunter2',
+            'password2': 'hunter2',
+        }, follow=True)
+        observer = Observer.objects.get(user__username='newuser')
+        self.assertRedirects(response, observer.get_absolute_url())
+        self.assertContains(response, _('Thank you for your registration!'))
+        self.assertContains(response, _('Sign out'))
+
+
 class ObserverListViewTestCase(BaseTestCase):
     def test_response(self):
         url = reverse('observers:observer_list')
