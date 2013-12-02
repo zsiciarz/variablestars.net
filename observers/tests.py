@@ -148,7 +148,7 @@ class ObserverEditViewTestCase(BaseTestCase):
 
     def test_response(self):
         url = reverse('observers:observer_edit')
-        self.client.login(username='stargazer', password='123456')
+        self.client.login_observer()
         response = self.client.get(url)
         self.assertContains(response, _("Edit profile"))
         self.assertTemplateUsed(response, 'observers/observer_edit.html')
