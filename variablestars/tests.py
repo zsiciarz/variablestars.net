@@ -32,6 +32,10 @@ class ObserverClient(Client):
     def login_observer(self):
         return self.login(username=self.user.username, password=self.password)
 
+    def search_for_star(self, star_name):
+        url = reverse('stars:star_search')
+        return self.get(url, {'q': star_name})
+
 
 class BaseTestCase(TestCase):
     """

@@ -252,14 +252,12 @@ class ConstellationListViewTestCase(BaseTestCase):
 
 class StarSearchViewTestCase(BaseTestCase):
     def test_normal_search(self):
-        url = reverse('stars:star_search')
-        response = self.client.get(url, {'q': self.star.name[:4]})
+        response = self.client.search_for_star(self.star.name[:4])
         self.assertContains(response, self.star.name)
         self.assertTemplateUsed(response, "stars/star_search.html")
 
     def test_exact_search(self):
-        url = reverse('stars:star_search')
-        response = self.client.get(url, {'q': self.star.name})
+        response = self.client.search_for_star(self.star.name)
         self.assertRedirects(response, self.star.get_absolute_url())
 
 
