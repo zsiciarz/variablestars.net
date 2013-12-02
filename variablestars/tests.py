@@ -5,11 +5,32 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.test.client import Client
 
 from observations.models import Observation
 from observations.utils import jd_now
 from observers.models import Observer
 from stars.models import Star, VariabilityType
+
+
+class ObserverClient(Client):
+    """
+    An extended test client customized for this site.
+
+    Inspired by:
+    http://slid.es/wojtekerbetowski-1/advanced-testing-django-applications
+    """
+    def __init__(self, user, password):
+        """
+        We need to pass password explicitly here.
+        """
+        self.user = user
+        self.observer = user.observer
+        self.password = password
+        super(ObserverClient, self).__init__()
+
+    def login_observer(self):
+        return self.login(username=self.user.username, password=self.password)
 
 
 class BaseTestCase(TestCase):
@@ -23,6 +44,7 @@ class BaseTestCase(TestCase):
             'stargazer@example.com',
             '123456',
         )
+        self.client = ObserverClient(self.user, '123456')
         self.observer = self.user.observer
         self.observer.aavso_code = 'XYZ'
         self.observer.save()
@@ -89,7 +111,7 @@ class MainViewTestCase(BaseTestCase):
         self.url = reverse('main')
 
     def test_redirect_to_user_profile(self):
-        self.client.login(username='stargazer', password='123456')
+        self.client.login_observer()
         response = self.client.get(self.url)
         self.assertRedirects(response, self.observer.get_absolute_url())
 
