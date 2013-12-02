@@ -8,6 +8,7 @@ from django.test import TestCase
 
 from observations.models import Observation
 from observations.utils import jd_now
+from observers.models import Observer
 from stars.models import Star, VariabilityType
 
 
@@ -91,3 +92,12 @@ class MainViewTestCase(BaseTestCase):
         self.client.login(username='stargazer', password='123456')
         response = self.client.get(self.url)
         self.assertRedirects(response, self.observer.get_absolute_url())
+
+    def test_stats_for_anonymous_users(self):
+        """
+        Check that some basic stats are displayed for anonymous users.
+        """
+        response = self.client.get(self.url)
+        self.assertContains(response, '<h1>%d</h1' % Star.objects.count())
+        self.assertContains(response, '<h1>%d</h1' % Observer.objects.count())
+        self.assertContains(response, '<h1>%d</h1' % Observation.objects.count())
