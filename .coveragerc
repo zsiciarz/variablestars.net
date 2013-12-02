@@ -1,5 +1,7 @@
 [report]
 omit =
+    variablestars/*settings.py
+    */migrations/*
     ../src/*
     ../lib/*
     */test*
