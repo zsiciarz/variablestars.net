@@ -141,14 +141,16 @@ class ObserverListViewTestCase(BaseTestCase):
 
 
 class ObserverEditViewTestCase(BaseTestCase):
+    def setUp(self):
+        super(ObserverEditViewTestCase, self).setUp()
+        self.url = reverse('observers:observer_edit')
+
     def test_anonymous_user(self):
-        url = reverse('observers:observer_edit')
-        response = self.client.get(url)
-        self.assertRedirects(response, reverse('auth_login') + '?next=' + url)
+        response = self.client.get(self.url)
+        self.assertRedirects(response, reverse('auth_login') + '?next=' + self.url)
 
     def test_response(self):
-        url = reverse('observers:observer_edit')
         self.client.login_observer()
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         self.assertContains(response, _("Edit profile"))
         self.assertTemplateUsed(response, 'observers/observer_edit.html')
