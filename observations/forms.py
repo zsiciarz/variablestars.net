@@ -33,11 +33,7 @@ class BatchUploadForm(forms.Form):
                     continue
 
     def process_row(self, row, observer):
-        name = row['name']
-        # normalize with GCVS names, for example: V339 -> V0339
-        digits = '123456789'
-        if name[0] == 'V' and name[1] in digits and name[4] not in digits:
-            name = 'V0' + name[1:]
+        name = self.normalize_star_name(row['name'])
         star = Star.objects.get(name=name)
         fainter_than = '<' in row['magnitude']
         magnitude = float(row['magnitude'].replace('<', ''))
