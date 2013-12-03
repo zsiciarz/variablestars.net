@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, User
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -154,3 +154,22 @@ class ObserverEditViewTestCase(BaseTestCase):
         response = self.client.get(self.url)
         self.assertContains(response, _("Edit profile"))
         self.assertTemplateUsed(response, 'observers/observer_edit.html')
+
+    def test_update_observer_data(self):
+        self.client.login_observer()
+        self.assertNotEqual(self.observer.limiting_magnitude, 11)
+        response = self.client.post(self.url, {
+            'limiting_magnitude': 11,
+        })
+        self.assertRedirects(response, self.observer.get_absolute_url())
+        observer = Observer.objects.get(pk=self.observer.pk)
+        self.assertEqual(observer.limiting_magnitude, 11)
+
+    def test_update_user_data(self):
+        self.client.login_observer()
+        self.assertNotEqual(self.user.first_name, 'Aaron')
+        self.client.post(self.url, {
+            'first_name': 'Aaron',
+        })
+        user = User.objects.get(pk=self.user.pk)
+        self.assertEqual(user.first_name, 'Aaron')
