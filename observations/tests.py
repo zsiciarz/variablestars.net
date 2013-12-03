@@ -117,6 +117,12 @@ class BatchUploadFormTestCase(BaseTestCase):
             'notes': 'test2',
         }
 
+    def test_normalize_star_name(self):
+        form = BatchUploadForm()
+        self.assertEqual(form.normalize_star_name('RR LYR'), 'RR LYR')
+        self.assertEqual(form.normalize_star_name('V1339 CYG'), 'V1339 CYG')
+        self.assertEqual(form.normalize_star_name('V838 MON'), 'V0838 MON')
+
     def test_parse_row(self):
         form = BatchUploadForm()
         form.process_row(self.row, self.observer)
