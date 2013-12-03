@@ -8,6 +8,7 @@ from django.test import TestCase
 
 from mock import MagicMock, patch
 
+from .forms import BatchUploadForm
 from .models import Observation
 from .utils import jd_now
 from stars.models import Star
@@ -100,3 +101,25 @@ class JdNowTestCase(TestCase):
         with patch.object(time, 'time', mock_time):
             jd = jd_now()
             self.assertEqual(jd, 2440587.5)
+
+
+class BatchUploadFormTestCase(BaseTestCase):
+    def setUp(self):
+        super(BatchUploadFormTestCase, self).setUp()
+        self.row = {
+            'name': self.star.name,
+            'magnitude': '6.6',
+            'date': str(jd_now()),
+            'comp1': '65',
+            'comp2': '71',
+            'chart': '',
+            'comment_code': '',
+            'notes': 'test2',
+        }
+
+    def test_parse_row(self):
+        form = BatchUploadForm()
+        form.process_row(self.row, self.observer)
+        observation = Observation.objects.get(star=self.star, notes='test2')
+        self.assertEqual(observation.comp1, self.row['comp1'])
+        self.assertEqual(observation.comp2, self.row['comp2'])
