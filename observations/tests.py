@@ -2,10 +2,10 @@
 
 from __future__ import unicode_literals
 
+import unittest
 import time
 
 from django.core.urlresolvers import reverse
-from django.test import TestCase
 from django.utils.translation import ugettext_lazy as _
 
 from djet.assertions import InstanceAssertionsMixin
@@ -95,7 +95,7 @@ class ObservationManagerTestCase(BaseTestCase):
         self.assertEqual(observations[0].observer, self.observer)
 
 
-class JdNowTestCase(TestCase):
+class JdNowTestCase(unittest.TestCase):
     """
     Tests for ``observations.utils.jd_now`` function.
     """
