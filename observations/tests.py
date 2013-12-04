@@ -171,9 +171,12 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, BaseTestCase):
         """
         Check that a bad magnitude value raises an exception.
         """
+        observations_count_before = Observation.objects.count()
         self.lines[-1] = "%s,2450702.1234,ASDF,na,110,113,070613,test3" % self.star.name
         aavso_file = create_inmemory_file('data.txt', "\n".join(self.lines))
         response = self.client.post(self.url, {
             'aavso_file': aavso_file,
         }, follow=True)
         self.assertContains(response, _("File uploaded successfully!"))
+        observations_count_after = Observation.objects.count()
+        self.assertEqual(observations_count_after, observations_count_before)
