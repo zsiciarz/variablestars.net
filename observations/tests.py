@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.translation import ugettext_lazy as _
 
+from djet.assertions import InstanceAssertionsMixin
 from mock import MagicMock, patch
 
 from .forms import BatchUploadForm
@@ -105,7 +106,7 @@ class JdNowTestCase(TestCase):
             self.assertEqual(jd, 2440587.5)
 
 
-class BatchUploadFormTestCase(BaseTestCase):
+class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
     def setUp(self):
         super(BatchUploadFormTestCase, self).setUp()
         self.row = {
@@ -127,10 +128,8 @@ class BatchUploadFormTestCase(BaseTestCase):
 
     def test_parse_row(self):
         form = BatchUploadForm()
-        form.process_row(self.row, self.observer)
-        observation = Observation.objects.get(star=self.star, notes='test2')
-        self.assertEqual(observation.comp1, self.row['comp1'])
-        self.assertEqual(observation.comp2, self.row['comp2'])
+        with self.assert_instance_created(Observation, star=self.star, notes='test2'):
+            form.process_row(self.row, self.observer)
 
 
 class UploadObservationsViewTestCase(BaseTestCase):
