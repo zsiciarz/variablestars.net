@@ -60,6 +60,9 @@ class ObservationModelTestCase(BaseTestCase):
 
 class ObservationManagerTestCase(BaseTestCase):
     def test_top_stars(self):
+        """
+        Check that top_stars method returns stars ordered by observation count.
+        """
         expected = [
             {'star_id': self.star.id, 'star__name': self.star.name, 'observations_count': 10},
             {'star_id': self.periodic_star.id, 'star__name': self.periodic_star.name, 'observations_count': 8},
@@ -125,12 +128,18 @@ class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
         }
 
     def test_normalize_star_name(self):
+        """
+        Check that Vxxx star names are normalized to GCVS version.
+        """
         form = BatchUploadForm()
         self.assertEqual(form.normalize_star_name('RR LYR'), 'RR LYR')
         self.assertEqual(form.normalize_star_name('V1339 CYG'), 'V1339 CYG')
         self.assertEqual(form.normalize_star_name('V838 MON'), 'V0838 MON')
 
     def test_parse_row(self):
+        """
+        Check that succesfully parsing an input row creates an observation.
+        """
         form = BatchUploadForm()
         with self.assert_instance_created(Observation, star=self.star, notes='test2'):
             form.process_row(self.row, self.observer)
@@ -160,12 +169,18 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, BaseTestCase):
         self.assertTemplateUsed(response, "observations/upload_observations.html")
 
     def test_no_file(self):
+        """
+        If no file is selected, the form displays an error.
+        """
         response = self.client.post(self.url, {
             'aavso_file': '',
         })
         self.assertFormError(response, 'form', 'aavso_file', _("This field is required."))
 
     def test_correct_file(self):
+        """
+        If the file is valid, observations are created.
+        """
         aavso_file = create_inmemory_file('data.txt', "\n".join(self.lines))
         with self.assert_instance_created(Observation, star=self.star, notes='test3'):
             response = self.client.post(self.url, {
