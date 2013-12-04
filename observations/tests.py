@@ -4,7 +4,9 @@ from __future__ import unicode_literals
 
 import time
 
+from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils.translation import ugettext_lazy as _
 
 from mock import MagicMock, patch
 
@@ -129,3 +131,15 @@ class BatchUploadFormTestCase(BaseTestCase):
         observation = Observation.objects.get(star=self.star, notes='test2')
         self.assertEqual(observation.comp1, self.row['comp1'])
         self.assertEqual(observation.comp2, self.row['comp2'])
+
+
+class UploadObservationsViewTestCase(BaseTestCase):
+    def setUp(self):
+        super(UploadObservationsViewTestCase, self).setUp()
+        self.url = reverse('observations:upload_observations')
+        self.client.login_observer()
+
+    def test_response(self):
+        response = self.client.get(self.url)
+        self.assertContains(response, _("Upload observations"))
+        self.assertTemplateUsed(response, "observations/upload_observations.html")
