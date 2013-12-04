@@ -14,6 +14,7 @@ django-model-utils==1.5.0
 django-nose==1.2
 django-registration==1.0
 django-twitter-bootstrap==3.0.0
+-e git+git@github.com:foldlogic/djet.git#egg=djet
 ecdsa==0.10
 frogress==0.9.1
 gunicorn==18.0
