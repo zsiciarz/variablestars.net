@@ -9,6 +9,7 @@ from django.test import TestCase
 from django.utils.translation import ugettext_lazy as _
 
 from djet.assertions import InstanceAssertionsMixin
+from djet.files import create_inmemory_file
 from mock import MagicMock, patch
 
 from .forms import BatchUploadForm
@@ -132,11 +133,20 @@ class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
             form.process_row(self.row, self.observer)
 
 
-class UploadObservationsViewTestCase(BaseTestCase):
+class UploadObservationsViewTestCase(InstanceAssertionsMixin, BaseTestCase):
     def setUp(self):
         super(UploadObservationsViewTestCase, self).setUp()
         self.url = reverse('observations:upload_observations')
         self.client.login_observer()
+        self.lines = [
+            "#TYPE=VISUAL",
+            "#OBSCODE=%s" % self.observer.aavso_code,
+            "#SOFTWARE=variablestars.net",
+            "#DELIM=,",
+            "#DATE=JD",
+            "#OBSTYPE=Visual",
+            "%s,2450702.1234,<11.1,na,110,113,070613,test3" % self.star.name,
+        ]
 
     def test_response(self):
         response = self.client.get(self.url)
@@ -148,3 +158,11 @@ class UploadObservationsViewTestCase(BaseTestCase):
             'aavso_file': '',
         })
         self.assertFormError(response, 'form', 'aavso_file', _("This field is required."))
+
+    def test_correct_file(self):
+        aavso_file = create_inmemory_file('data.txt', "\n".join(self.lines))
+        with self.assert_instance_created(Observation, star=self.star, notes='test3'):
+            response = self.client.post(self.url, {
+                'aavso_file': aavso_file,
+            }, follow=True)
+            self.assertContains(response, _("File uploaded successfully!"))
