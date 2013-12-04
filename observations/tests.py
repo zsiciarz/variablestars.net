@@ -108,6 +108,9 @@ class JdNowTestCase(TestCase):
 
 
 class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
+    """
+    Tests for ``observations.forms.BatchUploadForm`` class.
+    """
     def setUp(self):
         super(BatchUploadFormTestCase, self).setUp()
         self.row = {
@@ -134,6 +137,9 @@ class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
 
 
 class UploadObservationsViewTestCase(InstanceAssertionsMixin, BaseTestCase):
+    """
+    Tests for ``observations.views.UploadObservationsView`` class.
+    """
     def setUp(self):
         super(UploadObservationsViewTestCase, self).setUp()
         self.url = reverse('observations:upload_observations')
