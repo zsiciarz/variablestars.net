@@ -143,3 +143,9 @@ class UploadObservationsViewTestCase(BaseTestCase):
         response = self.client.get(self.url)
         self.assertContains(response, _("Upload observations"))
         self.assertTemplateUsed(response, "observations/upload_observations.html")
+
+    def test_no_file(self):
+        response = self.client.post(self.url, {
+            'aavso_file': '',
+        })
+        self.assertFormError(response, 'form', 'aavso_file', _("This field is required."))
