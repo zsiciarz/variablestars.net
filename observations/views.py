@@ -8,7 +8,16 @@ from django.views.generic.edit import FormView
 
 from braces.views import LoginRequiredMixin
 
-from .forms import BatchUploadForm
+from .forms import ObservationForm, BatchUploadForm
+
+
+class AddObservationView(FormView):
+    """
+    Add a single observation.
+    """
+    form_class = ObservationForm
+    template_name = "observations/add_observation.html"
+    success_url = reverse_lazy('observations:add_observation')
 
 
 class UploadObservationsView(LoginRequiredMixin, FormView):
