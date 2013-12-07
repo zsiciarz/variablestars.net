@@ -19,6 +19,12 @@ class AddObservationView(FormView):
     template_name = "observations/add_observation.html"
     success_url = reverse_lazy('observations:add_observation')
 
+    def form_valid(self, form):
+        observation = form.save(commit=False)
+        observation.observer = self.request.observer
+        observation.save()
+        return super(AddObservationView, self).form_valid(form)
+
 
 class UploadObservationsView(LoginRequiredMixin, FormView):
     """
