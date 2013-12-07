@@ -155,9 +155,37 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, BaseTestCase):
         self.client.login_observer()
 
     def test_response(self):
+        """
+        Check basic properties of the view.
+        """
         response = self.client.get(self.url)
         self.assertContains(response, _("Add new observation"))
         self.assertTemplateUsed(response, "observations/add_observation.html")
+
+    def test_form_invalid(self):
+        """
+        Check that invalid observation form displays meaningful errors.
+        """
+        response = self.client.post(self.url, {
+            'star': '',
+            'jd': '',
+            'magnitude': '',
+        })
+        self.assertFormError(response, 'form', 'star', _('This field is required.'))
+        self.assertFormError(response, 'form', 'jd', _('This field is required.'))
+        self.assertFormError(response, 'form', 'magnitude', _('This field is required.'))
+
+    def test_form_valid(self):
+        """
+        A valid form creates new observation and redirects back to the form.
+        """
+        with self.assert_instance_created(Observation, star=self.star, jd=2456634.1154, magnitude=7.1):
+            response = self.client.post(self.url, {
+                'star': self.star.id,
+                'jd': '2456634.1154',
+                'magnitude': '7.1',
+            }, follow=True)
+            self.assertRedirects(response, self.url)
 
 
 class UploadObservationsViewTestCase(InstanceAssertionsMixin, BaseTestCase):
