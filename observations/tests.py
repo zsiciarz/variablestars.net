@@ -145,6 +145,21 @@ class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
             form.process_row(self.row, self.observer)
 
 
+class AddObservationViewTestCase(InstanceAssertionsMixin, BaseTestCase):
+    """
+    Tests for ``observations.views.AddObservationView`` class.
+    """
+    def setUp(self):
+        super(AddObservationViewTestCase, self).setUp()
+        self.url = reverse('observations:add_observation')
+        self.client.login_observer()
+
+    def test_response(self):
+        response = self.client.get(self.url)
+        self.assertContains(response, _("Add new observation"))
+        self.assertTemplateUsed(response, "observations/add_observation.html")
+
+
 class UploadObservationsViewTestCase(InstanceAssertionsMixin, BaseTestCase):
     """
     Tests for ``observations.views.UploadObservationsView`` class.
