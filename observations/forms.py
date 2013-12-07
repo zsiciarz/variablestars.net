@@ -12,6 +12,15 @@ from stars.models import Star
 from observers.models import Observer
 
 
+class ObservationForm(forms.ModelForm):
+    class Meta:
+        model = Observation
+        fields = (
+            'star', 'jd', 'magnitude', 'fainter_than', 'comp1', 'comp2',
+            'comment_code', 'chart', 'notes',
+        )
+
+
 class BatchUploadForm(forms.Form):
     aavso_file = forms.FileField(
         label=_("Observations file"),
