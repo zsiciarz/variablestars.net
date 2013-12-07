@@ -23,6 +23,7 @@ class AddObservationView(LoginRequiredMixin, FormView):
         observation = form.save(commit=False)
         observation.observer = self.request.observer
         observation.save()
+        messages.success(self.request, _("Observation added successfully!"))
         return super(AddObservationView, self).form_valid(form)
 
 

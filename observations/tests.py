@@ -186,6 +186,7 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, BaseTestCase):
                 'magnitude': '7.1',
             }, follow=True)
             self.assertRedirects(response, self.url)
+            self.assertContains(response, _("Observation added successfully!"))
 
 
 class UploadObservationsViewTestCase(InstanceAssertionsMixin, BaseTestCase):
