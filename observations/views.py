@@ -11,7 +11,7 @@ from braces.views import LoginRequiredMixin
 from .forms import ObservationForm, BatchUploadForm
 
 
-class AddObservationView(FormView):
+class AddObservationView(LoginRequiredMixin, FormView):
     """
     Add a single observation.
     """
