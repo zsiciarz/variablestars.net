@@ -5,6 +5,7 @@ from django import forms
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 
+import autocomplete_light
 from pyaavso.formats.visual import VisualFormatReader
 
 from .models import Observation
@@ -12,13 +13,14 @@ from stars.models import Star
 from observers.models import Observer
 
 
-class ObservationForm(forms.ModelForm):
+class ObservationForm(autocomplete_light.ModelForm):
     class Meta:
         model = Observation
         fields = (
             'star', 'jd', 'magnitude', 'fainter_than', 'comp1', 'comp2',
             'comment_code', 'chart', 'notes',
         )
+        autocomplete_fields = ('star',)
 
 
 class BatchUploadForm(forms.Form):
