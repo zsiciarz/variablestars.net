@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'autocomplete_light',
     'bootstrap-pagination',
     'compressor',
     'crispy_forms',

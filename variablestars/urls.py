@@ -1,12 +1,16 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
+import autocomplete_light
+autocomplete_light.autodiscover()
+
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'variablestars.views.index', name='main'),
     url(r'', include('registration.backends.simple.urls')),
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
     url(r'^stars/', include('stars.urls', namespace='stars')),
     url(r'^observers/', include('observers.urls', namespace='observers')),
     url(r'^observations/', include('observations.urls', namespace='observations')),
