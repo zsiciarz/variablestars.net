@@ -45,7 +45,7 @@
         </div>
         <div class="col-xs-4 big-stat">
             {% if observer == current_observer %}
-                <a href="{% url 'observations:upload_observations' %}" class="btn btn-lg btn-primary" style="margin-top: 20px;">{% trans "Submit observations!" %}</a>
+                <a href="{% url 'observations:add_observation' %}" class="btn btn-lg btn-primary" style="margin-top: 20px;">{% trans "Submit observations!" %}</a>
             {% else %}
                 <h1>45</h1>
                 <h2>{% trans "stars in common with you" %}</h2>
