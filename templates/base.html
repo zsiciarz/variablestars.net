@@ -38,7 +38,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                             <li><p class="navbar-text">{{ current_observer }}</p></li>
-                            <li><a href="{% url 'observations:upload_observations' %}">{% trans "Submit observations" %}</a></li>
+                            <li><a href="{% url 'observations:add_observation' %}">{% trans "Submit observations" %}</a></li>
                             <li><a href="{{ current_observer.get_absolute_url }}">{% trans "My account" %}</a></li>
                             <li><a href="{% url 'auth_logout' %}?next={{ request.path }}">{% trans "Sign out" %}</a></li>
                         {% else %}
