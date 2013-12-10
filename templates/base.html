@@ -51,9 +51,15 @@
       </header>
       <div class="navbar secondary">
           <div class="container">
-              <p class="navbar-text">JD: <span id="current-jd"></span></p>
+              <p class="navbar-text">
+                  <span class="glyphicon glyphicon-time"></span>
+                  JD: <span id="current-jd"></span>
+              </p>
               {% if user.is_authenticated %}
-                <p class="navbar-text"><span class="glyphicon glyphicon-user"></span> {{ current_observer }}</p>
+                <p class="navbar-text">
+                    <span class="glyphicon glyphicon-user"></span>
+                    {{ current_observer }}
+                </p>
               {% endif %}
               <form class="navbar-form navbar-right" role="search" action="{% url 'stars:star_search' %}" method="get">
                   <div class="form-group">
