@@ -1,0 +1,10 @@
+{% for star in choices %}
+<span class="block" data-value="{{ star.pk }}">
+    {{ star }} <small class="text-muted">({{ star.variability_type }}, {{ star.max_magnitude }} &ndash; {{ star.min_magnitude }})</small>
+    {% with star.get_absolute_url as url %}
+        {% if url %}
+        <a href="{{ url }}" target="_blank" class="choiceDetail">&rarr;</a>
+        {% endif %}
+    {% endwith %}
+</span>
+{% endfor %}
