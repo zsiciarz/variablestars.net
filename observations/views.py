@@ -3,12 +3,14 @@ from __future__ import unicode_literals
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.edit import FormView
 
 from braces.views import LoginRequiredMixin
 
 from .forms import ObservationForm, BatchUploadForm
+from stars.models import Star
 
 
 class AddObservationView(LoginRequiredMixin, FormView):
@@ -18,6 +20,15 @@ class AddObservationView(LoginRequiredMixin, FormView):
     form_class = ObservationForm
     template_name = "observations/add_observation.html"
     success_url = reverse_lazy('observations:add_observation')
+
+    def get_initial(self):
+        star_id = self.kwargs.get('star_id')
+        if star_id:
+            return {
+                'star': get_object_or_404(Star, pk=star_id),
+            }
+        else:
+            return {}
 
     def form_valid(self, form):
         observation = form.save(commit=False)
