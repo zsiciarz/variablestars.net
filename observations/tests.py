@@ -162,6 +162,16 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, BaseTestCase):
         self.assertContains(response, _("Add new observation"))
         self.assertTemplateUsed(response, "observations/add_observation.html")
 
+    def test_predefined_star(self):
+        """
+        Check that one can add an observation with a predefined choice of star.
+        """
+        url = reverse('observations:add_observation_for_star', args=[], kwargs={
+            'star_id': self.star.pk,
+        })
+        response = self.client.get(url)
+        self.assertContains(response, self.star.name)
+
     def test_form_invalid(self):
         """
         Check that invalid observation form displays meaningful errors.
