@@ -8,10 +8,11 @@ import autocomplete_light
 from .models import Star
 
 
-autocomplete_light.register(
-    Star,
-    search_fields=['name'],
-    autocomplete_js_attributes={
+class StarAutocomplete(autocomplete_light.AutocompleteModelBase):
+    search_fields = ['name']
+    autocomplete_js_attributes = {
         'placeholder': _("Enter star name"),
-    },
-)
+    }
+
+
+autocomplete_light.register(Star, StarAutocomplete)
