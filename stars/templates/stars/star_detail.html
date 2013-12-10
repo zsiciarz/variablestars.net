@@ -45,6 +45,8 @@
                         {% endif %}
                     </span>
                 {% endif %}
+                <br>
+                <a href="{% url 'observations:add_observation_for_star' star_id=star.pk %}">{% trans "Submit observations" %}</a>
             </div>
         </div>
     </div>
