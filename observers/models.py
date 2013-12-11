@@ -13,6 +13,7 @@ from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+from geoposition.fields import GeopositionField
 from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
 from registration.signals import user_registered
@@ -51,6 +52,7 @@ class Observer(TimeStampedModel):
         help_text=_("The magnitude of the faintest stars you can see with your eyes/binoculars/telescope. Setting this value will affect which stars will have their brightness value(s) grayed out.")
     )
     # TODO: location field
+    location = GeopositionField()
 
     objects = PassThroughManager.for_queryset_class(ObserverQuerySet)()
 
