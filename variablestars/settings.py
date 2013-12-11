@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'django_extensions',
     'django_nose',
+    'geoposition',
     'south',
     'registration',
     'twitter_bootstrap',
