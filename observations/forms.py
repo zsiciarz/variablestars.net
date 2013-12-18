@@ -38,9 +38,7 @@ class BatchUploadForm(forms.Form):
             for row in reader:
                 try:
                     self.process_row(row, observer)
-                except Exception as e:
-                    print row
-                    print e
+                except Exception:
                     continue
 
     def process_row(self, row, observer):
