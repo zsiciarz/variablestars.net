@@ -44,7 +44,6 @@ INSTALLED_APPS = (
     'crispy_forms',
     'debug_toolbar',
     'django_extensions',
-    'django_nose',
     'geoposition',
     'south',
     'registration',
@@ -142,8 +141,6 @@ LOGIN_REDIRECT_URL = reverse_lazy('main')
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: u.observer.get_absolute_url(),
 }
-
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 INTERNAL_IPS = ('127.0.0.1',)
 
