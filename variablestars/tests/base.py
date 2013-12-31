@@ -93,24 +93,31 @@ class BaseTestCase(TestCase):
         )
 
     def _create_observations(self):
+        observations = []
         for i in range(10):
-            Observation.objects.create(
+            observations.append(Observation(
                 observer=self.observer,
                 star=self.star,
                 jd=jd_now() - i,
                 magnitude=8.5 + 0.1 * i,
-            )
+            ))
         for i in range(5):
-            Observation.objects.create(
+            observations.append(Observation(
                 observer=self.observer,
                 star=self.periodic_star,
                 jd=jd_now() - 30 - i,
                 magnitude=6.5 - 0.2 * i,
-            )
+            ))
         for i in range(3):
-            Observation.objects.create(
+            observations.append(Observation(
                 observer=self.observer2,
                 star=self.periodic_star,
                 jd=jd_now() - 10 - 0.05 * i,
                 magnitude=6.4 - 0.25 * i,
-            )
+            ))
+        Observation.objects.bulk_create(observations)
+        # bulk_create doesn't call save(), so we update denormalized fields
+        self.star.observations_count = 10
+        self.star.save()
+        self.periodic_star.observations_count = 8
+        self.periodic_star.save()
