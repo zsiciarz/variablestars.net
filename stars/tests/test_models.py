@@ -28,12 +28,12 @@ class StarQuerySetTestCase(BaseTestCase):
         self.assertEqual(stats['observed_by_you_count'], 2)
 
 
-class StarModelTestCase(BaseTestCase):
+class StarModelBasicPropertiesTestCase(BaseTestCase):
     """
-    Tests for Star model.
+    Tests for Star model - basic properties.
     """
     def setUp(self):
-        super(StarModelTestCase, self).setUp()
+        super(StarModelBasicPropertiesTestCase, self).setUp()
         self._create_stars()
 
     def test_str(self):
@@ -72,11 +72,20 @@ class StarModelTestCase(BaseTestCase):
         """
         self.assertEqual(self.star.get_gcvs_search_name(), 'R+LEO')
 
+
+class StarObservationsModelTestCase(BaseTestCase):
+    """
+    Tests for Star model - features related to observations.
+    """
+    def setUp(self):
+        super(StarObservationsModelTestCase, self).setUp()
+        self._create_stars()
+        self._create_observations()
+
     def test_top_observers(self):
         """
         Check the list of people with most observations of the given star.
         """
-        self._create_observations()
         expected = [
             {
                 'observer_id': self.observer.id,
@@ -93,17 +102,14 @@ class StarModelTestCase(BaseTestCase):
         self.assertEqual(top_observers, expected)
 
     def test_observers_count(self):
-        self._create_observations()
         self.assertEqual(self.star.observers_count(), 1)
         self.assertEqual(self.periodic_star.observers_count(), 2)
 
     def test_recent_observations(self):
-        self._create_observations()
         observations = self.periodic_star.recent_observations()
         self.assertEqual(observations[0].observer, self.observer2)
 
     def test_observations_by_observer(self):
-        self._create_observations()
         observations = self.periodic_star.get_observations_by_observer(self.observer)
         self.assertEqual(observations.count(), 5)
         observations = self.periodic_star.get_observations_by_observer(self.observer2)
