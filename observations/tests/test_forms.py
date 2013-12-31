@@ -16,6 +16,7 @@ class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
     """
     def setUp(self):
         super(BatchUploadFormTestCase, self).setUp()
+        self._create_stars()
         self.row = {
             'name': self.star.name,
             'magnitude': '6.6',

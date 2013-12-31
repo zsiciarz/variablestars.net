@@ -33,6 +33,7 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, BaseTestCase):
         """
         Check that one can add an observation with a predefined choice of star.
         """
+        self._create_stars()
         url = reverse('observations:add_observation_for_star', args=[], kwargs={
             'star_id': self.star.pk,
         })
@@ -53,6 +54,7 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, BaseTestCase):
         """
         A valid form creates new observation and redirects back to the form.
         """
+        self._create_stars()
         with self.assert_instance_created(Observation, star=self.star, jd=2456634.1154, magnitude=7.1):
             response = self.client.post(self.url, {
                 'star': self.star.id,
@@ -71,6 +73,7 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, BaseTestCase):
         super(UploadObservationsViewTestCase, self).setUp()
         self.url = reverse('observations:upload_observations')
         self.client.login_observer()
+        self._create_stars()
         self.lines = [
             "#TYPE=VISUAL",
             "#OBSCODE=%s" % self.observer.aavso_code,

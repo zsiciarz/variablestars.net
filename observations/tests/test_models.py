@@ -16,6 +16,7 @@ class ObservationModelTestCase(BaseTestCase):
         """
         Check for string representation of an observation.
         """
+        self._create_stars()
         observation = Observation(
             observer=self.observer,
             star=self.star,
@@ -32,6 +33,8 @@ class ObservationModelTestCase(BaseTestCase):
         Check that creating new observations updates star's observations_count
         denormalized field.
         """
+        self._create_stars()
+        self._create_observations()
         self.assertEqual(self.star.observations_count, 10)
         observation = Observation.objects.create(
             observer=self.observer,
@@ -51,6 +54,8 @@ class ObservationManagerTestCase(BaseTestCase):
         """
         Check that top_stars method returns stars ordered by observation count.
         """
+        self._create_stars()
+        self._create_observations()
         expected = [
             {'star_id': self.star.id, 'star__name': self.star.name, 'observations_count': 10},
             {'star_id': self.periodic_star.id, 'star__name': self.periodic_star.name, 'observations_count': 8},
@@ -63,6 +68,8 @@ class ObservationManagerTestCase(BaseTestCase):
         Check that top_observers() returns a list of people ordered by
         the number of observations.
         """
+        self._create_stars()
+        self._create_observations()
         expected = [
             {
                 'observer_id': self.observer.id,
@@ -79,5 +86,7 @@ class ObservationManagerTestCase(BaseTestCase):
         self.assertEqual(top_observers, expected)
 
     def test_recent_observations(self):
+        self._create_stars()
+        self._create_observations()
         observations = Observation.objects.recent_observations()
         self.assertEqual(observations[0].observer, self.observer)

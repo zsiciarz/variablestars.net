@@ -25,6 +25,7 @@ class StarAdminTestCase(BaseTestCase):
         """
         Check that no extra queries are executed when iterating over queryset.
         """
+        self._create_stars()
         admin = StarAdmin(Star, self.site)
         with self.assertNumQueries(1):
             stars = admin.get_queryset(request=None)
@@ -89,6 +90,7 @@ class StarListViewTestCase(BaseTestCase):
     """
     def setUp(self):
         super(StarListViewTestCase, self).setUp()
+        self._create_stars()
         self.star_without_observations = Star.objects.create(
             constellation='LEP',
             name='R LEP',
@@ -112,6 +114,7 @@ class StarListViewTestCase(BaseTestCase):
         self.assertTemplateUsed(response, "stars/star_list.html")
 
     def test_only_with_observations(self):
+        self._create_observations()
         url = reverse('stars:star_list')
         session = self.client.session
         session['stars_with_observations'] = True
@@ -134,6 +137,7 @@ class StarListViewTestCase(BaseTestCase):
 
 class ConstellationListViewTestCase(BaseTestCase):
     def test_response(self):
+        self._create_stars()
         url = reverse('stars:constellation_list', kwargs={
             'constellation': self.star.constellation,
         })
@@ -142,6 +146,7 @@ class ConstellationListViewTestCase(BaseTestCase):
         self.assertTemplateUsed(response, "stars/star_list.html")
 
     def test_filtered_stars(self):
+        self._create_stars()
         url = reverse('stars:constellation_list', kwargs={'constellation': 'LEO'})
         response = self.client.get(url)
         self.assertContains(response, self.star.name)
@@ -150,23 +155,27 @@ class ConstellationListViewTestCase(BaseTestCase):
 
 class StarSearchViewTestCase(BaseTestCase):
     def test_normal_search(self):
+        self._create_stars()
         response = self.client.search_for_star(self.star.name[:4])
         self.assertContains(response, self.star.name)
         self.assertTemplateUsed(response, "stars/star_search.html")
 
     def test_exact_search(self):
+        self._create_stars()
         response = self.client.search_for_star(self.star.name)
         self.assertRedirects(response, self.star.get_absolute_url())
 
 
 class StarDetailViewTestCase(BaseTestCase):
     def test_response(self):
+        self._create_stars()
         url = self.star.get_absolute_url()
         response = self.client.get(url)
         self.assertTemplateUsed(response, "stars/star_detail.html")
         self.assertIsNotNone(response.context['next_rising'])
 
     def test_circumpolar_star(self):
+        self._create_stars()
         self.star.dec = '+89:00:00'
         self.star.save()
         url = self.star.get_absolute_url()
@@ -176,6 +185,7 @@ class StarDetailViewTestCase(BaseTestCase):
 
 class VariabilityTypeDetailViewTestCase(BaseTestCase):
     def test_response(self):
+        self._create_stars()
         url = self.variability_type.get_absolute_url()
         response = self.client.get(url)
         self.assertTemplateUsed("stars/variabilitytype_detail.html")
@@ -185,6 +195,7 @@ class VariabilityTypeDetailViewTestCase(BaseTestCase):
 class RecentObservationsTestCase(BaseTestCase):
     def setUp(self):
         super(RecentObservationsTestCase, self).setUp()
+        self._create_stars()
         self.url = reverse('stars:recent_observations', kwargs={'pk': self.star.pk})
 
     def test_csv_response(self):

@@ -63,6 +63,8 @@ class BaseTestCase(TestCase):
         self.observer2 = self.user2.observer
         self.observer2.aavso_code = 'JKL'
         self.observer2.save()
+
+    def _create_stars(self):
         self.variability_type = VariabilityType.objects.create(
             code='M',
             long_description='Mira stars',
@@ -89,6 +91,8 @@ class BaseTestCase(TestCase):
             period=388.14,
             epoch=2444177.0,
         )
+
+    def _create_observations(self):
         for i in range(10):
             Observation.objects.create(
                 observer=self.observer,

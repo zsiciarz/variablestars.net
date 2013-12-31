@@ -10,6 +10,10 @@ class StarQuerySetTestCase(BaseTestCase):
     """
     Tests for ``StarQuerySet`` class.
     """
+    def setUp(self):
+        super(StarQuerySetTestCase, self).setUp()
+        self._create_stars()
+        self._create_observations()
 
     def test_total_stats(self):
         stats = Star.objects.get_total_stats()
@@ -26,6 +30,9 @@ class StarModelTestCase(BaseTestCase):
     """
     Tests for Star model.
     """
+    def setUp(self):
+        super(StarModelTestCase, self).setUp()
+        self._create_stars()
 
     def test_str(self):
         """
@@ -67,6 +74,7 @@ class StarModelTestCase(BaseTestCase):
         """
         Check the list of people with most observations of the given star.
         """
+        self._create_observations()
         expected = [
             {
                 'observer_id': self.observer.id,
@@ -83,14 +91,17 @@ class StarModelTestCase(BaseTestCase):
         self.assertEqual(top_observers, expected)
 
     def test_observers_count(self):
+        self._create_observations()
         self.assertEqual(self.star.observers_count(), 1)
         self.assertEqual(self.periodic_star.observers_count(), 2)
 
     def test_recent_observations(self):
+        self._create_observations()
         observations = self.periodic_star.recent_observations()
         self.assertEqual(observations[0].observer, self.observer2)
 
     def test_observations_by_observer(self):
+        self._create_observations()
         observations = self.periodic_star.get_observations_by_observer(self.observer)
         self.assertEqual(observations.count(), 5)
         observations = self.periodic_star.get_observations_by_observer(self.observer2)
@@ -105,4 +116,5 @@ class VariabilityTypeModelTestCase(BaseTestCase):
         """
         String representation of variability type is its short GCVS code.
         """
+        self._create_stars()
         self.assertEqual(str(self.variability_type), self.variability_type.code)
