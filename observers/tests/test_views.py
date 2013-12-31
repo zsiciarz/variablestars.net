@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+import unittest
+
 from django.contrib.auth.models import AnonymousUser, User
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
@@ -13,7 +15,7 @@ from ..models import Observer
 from variablestars.tests.base import BaseTestCase
 
 
-class ObserverMiddlewareTestCase(BaseTestCase):
+class ObserverMiddlewareTestCase(unittest.TestCase):
     """
     Tests for ``observers.middleware.ObserverMiddleware`` class.
     """
