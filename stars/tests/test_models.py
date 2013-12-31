@@ -2,7 +2,9 @@
 
 from __future__ import unicode_literals
 
-from ..models import Star
+import unittest
+
+from ..models import Star, VariabilityType
 from variablestars.tests.base import BaseTestCase
 
 
@@ -108,7 +110,7 @@ class StarModelTestCase(BaseTestCase):
         self.assertEqual(observations.count(), 3)
 
 
-class VariabilityTypeModelTestCase(BaseTestCase):
+class VariabilityTypeModelTestCase(unittest.TestCase):
     """
     Tests for VariabilityType model.
     """
@@ -116,5 +118,8 @@ class VariabilityTypeModelTestCase(BaseTestCase):
         """
         String representation of variability type is its short GCVS code.
         """
-        self._create_stars()
-        self.assertEqual(str(self.variability_type), self.variability_type.code)
+        variability_type = VariabilityType(
+            code='M',
+            long_description='Mira stars',
+        )
+        self.assertEqual(str(variability_type), variability_type.code)
