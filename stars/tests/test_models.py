@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import unittest
 
 from ..models import Star, VariabilityType
-from variablestars.tests.base import BaseTestCase
+from variablestars.tests.base import TestDataMixin, BaseTestCase
 
 
 class StarQuerySetTestCase(BaseTestCase):
@@ -28,13 +28,13 @@ class StarQuerySetTestCase(BaseTestCase):
         self.assertEqual(stats['observed_by_you_count'], 2)
 
 
-class StarModelBasicPropertiesTestCase(BaseTestCase):
+class StarModelBasicPropertiesTestCase(TestDataMixin, unittest.TestCase):
     """
     Tests for Star model - basic properties.
     """
     def setUp(self):
         super(StarModelBasicPropertiesTestCase, self).setUp()
-        self._create_stars()
+        self._create_stars(save=False)
 
     def test_str(self):
         """
