@@ -38,38 +38,13 @@ class ObserverClient(Client):
         return self.get(url, {'q': star_name})
 
 
-class BaseTestCase(TestCase):
-    """
-    Base test class for other test cases to derive from.
-    """
-
-    def setUp(self):
-        self.user = User.objects.create_user(
-            'stargazer',
-            'stargazer@example.com',
-            '123456',
-        )
-        self.anonymous_user = AnonymousUser()
-        self.factory = RequestFactory()
-        self.client = ObserverClient(self.user, '123456')
-        self.observer = self.user.observer
-        self.observer.aavso_code = 'XYZ'
-        self.observer.save()
-        self.user2 = User.objects.create_user(
-            'kepler',
-            'kepler@example.com',
-            'johannes',
-        )
-        self.observer2 = self.user2.observer
-        self.observer2.aavso_code = 'JKL'
-        self.observer2.save()
-
-    def _create_stars(self):
-        self.variability_type = VariabilityType.objects.create(
+class TestDataMixin(object):
+    def _create_stars(self, save=True):
+        self.variability_type = VariabilityType(
             code='M',
             long_description='Mira stars',
         )
-        self.star = Star.objects.create(
+        self.star = Star(
             constellation='LEO',
             name='R LEO',
             ra='09:47:33.5',
@@ -80,7 +55,7 @@ class BaseTestCase(TestCase):
             period=None,
             epoch=None,
         )
-        self.periodic_star = Star.objects.create(
+        self.periodic_star = Star(
             constellation='CEP',
             name='T CEP',
             ra='21:09:31.8',
@@ -91,6 +66,10 @@ class BaseTestCase(TestCase):
             period=388.14,
             epoch=2444177.0,
         )
+        if save:
+            self.variability_type.save()
+            self.star.save()
+            self.periodic_star.save()
 
     def _create_observations(self):
         observations = []
@@ -121,3 +100,30 @@ class BaseTestCase(TestCase):
         self.star.save()
         self.periodic_star.observations_count = 8
         self.periodic_star.save()
+
+
+class BaseTestCase(TestDataMixin, TestCase):
+    """
+    Base test class for other test cases to derive from.
+    """
+
+    def setUp(self):
+        self.user = User.objects.create_user(
+            'stargazer',
+            'stargazer@example.com',
+            '123456',
+        )
+        self.anonymous_user = AnonymousUser()
+        self.factory = RequestFactory()
+        self.client = ObserverClient(self.user, '123456')
+        self.observer = self.user.observer
+        self.observer.aavso_code = 'XYZ'
+        self.observer.save()
+        self.user2 = User.objects.create_user(
+            'kepler',
+            'kepler@example.com',
+            'johannes',
+        )
+        self.observer2 = self.user2.observer
+        self.observer2.aavso_code = 'JKL'
+        self.observer2.save()
