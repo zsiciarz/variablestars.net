@@ -2,10 +2,12 @@
 
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AnonymousUser, User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
+
+from djet.testcases import RequestFactory
 
 from observations.models import Observation
 from observations.utils import jd_now
@@ -47,6 +49,8 @@ class BaseTestCase(TestCase):
             'stargazer@example.com',
             '123456',
         )
+        self.anonymous_user = AnonymousUser()
+        self.factory = RequestFactory()
         self.client = ObserverClient(self.user, '123456')
         self.observer = self.user.observer
         self.observer.aavso_code = 'XYZ'

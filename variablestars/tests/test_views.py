@@ -2,10 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import AnonymousUser
-
 from djet.assertions import StatusCodeAssertionsMixin
-from djet.testcases import RequestFactory
 
 from observations.models import Observation
 from observers.models import Observer
@@ -18,8 +15,6 @@ from .. import views
 class MainViewTestCase(StatusCodeAssertionsMixin, BaseTestCase):
     def setUp(self):
         super(MainViewTestCase, self).setUp()
-        self.anonymous_user = AnonymousUser()
-        self.factory = RequestFactory()
         self.view = views.index
 
     def test_redirect_to_user_profile(self):
