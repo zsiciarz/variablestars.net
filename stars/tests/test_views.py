@@ -196,6 +196,7 @@ class RecentObservationsTestCase(BaseTestCase):
     def setUp(self):
         super(RecentObservationsTestCase, self).setUp()
         self._create_stars()
+        self._create_observations()
         self.url = reverse('stars:recent_observations', kwargs={'pk': self.star.pk})
 
     def test_csv_response(self):
