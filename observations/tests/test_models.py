@@ -16,10 +16,9 @@ class ObservationModelTestCase(BaseTestCase):
         """
         Check for string representation of an observation.
         """
-        self._create_stars()
+        star = Star(name='R LEO')
         observation = Observation(
-            observer=self.observer,
-            star=self.star,
+            star=star,
             jd=2456567.2550,
             magnitude=8.5,
         )
