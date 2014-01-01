@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 
-from djet.assertions import InstanceAssertionsMixin
 from mock import patch
 
 from ..forms import BatchUploadForm
@@ -11,7 +10,7 @@ from stars.models import Star
 from variablestars.tests.base import BaseTestCase
 
 
-class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
+class BatchUploadFormTestCase(BaseTestCase):
     """
     Tests for ``observations.forms.BatchUploadForm`` class.
     """
