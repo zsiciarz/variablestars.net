@@ -3,10 +3,11 @@
 from __future__ import unicode_literals
 
 from djet.assertions import InstanceAssertionsMixin
+from mock import patch
 
 from ..forms import BatchUploadForm
-from ..models import Observation
 from ..utils import jd_now
+from stars.models import Star
 from variablestars.tests.base import BaseTestCase
 
 
@@ -16,7 +17,7 @@ class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
     """
     def setUp(self):
         super(BatchUploadFormTestCase, self).setUp()
-        self._create_stars()
+        self.star = Star(name='R LEO')
         self.row = {
             'name': self.star.name,
             'magnitude': '6.6',
@@ -42,6 +43,8 @@ class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
         Check that succesfully parsing an input row creates an observation.
         """
         form = BatchUploadForm()
-        with self.assert_instance_created(Observation, star=self.star, notes='test2'):
+        with patch.object(Star.objects, 'get') as mock_get:
+            mock_get.return_value = self.star
             observation = form.process_row(self.row, self.observer)
-            observation.save()
+        self.assertEqual(observation.star, self.star)
+        self.assertEqual(observation.notes, 'test2')
