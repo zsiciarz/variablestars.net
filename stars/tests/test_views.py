@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+import unittest
+
 from django.contrib.admin.sites import AdminSite
 from django.core.urlresolvers import reverse
 
@@ -33,7 +35,7 @@ class StarAdminTestCase(BaseTestCase):
             self.assertEqual(len(types), 2)
 
 
-class StarFilterMiddlewareTestCase(BaseTestCase):
+class StarFilterMiddlewareTestCase(unittest.TestCase):
     """
     Tests for ``stars.middleware.StarFilterMiddleware`` class.
     """
