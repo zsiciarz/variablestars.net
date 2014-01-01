@@ -2,50 +2,53 @@
 
 from __future__ import unicode_literals
 
+import unittest
+
+from django.db import models
+
+from mock import patch
+
 from ..models import Observation
 from stars.models import Star
 from variablestars.tests.base import BaseTestCase
 
 
-class ObservationModelTestCase(BaseTestCase):
+class ObservationModelTestCase(unittest.TestCase):
     """
     Tests for Observation model.
     """
-
     def test_str(self):
         """
         Check for string representation of an observation.
         """
         star = Star(name='R LEO')
-        observation = Observation(
-            star=star,
-            jd=2456567.2550,
-            magnitude=8.5,
-        )
+        observation = Observation(star=star, jd=2456567.2550, magnitude=8.5)
         expected = "%s %s %s" % (
             observation.star, observation.jd, observation.magnitude,
         )
         self.assertEqual(str(observation), expected)
 
-    def test_update_star_observations_count(self):
+    def test_increment_observations_count(self):
         """
-        Check that creating new observations updates star's observations_count
-        denormalized field.
+        Check that creating new observation adds 1 to star's
+        ``observations_count`` denormalized field.
         """
-        self._create_stars()
-        self._create_observations()
-        self.assertEqual(self.star.observations_count, 10)
-        observation = Observation.objects.create(
-            observer=self.observer,
-            star=self.star,
-            jd=2456567.2550,
-            magnitude=8.5,
-        )
-        star = Star.objects.get(pk=self.star.pk)
+        star = Star(name='R LEO', observations_count=10)
+        observation = Observation(star=star)
+        with patch.object(star, 'save'), patch.object(models.Model, 'save'):
+            observation.save()
         self.assertEqual(star.observations_count, 11)
-        observation.delete()
-        star = Star.objects.get(pk=self.star.pk)
-        self.assertEqual(star.observations_count, 10)
+
+    def test_decrement_observations_count(self):
+        """
+        Check that deleting an observation subtracts 1 from star's
+        ``observations_count`` denormalized field.
+        """
+        star = Star(name='R LEO', observations_count=10)
+        observation = Observation(star=star)
+        with patch.object(star, 'save'), patch.object(models.Model, 'delete'):
+            observation.delete()
+        self.assertEqual(star.observations_count, 9)
 
 
 class ObservationManagerTestCase(BaseTestCase):
