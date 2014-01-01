@@ -51,16 +51,6 @@ class ObserverMiddlewareTestCase(unittest.TestCase):
         self.assertIsNone(self.request.observer)
 
 
-class LoginTestCase(BaseTestCase):
-    def test_redirect_to_profile(self):
-        url = reverse('auth_login')
-        response = self.client.post(url, {
-            'username': self.user.username,
-            'password': '123456',
-        }, follow=True)
-        self.assertRedirects(response, self.observer.get_absolute_url())
-
-
 class RegisterTestCase(BaseTestCase):
     def setUp(self):
         super(RegisterTestCase, self).setUp()
