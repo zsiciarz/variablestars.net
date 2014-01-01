@@ -37,7 +37,8 @@ class BatchUploadForm(forms.Form):
         with transaction.atomic():
             for row in reader:
                 try:
-                    self.process_row(row, observer)
+                    observation = self.process_row(row, observer)
+                    observation.save()
                 except Exception:
                     continue
 
@@ -66,7 +67,7 @@ class BatchUploadForm(forms.Form):
         observation.chart = row['chart']
         observation.comment_code = row['comment_code']
         observation.notes = row['notes']
-        observation.save()
+        return observation
 
     def normalize_star_name(self, name):
         """

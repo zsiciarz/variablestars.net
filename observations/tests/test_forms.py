@@ -43,4 +43,5 @@ class BatchUploadFormTestCase(InstanceAssertionsMixin, BaseTestCase):
         """
         form = BatchUploadForm()
         with self.assert_instance_created(Observation, star=self.star, notes='test2'):
-            form.process_row(self.row, self.observer)
+            observation = form.process_row(self.row, self.observer)
+            observation.save()
