@@ -190,7 +190,7 @@ class VariabilityTypeDetailViewTestCase(BaseTestCase):
         self._create_stars()
         url = self.variability_type.get_absolute_url()
         response = self.client.get(url)
-        self.assertTemplateUsed("stars/variabilitytype_detail.html")
+        self.assertTemplateUsed(response, "stars/variabilitytype_detail.html")
         self.assertContains(response, self.variability_type.long_description)
 
 
