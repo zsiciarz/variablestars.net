@@ -8,11 +8,13 @@ from django.contrib.auth.models import AnonymousUser, User
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from djet.testcases import ViewTestCase
 from mock import MagicMock, patch
 
 from ..middleware import ObserverMiddleware
 from ..models import Observer
-from variablestars.tests.base import BaseTestCase
+from .. import views
+from variablestars.tests.base import BaseTestCase, TestDataMixin
 
 
 class ObserverMiddlewareTestCase(unittest.TestCase):
@@ -76,10 +78,13 @@ class RegisterTestCase(BaseTestCase):
         self.assertContains(response, _('Sign out'))
 
 
-class ObserverListViewTestCase(BaseTestCase):
+class ObserverListViewTestCase(TestDataMixin, ViewTestCase):
+    view_class = views.ObserverListView
+
     def test_response(self):
-        url = reverse('observers:observer_list')
-        response = self.client.get(url)
+        self._create_users()
+        request = self.factory.get()
+        response = self.view(request)
         self.assertContains(response, self.observer.aavso_code)
         self.assertTemplateUsed(response, 'observers/observer_list.html')
 
