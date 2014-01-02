@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from djet.assertions import StatusCodeAssertionsMixin
 from djet.testcases import ViewTestCase
+from djet.utils import refresh
 from mock import MagicMock, patch
 
 from ..middleware import ObserverMiddleware
@@ -115,7 +116,7 @@ class ObserverEditViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTes
         }, user=self.user)
         response = self.view(request)
         self.assert_redirect(response, self.observer.get_absolute_url())
-        observer = Observer.objects.get(pk=self.observer.pk)
+        observer = refresh(self.observer)
         self.assertEqual(observer.limiting_magnitude, 11)
 
     def test_update_user_data(self):
@@ -125,5 +126,5 @@ class ObserverEditViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTes
         }, user=self.user)
         response = self.view(request)
         self.assert_redirect(response, self.observer.get_absolute_url())
-        user = User.objects.get(pk=self.user.pk)
+        user = refresh(self.user)
         self.assertEqual(user.first_name, 'Aaron')
