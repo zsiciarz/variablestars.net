@@ -3,21 +3,21 @@
 from __future__ import unicode_literals
 
 from djet.assertions import StatusCodeAssertionsMixin
+from djet.testcases import ViewTestCase
 
 from observations.models import Observation
 from observers.models import Observer
 from stars.models import Star
 
-from .base import BaseTestCase
+from .base import TestDataMixin
 from .. import views
 
 
-class MainViewTestCase(StatusCodeAssertionsMixin, BaseTestCase):
-    def setUp(self):
-        super(MainViewTestCase, self).setUp()
-        self.view = views.index
+class MainViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
+    view_function = views.index
 
     def test_redirect_to_user_profile(self):
+        self._create_users()
         request = self.factory.get(user=self.user)
         response = self.view(request)
         self.assert_redirect(response, self.user.get_absolute_url())
@@ -26,6 +26,7 @@ class MainViewTestCase(StatusCodeAssertionsMixin, BaseTestCase):
         """
         Check that some basic stats are displayed for anonymous users.
         """
+        self._create_users()
         request = self.factory.get(user=self.anonymous_user)
         response = self.view(request)
         self.assertContains(response, '<h1>%d</h1' % Star.objects.count())
