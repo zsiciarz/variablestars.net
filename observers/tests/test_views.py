@@ -4,19 +4,22 @@ from __future__ import unicode_literals
 
 import unittest
 
+from django.contrib import messages
 from django.contrib.auth.models import AnonymousUser, User
-from django.core.urlresolvers import reverse
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.utils.translation import ugettext_lazy as _
 
-from djet.assertions import StatusCodeAssertionsMixin
+from djet.assertions import StatusCodeAssertionsMixin, MessagesAssertionsMixin
 from djet.testcases import ViewTestCase
 from djet.utils import refresh
 from mock import MagicMock, patch
+from registration.backends.simple.views import RegistrationView
 
 from ..middleware import ObserverMiddleware
 from ..models import Observer
 from .. import views
-from variablestars.tests.base import BaseTestCase, TestDataMixin
+from variablestars.tests.base import TestDataMixin
 
 
 class ObserverMiddlewareTestCase(unittest.TestCase):
@@ -55,29 +58,32 @@ class ObserverMiddlewareTestCase(unittest.TestCase):
         self.assertIsNone(self.request.observer)
 
 
-class RegisterTestCase(BaseTestCase):
-    def setUp(self):
-        super(RegisterTestCase, self).setUp()
-        self.url = reverse('registration_register')
+class RegisterTestCase(StatusCodeAssertionsMixin, MessagesAssertionsMixin, ViewTestCase):
+    view_class = RegistrationView
+    middleware_classes = [
+        SessionMiddleware,
+        MessageMiddleware,
+    ]
 
     def test_invalid_form(self):
-        response = self.client.post(self.url, {
+        request = self.factory.post(data={
             'username': 'newuser',
             'email': '',
         })
-        self.assertFormError(response, 'form', 'email', _('This field is required.'))
+        response = self.view(request)
+        self.assertContains(response, _('This field is required.'))
 
     def test_valid_form(self):
-        response = self.client.post(self.url, {
+        request = self.factory.post(data={
             'username': 'newuser',
             'email': 'newuser@example.com',
             'password1': 'hunter2',
             'password2': 'hunter2',
-        }, follow=True)
+        })
+        response = self.view(request)
         observer = Observer.objects.get(user__username='newuser')
-        self.assertRedirects(response, observer.get_absolute_url())
-        self.assertContains(response, _('Thank you for your registration!'))
-        self.assertContains(response, _('Sign out'))
+        self.assert_redirect(response, observer.get_absolute_url())
+        self.assert_message_exists(request, messages.SUCCESS, _('Thank you for your registration!'))
 
 
 class ObserverListViewTestCase(TestDataMixin, ViewTestCase):
