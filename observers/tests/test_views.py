@@ -8,6 +8,7 @@ from django.contrib.auth.models import AnonymousUser, User
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from djet.assertions import StatusCodeAssertionsMixin
 from djet.testcases import ViewTestCase
 from mock import MagicMock, patch
 
@@ -89,36 +90,40 @@ class ObserverListViewTestCase(TestDataMixin, ViewTestCase):
         self.assertTemplateUsed(response, 'observers/observer_list.html')
 
 
-class ObserverEditViewTestCase(BaseTestCase):
+class ObserverEditViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
+    view_class = views.ObserverEditView
+
     def setUp(self):
         super(ObserverEditViewTestCase, self).setUp()
-        self.url = reverse('observers:observer_edit')
+        self._create_users()
 
     def test_anonymous_user(self):
-        response = self.client.get(self.url)
-        self.assertRedirects(response, reverse('auth_login') + '?next=' + self.url)
+        request = self.factory.get(user=AnonymousUser())
+        response = self.view(request)
+        self.assert_redirect(response)
 
     def test_response(self):
-        self.client.login_observer()
-        response = self.client.get(self.url)
+        request = self.factory.get(user=self.user)
+        response = self.view(request)
         self.assertContains(response, _("Edit profile"))
         self.assertTemplateUsed(response, 'observers/observer_edit.html')
 
     def test_update_observer_data(self):
-        self.client.login_observer()
         self.assertNotEqual(self.observer.limiting_magnitude, 11)
-        response = self.client.post(self.url, {
+        request = self.factory.post(data={
             'limiting_magnitude': 11,
-        })
-        self.assertRedirects(response, self.observer.get_absolute_url())
+        }, user=self.user)
+        response = self.view(request)
+        self.assert_redirect(response, self.observer.get_absolute_url())
         observer = Observer.objects.get(pk=self.observer.pk)
         self.assertEqual(observer.limiting_magnitude, 11)
 
     def test_update_user_data(self):
-        self.client.login_observer()
         self.assertNotEqual(self.user.first_name, 'Aaron')
-        self.client.post(self.url, {
+        request = self.factory.post(data={
             'first_name': 'Aaron',
-        })
+        }, user=self.user)
+        response = self.view(request)
+        self.assert_redirect(response, self.observer.get_absolute_url())
         user = User.objects.get(pk=self.user.pk)
         self.assertEqual(user.first_name, 'Aaron')
