@@ -39,6 +39,25 @@ class ObserverClient(Client):
 
 
 class TestDataMixin(object):
+    def _create_users(self):
+        self.user = User.objects.create_user(
+            'stargazer',
+            'stargazer@example.com',
+            '123456',
+        )
+        self.anonymous_user = AnonymousUser()
+        self.observer = self.user.observer
+        self.observer.aavso_code = 'XYZ'
+        self.observer.save()
+        self.user2 = User.objects.create_user(
+            'kepler',
+            'kepler@example.com',
+            'johannes',
+        )
+        self.observer2 = self.user2.observer
+        self.observer2.aavso_code = 'JKL'
+        self.observer2.save()
+
     def _create_stars(self, save=True):
         self.variability_type = VariabilityType(
             code='M',
@@ -108,22 +127,6 @@ class BaseTestCase(TestDataMixin, TestCase):
     """
 
     def setUp(self):
-        self.user = User.objects.create_user(
-            'stargazer',
-            'stargazer@example.com',
-            '123456',
-        )
-        self.anonymous_user = AnonymousUser()
+        self._create_users()
         self.factory = RequestFactory()
         self.client = ObserverClient(self.user, '123456')
-        self.observer = self.user.observer
-        self.observer.aavso_code = 'XYZ'
-        self.observer.save()
-        self.user2 = User.objects.create_user(
-            'kepler',
-            'kepler@example.com',
-            'johannes',
-        )
-        self.observer2 = self.user2.observer
-        self.observer2.aavso_code = 'JKL'
-        self.observer2.save()
