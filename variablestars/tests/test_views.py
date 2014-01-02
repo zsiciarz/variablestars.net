@@ -27,6 +27,8 @@ class MainViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
         Check that some basic stats are displayed for anonymous users.
         """
         self._create_users()
+        self._create_stars()
+        self._create_observations()
         request = self.factory.get(user=self.anonymous_user)
         response = self.view(request)
         self.assertContains(response, '<h1>%d</h1' % Star.objects.count())
