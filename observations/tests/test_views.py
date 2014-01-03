@@ -2,30 +2,41 @@
 
 from __future__ import unicode_literals
 
+from django.contrib import messages
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from djet.assertions import InstanceAssertionsMixin
+from djet.assertions import InstanceAssertionsMixin, MessagesAssertionsMixin
 from djet.files import create_inmemory_file
+from djet.testcases import ViewTestCase
 
 from ..models import Observation
-from variablestars.tests.base import BaseTestCase
+from .. import views
+from variablestars.tests.base import BaseTestCase, TestDataMixin
 
 
-class AddObservationViewTestCase(InstanceAssertionsMixin, BaseTestCase):
+class AddObservationViewTestCase(InstanceAssertionsMixin, MessagesAssertionsMixin, TestDataMixin, ViewTestCase):
     """
     Tests for ``observations.views.AddObservationView`` class.
     """
+    view_class = views.AddObservationView
+    middleware_classes = [
+        SessionMiddleware,
+        MessageMiddleware,
+    ]
+
     def setUp(self):
         super(AddObservationViewTestCase, self).setUp()
-        self.url = reverse('observations:add_observation')
-        self.client.login_observer()
+        self._create_users()
 
     def test_response(self):
         """
         Check basic properties of the view.
         """
-        response = self.client.get(self.url)
+        request = self.factory.get(user=self.user)
+        response = self.view(request)
         self.assertContains(response, _("Add new observation"))
         self.assertTemplateUsed(response, "observations/add_observation.html")
 
@@ -34,21 +45,18 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, BaseTestCase):
         Check that one can add an observation with a predefined choice of star.
         """
         self._create_stars()
-        url = reverse('observations:add_observation_for_star', args=[], kwargs={
-            'star_id': self.star.pk,
-        })
-        response = self.client.get(url)
+        request = self.factory.get(user=self.user)
+        response = self.view(request, star_id=self.star.pk)
         self.assertContains(response, self.star.name)
 
     def test_form_invalid(self):
         """
         Check that invalid observation form displays meaningful errors.
         """
-        response = self.client.post(self.url, {
-        })
-        self.assertFormError(response, 'form', 'star', _('This field is required.'))
-        self.assertFormError(response, 'form', 'jd', _('This field is required.'))
-        self.assertFormError(response, 'form', 'magnitude', _('This field is required.'))
+        request = self.factory.post(data={
+        }, user=self.user)
+        response = self.view(request)
+        self.assertContains(response, _('This field is required.'))
 
     def test_form_valid(self):
         """
@@ -56,13 +64,15 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, BaseTestCase):
         """
         self._create_stars()
         with self.assert_instance_created(Observation, star=self.star, jd=2456634.1154, magnitude=7.1):
-            response = self.client.post(self.url, {
+            request = self.factory.post(data={
                 'star': self.star.id,
                 'jd': '2456634.1154',
                 'magnitude': '7.1',
-            }, follow=True)
-            self.assertRedirects(response, self.url)
-            self.assertContains(response, _("Observation added successfully!"))
+            }, user=self.user)
+            request.observer = self.observer
+            response = self.view(request)
+            self.assert_redirect(response, reverse('observations:add_observation'))
+            self.assert_message_exists(request, messages.SUCCESS, _("Observation added successfully!"))
 
 
 class UploadObservationsViewTestCase(InstanceAssertionsMixin, BaseTestCase):
