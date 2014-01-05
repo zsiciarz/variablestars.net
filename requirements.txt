@@ -29,4 +29,4 @@ pycrypto==2.6.1
 pyephem==3.7.5.2
 pygcvs==0.1.1
 requests==2.1.0
-six==1.4.1
+six==1.5.1
