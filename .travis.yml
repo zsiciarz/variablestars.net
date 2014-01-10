@@ -4,8 +4,9 @@ python:
 before_install:
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 install:
-  - pip install -r requirements.txt --use-mirrors
-  - pip install coveralls --use-mirrors
+  - pip install pip setuptools --upgrade
+  - pip install -r requirements.txt
+  - pip install coveralls
 script:
     coverage run manage.py test
 after_success:
