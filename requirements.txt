@@ -27,6 +27,6 @@ paramiko==1.12.1
 pyaavso==0.1.2
 pycrypto==2.6.1
 pyephem==3.7.5.2
-pygcvs==0.1.1
+pygcvs==0.1.2
 requests==2.2.0
 six==1.5.2
