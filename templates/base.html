@@ -63,9 +63,9 @@
               {% endif %}
               <form class="navbar-form navbar-right" role="search" action="{% url 'stars:star_search' %}" method="get">
                   <div class="form-group">
-                      <input type="text" name="q" class="form-control input-sm" placeholder="Enter star name">
+                      <input type="text" name="q" class="form-control input-sm" placeholder="{% trans "Enter star name" %}">
                   </div>
-                  <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span> Search</button>
+                  <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span> {% trans "Search" %}</button>
               </form>
           </div>
       </div>
