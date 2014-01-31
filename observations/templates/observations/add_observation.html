@@ -25,3 +25,7 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Add!" %}</button>
     </form>
 {% endblock %}
+
+{% block extra-script %}
+    <script defer type="text/coffeescript" src="{{ STATIC_URL }}js/add_observation.coffee{% if debug %}?{% now "U" %}{% endif %}"></script>
+{% endblock %}
