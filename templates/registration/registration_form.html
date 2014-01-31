@@ -16,34 +16,5 @@
 
 {% block extra-script %}
 <script src="{{ STATIC_URL }}js/libs/mailcheck.min.js"></script>
-<script>
-(function ($) {
-    $(document).ready(function () {
-        $("#id_email").on('blur', function () {
-            var removeSuggestions = function (element) {
-                $(element).parent().find(".help-block").remove();
-            };
-            $(this).mailcheck({
-                suggested: function (element, suggestion) {
-                    removeSuggestions(element);
-                    var suggestedLink = $("<a href='#'>").text(suggestion.full);
-                    suggestedLink.on('click', function () {
-                        $("#id_email").val(suggestion.full);
-                        removeSuggestions(element);
-                        return false;
-                    });
-                    $("<span class='help-block'/>")
-                        .text("Did you mean ")
-                        .append(suggestedLink)
-                        .append("?")
-                        .insertAfter(element);
-                },
-                empty: function (element) {
-                    removeSuggestions(element);
-                }
-            });
-        });
-    });
-})(jQuery);
-</script>
+<script defer type="text/coffeescript" src="{{ STATIC_URL }}js/registration_form.coffee{% if debug %}?{% now "U" %}{% endif %}"></script>
 {% endblock %}
