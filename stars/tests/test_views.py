@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+import warnings
+
 from django.contrib.admin.sites import AdminSite
 from django.core.urlresolvers import reverse
 
@@ -121,12 +123,14 @@ class StarDetailViewTestCase(BaseTestCase):
         self.assertIsNotNone(response.context['next_rising'])
 
     def test_circumpolar_star(self):
-        self._create_stars()
-        self.star.dec = '+89:00:00'
-        self.star.save()
-        url = self.star.get_absolute_url()
-        response = self.client.get(url)
-        self.assertIsNone(response.context['next_rising'])
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore', category=DeprecationWarning)
+            self._create_stars()
+            self.star.dec = '+89:00:00'
+            self.star.save()
+            url = self.star.get_absolute_url()
+            response = self.client.get(url)
+            self.assertIsNone(response.context['next_rising'])
 
 
 class VariabilityTypeDetailViewTestCase(BaseTestCase):
