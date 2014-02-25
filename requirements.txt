@@ -19,7 +19,7 @@ djet==0.0.9
 ecdsa==0.10
 frogress==0.9.1
 gunicorn==18.0
-ipython==1.2.0
+ipython==1.2.1
 lxml==3.3.1
 mock==1.0.1
 psycopg2==2.5.2
