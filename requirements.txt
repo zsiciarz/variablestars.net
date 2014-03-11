@@ -16,7 +16,7 @@ django-model-utils==2.0.2
 django-registration==1.0
 django-twitter-bootstrap==3.1.0
 djet==0.0.9
-ecdsa==0.10
+ecdsa==0.11
 frogress==0.9.1
 gunicorn==18.0
 ipython==1.2.1
