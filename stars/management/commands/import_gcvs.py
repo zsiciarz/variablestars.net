@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 
 from optparse import make_option
 
@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 
 from pygcvs import read_gcvs
 
-from stars.models import Star
+from stars.models import Star, VariabilityType
 
 
 class Command(BaseCommand):
@@ -25,6 +25,10 @@ class Command(BaseCommand):
             try:
                 star = Star.objects.get(name=star_dict['name'])
             except Star.DoesNotExist:
+                variability_type, created = VariabilityType.objects.get_or_create(
+                    code=star_dict.pop('variable_type'),
+                )
+                star_dict['variability_type'] = variability_type
                 star = Star.objects.create(**star_dict)
                 new_stars += 1
         self.stdout.write('Imported %d new stars.' % new_stars)
