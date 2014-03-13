@@ -29,6 +29,8 @@ class Command(BaseCommand):
                     code=star_dict.pop('variable_type'),
                 )
                 star_dict['variability_type'] = variability_type
+                star_dict['ra'] = star_dict['ra'] or ''
+                star_dict['dec'] = star_dict['dec'] or ''
                 star = Star.objects.create(**star_dict)
                 new_stars += 1
         self.stdout.write('Imported %d new stars.' % new_stars)
