@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'autocomplete_light',
-    'bootstrap-pagination',
+    'bootstrap_pagination',
     'compressor',
     'crispy_forms',
     'debug_toolbar',
