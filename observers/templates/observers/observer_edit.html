@@ -5,6 +5,10 @@
 
 {% block title %}{% trans "Edit profile" %} | {{ block.super }}{% endblock %}
 
+{% block extra-style %}
+    {{ form.media.css }}
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-sm-9">
@@ -30,5 +34,5 @@
 {% endblock %}
 
 {% block extra-script %}
-    {{ form.media }}
+    {{ form.media.js }}
 {% endblock %}
