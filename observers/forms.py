@@ -23,6 +23,7 @@ class ObserverForm(forms.ModelForm):
             'last_name',
             'aavso_code',
             'limiting_magnitude',
+            'location',
         ]
 
     def save(self, *args, **kwargs):
