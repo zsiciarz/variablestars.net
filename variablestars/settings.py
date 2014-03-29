@@ -7,6 +7,7 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+import sys
 
 from django.core.urlresolvers import reverse_lazy
 
@@ -163,3 +164,8 @@ else:
         ('text/less', 'lessc {infile} {outfile}'),
         ('text/coffeescript', 'coffee --compile --stdio'),
     )
+
+if 'test' in sys.argv:
+    PASSWORD_HASHERS = {
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    }
