@@ -13,6 +13,7 @@ from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+import ephem
 from geoposition.fields import GeopositionField
 from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
@@ -80,6 +81,13 @@ class Observer(TimeStampedModel):
 
     def observed_stars_count(self):
         return self.observations.aggregate(c=Count('star', distinct=True))['c']
+
+    def get_pyephem_city(self):
+        city = ephem.Observer()
+        # convert coordinates from degrees to radians
+        city.lon = float(self.location.longitude) * ephem.pi / 180.0
+        city.lat = float(self.location.latitude) * ephem.pi / 180.0
+        return city
 
 
 def create_observer(sender, instance, created, **kwargs):

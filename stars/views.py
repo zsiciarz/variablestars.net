@@ -94,11 +94,8 @@ class StarDetailView(DetailView):
         star = context['star']
         body = dict_to_body(model_to_dict(star))
         observer = self.request.observer
-        if observer and observer.location:
-            city = ephem.Observer()
-            # convert coordinates from degrees to radians
-            city.lon = float(observer.location.longitude) * ephem.pi / 180.0
-            city.lat = float(observer.location.latitude) * ephem.pi / 180.0
+        if observer:
+            city = observer.get_pyephem_city()
         else:
             city = ephem.city('Warsaw')
         body.compute(city)
