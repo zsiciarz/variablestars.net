@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 import warnings
+from decimal import Decimal
 
 from django.contrib.admin.sites import AdminSite
 from django.core.urlresolvers import reverse
@@ -121,6 +122,16 @@ class StarDetailViewTestCase(BaseTestCase):
         response = self.client.get(url)
         self.assertTemplateUsed(response, "stars/star_detail.html")
         self.assertIsNotNone(response.context['next_rising'])
+
+    def test_observer_location(self):
+        self._create_stars()
+        self.observer.location = [Decimal('-89'), Decimal('21')]
+        self.observer.save()
+        self.client.login_observer()
+        url = self.star.get_absolute_url()
+        response = self.client.get(url)
+        self.assertTemplateUsed(response, "stars/star_detail.html")
+        self.assertIsNone(response.context['next_rising'])
 
     def test_circumpolar_star(self):
         self._create_stars()
