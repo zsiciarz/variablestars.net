@@ -93,8 +93,14 @@ class StarDetailView(DetailView):
         context = super(StarDetailView, self).get_context_data(**kwargs)
         star = context['star']
         body = dict_to_body(model_to_dict(star))
-        # TODO: consider observer's location
-        city = ephem.city('Warsaw')
+        observer = self.request.observer
+        if observer and observer.location:
+            city = ephem.Observer()
+            # convert coordinates from degrees to radians
+            city.lon = float(observer.location.longitude) * ephem.pi / 180.0
+            city.lat = float(observer.location.latitude) * ephem.pi / 180.0
+        else:
+            city = ephem.city('Warsaw')
         body.compute(city)
         context['star_altitude'] = body.alt
         context['star_azimuth'] = body.az
@@ -104,7 +110,7 @@ class StarDetailView(DetailView):
             next_rising = None
         context['body'] = body
         context['next_rising'] = next_rising
-        observations = star.get_observations_by_observer(self.request.observer)
+        observations = star.get_observations_by_observer(observer)
         context['observations_by_observer'] = observations
         return context
 
