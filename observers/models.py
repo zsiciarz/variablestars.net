@@ -52,7 +52,7 @@ class Observer(TimeStampedModel):
         verbose_name=_("Limiting magnitude of your equipment"),
         help_text=_("The magnitude of the faintest stars you can see with your eyes/binoculars/telescope. Setting this value will affect which stars will have their brightness value(s) grayed out.")
     )
-    location = GeopositionField()
+    location = GeopositionField(blank=True)
 
     objects = PassThroughManager.for_queryset_class(ObserverQuerySet)()
 
