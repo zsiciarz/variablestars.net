@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'south',
     'registration',
     'twitter_bootstrap',
+    'raven.contrib.django.raven_compat',
 
     'observations',
     'observers',
@@ -150,6 +151,10 @@ SOUTH_TESTS_MIGRATE = False
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 COMPRESS_PARSER = 'compressor.parser.HtmlParser'
+
+RAVEN_CONFIG = {
+    'dsn': '',
+}
 
 try:
     from local_settings import *
