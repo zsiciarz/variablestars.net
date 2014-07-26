@@ -13,14 +13,14 @@ def prepare_project():
     """
     return nested(
         cd(PROJECT_PATH),
-        prefix("source ../.variablestars/bin/activate")
+        prefix("source ../.virtualenvs/variablestars2/bin/activate")
     )
 
 
 PROJECT_PATH = "$HOME/variablestars.net"
 
 env.roledefs = {
-    'web': ["variablestars@variablestars.megiteam.pl"],
+    'web': ["variablestars2@variablestars.net"],
 }
 env.color = True
 
@@ -57,7 +57,7 @@ def collect_static():
 @task
 @roles("web")
 def restart():
-    run("appctl restart variablestars")
+    run("appctl restart variablestars2")
 
 
 @task
