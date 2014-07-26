@@ -23,6 +23,7 @@ env.roledefs = {
     'web': ["variablestars2@variablestars.net"],
 }
 env.color = True
+env.forward_agent = True
 
 
 @task
