@@ -23,7 +23,7 @@ ipython==2.2.0
 lxml==3.3.5
 mock==1.0.1
 psycopg2==2.5.3
-paramiko==1.14.0
+paramiko==1.14.1
 pyaavso==0.1.4
 pycrypto==2.6.1
 pyephem==3.7.5.3
