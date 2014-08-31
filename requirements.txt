@@ -22,7 +22,7 @@ gunicorn==19.1.1
 ipython==2.2.0
 lxml==3.3.6
 mock==1.0.1
-psycopg2==2.5.3
+psycopg2==2.5.4
 paramiko==1.14.1
 pyaavso==0.1.4
 pycrypto==2.6.1
