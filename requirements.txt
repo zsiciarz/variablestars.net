@@ -29,5 +29,5 @@ pycrypto==2.6.1
 pyephem==3.7.5.3
 pygcvs==0.1.4
 raven==5.0.0
-requests==2.4.1
+requests==2.4.3
 six==1.8.0
