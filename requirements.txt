@@ -15,7 +15,7 @@ django-geoposition==0.2.2
 django-model-utils==2.2
 django-registration==1.0
 django-twitter-bootstrap==3.2.0-1
-djet==0.0.9
+djet==0.0.10
 ecdsa==0.11
 frogress==0.9.1
 gunicorn==19.1.1
