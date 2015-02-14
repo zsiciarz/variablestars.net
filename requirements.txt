@@ -16,7 +16,7 @@ django-registration==1.0
 django-twitter-bootstrap==3.3.0
 djet==0.0.10
 frogress==0.9.1
-gunicorn==19.1.1
+gunicorn==19.2.1
 ipython==2.4.1
 lxml==3.4.2
 mock==1.0.1
