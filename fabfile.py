@@ -38,6 +38,7 @@ def git_pull():
 def update_requirements():
     with prepare_project():
         run("pip install -r requirements.txt")
+        run("source ~/.nvm/nvm.sh && npm install")
 
 
 @task

@@ -8,6 +8,7 @@ local_settings.py
 newrelic.ini
 site_media/
 static/
+node_modules/
 .coverage
 *,cover
 htmlcov

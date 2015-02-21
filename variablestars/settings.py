@@ -166,8 +166,8 @@ if DEBUG:
     mimetypes.add_type('text/coffeescript', '.coffee')
 else:
     COMPRESS_PRECOMPILERS = (
-        ('text/less', 'lessc {infile} {outfile}'),
-        ('text/coffeescript', 'coffee --compile --stdio'),
+        ('text/less', '%s {infile} {outfile}' % os.path.join(BASE_DIR, 'node_modules/.bin/lessc')),
+        ('text/coffeescript', '%s --compile --stdio' % os.path.join(BASE_DIR, 'node_modules/.bin/coffee')),
     )
 
 if 'test' in sys.argv:
