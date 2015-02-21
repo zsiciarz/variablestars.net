@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load i18n %}
+{% load staticfiles %}
 {% load bootstrap_pagination %}
 {% load stars_tags %}
 
@@ -168,5 +169,5 @@
 {% endblock %}
 
 {% block extra-script %}
-    <script defer type="text/coffeescript" src="{{ STATIC_URL }}js/lightcurve.coffee{% if debug %}?{% now "U" %}{% endif %}"></script>
+    <script defer type="text/coffeescript" src="{% static 'js/lightcurve.coffee' %}{% if debug %}?{% now "U" %}{% endif %}"></script>
 {% endblock %}
