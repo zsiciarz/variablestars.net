@@ -12,7 +12,6 @@ django-debug-toolbar==1.2.2
 django-extensions==1.5.0
 django-geoposition==0.2.2
 django-model-utils==2.2
-django-registration==1.0
 django-twitter-bootstrap==3.3.0
 djet==0.0.10
 frogress==0.9.1

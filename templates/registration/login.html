@@ -18,7 +18,7 @@
         <div class="col-sm-3">
         </div>
     </div>
-    <form class="sign-in" action="{% url 'auth_login' %}" method="post">
+    <form class="sign-in" action="" method="post">
         {% csrf_token %}
         {{ form|crispy }}
         <input type="hidden" name="next" value="{{ next }}" />

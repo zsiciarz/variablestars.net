@@ -11,39 +11,10 @@ from django.utils.translation import ugettext_lazy as _
 from djet.assertions import StatusCodeAssertionsMixin, MessagesAssertionsMixin
 from djet.testcases import ViewTestCase
 from djet.utils import refresh
-from registration.backends.simple.views import RegistrationView
 
 from ..models import Observer
 from .. import views
 from variablestars.tests.base import TestDataMixin
-
-
-class RegisterTestCase(StatusCodeAssertionsMixin, MessagesAssertionsMixin, ViewTestCase):
-    view_class = RegistrationView
-    middleware_classes = [
-        SessionMiddleware,
-        MessageMiddleware,
-    ]
-
-    def test_invalid_form(self):
-        request = self.factory.post(data={
-            'username': 'newuser',
-            'email': '',
-        })
-        response = self.view(request)
-        self.assertContains(response, _('This field is required.'))
-
-    def test_valid_form(self):
-        request = self.factory.post(data={
-            'username': 'newuser',
-            'email': 'newuser@example.com',
-            'password1': 'hunter2',
-            'password2': 'hunter2',
-        })
-        response = self.view(request)
-        observer = Observer.objects.get(user__username='newuser')
-        self.assert_redirect(response, observer.get_absolute_url())
-        self.assert_message_exists(request, messages.SUCCESS, _('Thank you for your registration!'))
 
 
 class ObserverListViewTestCase(TestDataMixin, ViewTestCase):

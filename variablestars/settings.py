@@ -47,7 +47,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'geoposition',
     'south',
-    'registration',
     'twitter_bootstrap',
     'raven.contrib.django.raven_compat',
 
@@ -136,7 +135,7 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-LOGIN_URL = reverse_lazy('auth_login')
+LOGIN_URL = '/'
 LOGOUT_URL = reverse_lazy('auth_logout')
 LOGIN_REDIRECT_URL = reverse_lazy('main')
 

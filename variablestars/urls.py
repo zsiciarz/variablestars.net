@@ -9,7 +9,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'variablestars.views.index', name='main'),
-    url(r'', include('registration.backends.simple.urls')),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
     url(r'^stars/', include('stars.urls', namespace='stars')),
     url(r'^observers/', include('observers.urls', namespace='observers')),

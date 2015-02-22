@@ -17,7 +17,6 @@ import ephem
 from geoposition.fields import GeopositionField
 from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
-from registration.signals import user_registered
 
 from observations.models import Observation
 
@@ -102,9 +101,3 @@ post_save.connect(
 
 def complete_registration(sender, user, request, **kwargs):
     messages.success(request, _("Thank you for your registration!"))
-
-
-user_registered.connect(
-    complete_registration,
-    dispatch_uid='observers.models.complete_registration'
-)
