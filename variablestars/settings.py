@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
@@ -47,6 +48,8 @@ INSTALLED_APPS = (
     'django_extensions',
     'geoposition',
     'south',
+    'allauth',
+    'allauth.account',
     'twitter_bootstrap',
     'raven.contrib.django.raven_compat',
 
@@ -109,6 +112,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
+    'allauth.account.context_processors.account',
     'observers.context_processors.get_current_observer',
 )
 
@@ -134,6 +138,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
+
+SITE_ID = 1
 
 LOGIN_URL = '/'
 LOGOUT_URL = reverse_lazy('auth_logout')
