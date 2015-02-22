@@ -141,8 +141,8 @@ STATICFILES_FINDERS = (
 
 SITE_ID = 1
 
-LOGIN_URL = '/'
-LOGOUT_URL = reverse_lazy('auth_logout')
+LOGIN_URL = reverse_lazy('account_login')
+LOGOUT_URL = reverse_lazy('account_logout')
 LOGIN_REDIRECT_URL = reverse_lazy('main')
 
 ABSOLUTE_URL_OVERRIDES = {
@@ -150,6 +150,8 @@ ABSOLUTE_URL_OVERRIDES = {
 }
 
 INTERNAL_IPS = ('127.0.0.1',)
+
+ACCOUNT_LOGOUT_ON_GET = True
 
 SOUTH_TESTS_MIGRATE = False
 
