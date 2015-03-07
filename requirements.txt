@@ -16,7 +16,7 @@ django-model-utils==2.2
 django-twitter-bootstrap==3.3.0
 djet==0.0.10
 frogress==0.9.1
-gunicorn==19.2.1
+gunicorn==19.3
 ipython==3.0.0
 lxml==3.4.2
 mock==1.0.1
