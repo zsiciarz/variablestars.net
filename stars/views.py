@@ -20,7 +20,6 @@ class StarListView(SelectRelatedMixin, ListView):
     """
     model = Star
     select_related = ('variability_type',)
-    paginate_by = 20
 
     def get_queryset(self):
         queryset = super(StarListView, self).get_queryset()

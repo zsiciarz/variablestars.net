@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'autocomplete_light',
-    'bootstrap_pagination',
+    'pagination',
     'compressor',
     'crispy_forms',
     'debug_toolbar',
@@ -64,6 +64,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'pagination.middleware.PaginationMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'observers.middleware.ObserverMiddleware',
     'stars.middleware.StarFilterMiddleware',

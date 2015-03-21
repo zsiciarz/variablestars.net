@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load bootstrap_pagination %}
+{% load pagination_tags %}
 
 {% block title %}{% trans "List of variable stars" %}{% if constellation %} {% trans "in" %} {{ constellation }}{% endif %} | {{ block.super }}{% endblock %}
 
 {% block content %}
+    {% autopaginate star_list 20 %}
     <div class="row">
         <div class="col-sm-9">
             <h1><span class="glyphicon glyphicon-star-empty"></span> {% trans 'Stars' %}</h1>
@@ -39,7 +40,5 @@
         <p>{% trans "There are no variable stars matching the criteria." %}</p>
     {% endif %}
 
-    {% if is_paginated %}
-        {% bootstrap_paginate page_obj range=10 %}
-    {% endif %}
+    {% paginate %}
 {% endblock %}

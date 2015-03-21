@@ -14,7 +14,6 @@ class ObserverListView(ListView):
     Display a list of observers.
     """
     queryset = Observer.objects.with_observations_count()
-    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super(ObserverListView, self).get_context_data(**kwargs)
