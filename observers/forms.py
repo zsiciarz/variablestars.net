@@ -13,18 +13,12 @@ class ObserverForm(forms.ModelForm):
 
     class Meta:
         model = Observer
+        fields = ['first_name', 'last_name', 'aavso_code', 'limiting_magnitude', 'location']
 
     def __init__(self, *args, **kwargs):
         super(ObserverForm, self).__init__(*args, **kwargs)
         self.fields['first_name'].initial = self.instance.user.first_name
         self.fields['last_name'].initial = self.instance.user.last_name
-        self.fields.keyOrder = [
-            'first_name',
-            'last_name',
-            'aavso_code',
-            'limiting_magnitude',
-            'location',
-        ]
 
     def save(self, *args, **kwargs):
         observer = super(ObserverForm, self).save(*args, **kwargs)
