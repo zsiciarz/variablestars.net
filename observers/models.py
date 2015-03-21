@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 from datetime import timedelta
 
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.db import models
 from django.db.models import Count
 from django.db.models.query import QuerySet
@@ -97,7 +96,3 @@ post_save.connect(
     create_observer, sender=User,
     dispatch_uid='observers.models.create_observer'
 )
-
-
-def complete_registration(sender, user, request, **kwargs):
-    messages.success(request, _("Thank you for your registration!"))
