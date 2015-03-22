@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from djet.assertions import StatusCodeAssertionsMixin, MessagesAssertionsMixin
 from djet.testcases import ViewTestCase
 from djet.utils import refresh
+from pagination.middleware import PaginationMiddleware
 
 from ..models import Observer
 from .. import views
@@ -19,6 +20,7 @@ from variablestars.tests.base import TestDataMixin
 
 class ObserverListViewTestCase(TestDataMixin, ViewTestCase):
     view_class = views.ObserverListView
+    middleware_classes = [PaginationMiddleware]
 
     def test_response(self):
         self._create_users()
