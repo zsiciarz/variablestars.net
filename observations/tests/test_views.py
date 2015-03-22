@@ -119,7 +119,8 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, MessagesAssertions
         """
         If the file is valid, observations are created.
         """
-        aavso_file = create_inmemory_file('data.txt', "\n".join(self.lines))
+        contents = "\n".join(self.lines)
+        aavso_file = create_inmemory_file('data.txt', contents.encode('utf-8'))
         with self.assert_instance_created(Observation, star=self.star, notes='test3'):
             request = self.factory.post(data={
                 'aavso_file': aavso_file,
@@ -135,7 +136,8 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, MessagesAssertions
         """
         observations_count_before = Observation.objects.count()
         self.lines[-1] = "%s,2450702.1234,ASDF,na,110,113,070613,test3" % self.star.name
-        aavso_file = create_inmemory_file('data.txt', "\n".join(self.lines))
+        contents = "\n".join(self.lines)
+        aavso_file = create_inmemory_file('data.txt', contents.encode('utf-8'))
         request = self.factory.post(data={
             'aavso_file': aavso_file,
         }, user=self.user)
