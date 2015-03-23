@@ -10,7 +10,6 @@ from django.utils.translation import ugettext_lazy as _
 
 import ephem
 from geoposition.fields import GeopositionField
-from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
 
 from observations.models import Observation
@@ -47,7 +46,7 @@ class Observer(TimeStampedModel):
     )
     location = GeopositionField(blank=True)
 
-    objects = PassThroughManager.for_queryset_class(ObserverQuerySet)()
+    objects = ObserverQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Observer")

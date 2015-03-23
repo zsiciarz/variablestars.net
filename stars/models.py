@@ -4,7 +4,6 @@ from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
 
 from model_utils import Choices
-from model_utils.managers import PassThroughManager
 
 from observations.models import Observation
 from observations.utils import jd_now
@@ -141,7 +140,7 @@ class Star(models.Model):
     # denormalization
     observations_count = models.PositiveIntegerField(default=0, editable=False)
 
-    objects = PassThroughManager.for_queryset_class(StarQuerySet)()
+    objects = StarQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Variable star")
