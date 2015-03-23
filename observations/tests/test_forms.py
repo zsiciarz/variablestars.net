@@ -3,8 +3,7 @@
 from __future__ import unicode_literals
 
 import unittest
-
-from mock import patch
+from unittest.mock import patch
 
 from ..forms import BatchUploadForm
 from ..utils import jd_now

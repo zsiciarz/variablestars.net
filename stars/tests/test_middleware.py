@@ -3,8 +3,7 @@
 from __future__ import unicode_literals
 
 import unittest
-
-from mock import MagicMock
+from unittest.mock import MagicMock
 
 from ..middleware import StarFilterMiddleware
 

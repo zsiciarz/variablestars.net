@@ -3,10 +3,9 @@
 from __future__ import unicode_literals
 
 import unittest
+from unittest.mock import patch
 
 from django.db import models
-
-from mock import patch
 
 from ..models import Observation
 from stars.models import Star

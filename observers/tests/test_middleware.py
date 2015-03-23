@@ -3,10 +3,9 @@
 from __future__ import unicode_literals
 
 import unittest
+from unittest.mock import MagicMock, patch
 
 from django.contrib.auth.models import AnonymousUser, User
-
-from mock import MagicMock, patch
 
 from ..middleware import ObserverMiddleware
 from ..models import Observer
