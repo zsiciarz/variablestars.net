@@ -13,7 +13,7 @@ def prepare_project():
     """
     return nested(
         cd(PROJECT_PATH),
-        prefix("source ../.virtualenvs/variablestars2/bin/activate")
+        prefix("source ../.virtualenvs/variablestars3/bin/activate")
     )
 
 
