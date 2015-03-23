@@ -1,19 +1,11 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
-from django.contrib import messages
 from django.contrib.auth.models import AnonymousUser
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
 from django.utils.translation import ugettext_lazy as _
 
-from djet.assertions import StatusCodeAssertionsMixin, MessagesAssertionsMixin
+from djet.assertions import StatusCodeAssertionsMixin
 from djet.testcases import ViewTestCase
 from djet.utils import refresh
 from pagination.middleware import PaginationMiddleware
 
-from ..models import Observer
 from .. import views
 from variablestars.tests.base import TestDataMixin
 

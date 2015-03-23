@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView
 

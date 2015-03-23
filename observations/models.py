@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models
 from django.db.models import Count
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -22,7 +18,6 @@ class ObservationManager(models.Manager):
         return self.select_related('star', 'observer').order_by('-jd')
 
 
-@python_2_unicode_compatible
 class Observation(models.Model):
     """
     Single observation - estimation of variable star's brightness.

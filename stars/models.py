@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models
 from django.db.models import Count
 from django.db.models.query import QuerySet
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from model_utils import Choices
@@ -123,7 +119,6 @@ class StarQuerySet(QuerySet):
         }
 
 
-@python_2_unicode_compatible
 class Star(models.Model):
     """
     A variable star.
@@ -185,7 +180,6 @@ class Star(models.Model):
         return self.observations.filter(observer=observer)
 
 
-@python_2_unicode_compatible
 class VariabilityType(models.Model):
     """
     A short description of variability type from GCVS.

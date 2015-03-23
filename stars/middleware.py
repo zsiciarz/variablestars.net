@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-
 class StarFilterMiddleware(object):
     """
     Stores star filter data in user's session.

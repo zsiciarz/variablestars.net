@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from datetime import timedelta
 
 from django.contrib.auth.models import User
@@ -9,7 +6,6 @@ from django.db.models import Count
 from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
 from django.utils import timezone
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 import ephem
@@ -35,7 +31,6 @@ class ObserverQuerySet(QuerySet):
         }
 
 
-@python_2_unicode_compatible
 class Observer(TimeStampedModel):
     user = models.OneToOneField(
         'auth.User', editable=False, related_name='observer'

@@ -1,5 +1,3 @@
-from __future__ import unicode_literals, print_function
-
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
@@ -23,7 +21,7 @@ class Command(BaseCommand):
         new_stars = 0
         for star_dict in read_gcvs(options['file']):
             try:
-                star = Star.objects.get(name=star_dict['name'])
+                Star.objects.get(name=star_dict['name'])
             except Star.DoesNotExist:
                 variability_type, created = VariabilityType.objects.get_or_create(
                     code=star_dict.pop('variable_type'),
@@ -31,6 +29,6 @@ class Command(BaseCommand):
                 star_dict['variability_type'] = variability_type
                 star_dict['ra'] = star_dict['ra'] or ''
                 star_dict['dec'] = star_dict['dec'] or ''
-                star = Star.objects.create(**star_dict)
+                Star.objects.create(**star_dict)
                 new_stars += 1
         self.stdout.write('Imported %d new stars.' % new_stars)

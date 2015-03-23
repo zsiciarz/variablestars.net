@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
 from ..models import Observer
 from observations.models import Observation
 from variablestars.tests.base import BaseTestCase
