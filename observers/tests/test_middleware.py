@@ -1,20 +1,20 @@
-import unittest
 from unittest.mock import MagicMock, patch
 
 from django.contrib.auth.models import AnonymousUser, User
+from django.test import TestCase
 
 from ..middleware import ObserverMiddleware
 from ..models import Observer
 
 
-class ObserverMiddlewareTestCase(unittest.TestCase):
+class ObserverMiddlewareTestCase(TestCase):
     """
     Tests for ``observers.middleware.ObserverMiddleware`` class.
     """
     def setUp(self):
         super(ObserverMiddlewareTestCase, self).setUp()
         self.request = MagicMock()
-        self.user = self.request.user = User(
+        self.user = self.request.user = User.objects.create_user(
             username='stargazer',
             email='stargazer@example.com',
             password='123456',

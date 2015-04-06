@@ -32,9 +32,9 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, MessagesAssertionsMixi
         Check basic properties of the view.
         """
         request = self.factory.get(user=self.user)
-        response = self.view(request)
-        self.assertContains(response, _("Add new observation"))
-        self.assertTemplateUsed(response, "observations/add_observation.html")
+        with self.assertTemplateUsed("observations/add_observation.html"):
+            response = self.view(request)
+            self.assertContains(response, _("Add new observation"))
 
     def test_predefined_star(self):
         """
@@ -97,9 +97,9 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, MessagesAssertions
 
     def test_response(self):
         request = self.factory.get(user=self.user)
-        response = self.view(request)
-        self.assertContains(response, _("Upload observations"))
-        self.assertTemplateUsed(response, "observations/upload_observations.html")
+        with self.assertTemplateUsed("observations/upload_observations.html"):
+            response = self.view(request)
+            self.assertContains(response, _("Upload observations"))
 
     def test_no_file(self):
         """

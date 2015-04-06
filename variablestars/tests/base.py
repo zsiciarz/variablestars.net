@@ -54,12 +54,12 @@ class TestDataMixin(object):
         self.observer2.aavso_code = 'JKL'
         self.observer2.save()
 
-    def _create_stars(self, save=True):
-        self.variability_type = VariabilityType(
+    def _create_stars(self):
+        self.variability_type = VariabilityType.objects.create(
             code='M',
             long_description='Mira stars',
         )
-        self.star = Star(
+        self.star = Star.objects.create(
             constellation='LEO',
             name='R LEO',
             ra='09:47:33.5',
@@ -70,7 +70,7 @@ class TestDataMixin(object):
             period=None,
             epoch=None,
         )
-        self.periodic_star = Star(
+        self.periodic_star = Star.objects.create(
             constellation='CEP',
             name='T CEP',
             ra='21:09:31.8',
@@ -81,10 +81,6 @@ class TestDataMixin(object):
             period=388.14,
             epoch=2444177.0,
         )
-        if save:
-            self.variability_type.save()
-            self.star.save()
-            self.periodic_star.save()
 
     def _create_observations(self):
         observations = []

@@ -1,14 +1,14 @@
-import unittest
 from unittest.mock import patch
 
 from django.db import models
+from django.test import TestCase
 
 from ..models import Observation
 from stars.models import Star
 from variablestars.tests.base import BaseTestCase
 
 
-class ObservationModelTestCase(unittest.TestCase):
+class ObservationModelTestCase(TestCase):
     """
     Tests for Observation model.
     """
@@ -16,7 +16,7 @@ class ObservationModelTestCase(unittest.TestCase):
         """
         Check for string representation of an observation.
         """
-        star = Star(name='R LEO')
+        star = Star.objects.create(name='R LEO')
         observation = Observation(star=star, jd=2456567.2550, magnitude=8.5)
         expected = "%s %s %s" % (
             observation.star, observation.jd, observation.magnitude,
@@ -28,7 +28,7 @@ class ObservationModelTestCase(unittest.TestCase):
         Check that creating new observation adds 1 to star's
         ``observations_count`` denormalized field.
         """
-        star = Star(name='R LEO', observations_count=10)
+        star = Star.objects.create(name='R LEO', observations_count=10)
         observation = Observation(star=star)
         with patch.object(star, 'save'), patch.object(models.Model, 'save'):
             observation.save()
@@ -39,7 +39,7 @@ class ObservationModelTestCase(unittest.TestCase):
         Check that deleting an observation subtracts 1 from star's
         ``observations_count`` denormalized field.
         """
-        star = Star(name='R LEO', observations_count=10)
+        star = Star.objects.create(name='R LEO', observations_count=10)
         observation = Observation(star=star)
         with patch.object(star, 'save'), patch.object(models.Model, 'delete'):
             observation.delete()

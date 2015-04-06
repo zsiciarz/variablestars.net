@@ -1,20 +1,19 @@
-import unittest
 from unittest.mock import patch
 
 from ..forms import BatchUploadForm
 from ..utils import jd_now
 from observers.models import Observer
 from stars.models import Star
+from variablestars.tests.base import BaseTestCase
 
 
-class BatchUploadFormTestCase(unittest.TestCase):
+class BatchUploadFormTestCase(BaseTestCase):
     """
     Tests for ``observations.forms.BatchUploadForm`` class.
     """
     def setUp(self):
         super(BatchUploadFormTestCase, self).setUp()
-        self.star = Star(name='R LEO')
-        self.observer = Observer(aavso_code='XYZ')
+        self._create_stars()
         self.row = {
             'name': self.star.name,
             'magnitude': '6.6',

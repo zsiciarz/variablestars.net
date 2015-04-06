@@ -17,9 +17,9 @@ class ObserverListViewTestCase(TestDataMixin, ViewTestCase):
     def test_response(self):
         self._create_users()
         request = self.factory.get()
-        response = self.view(request)
-        self.assertContains(response, self.observer.aavso_code)
-        self.assertTemplateUsed(response, 'observers/observer_list.html')
+        with self.assertTemplateUsed('observers/observer_list.html'):
+            response = self.view(request)
+            self.assertContains(response, self.observer.aavso_code)
 
 
 class ObserverEditViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
@@ -36,9 +36,9 @@ class ObserverEditViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTes
 
     def test_response(self):
         request = self.factory.get(user=self.user)
-        response = self.view(request)
-        self.assertContains(response, _("Edit profile"))
-        self.assertTemplateUsed(response, 'observers/observer_edit.html')
+        with self.assertTemplateUsed('observers/observer_edit.html'):
+            response = self.view(request)
+            self.assertContains(response, _("Edit profile"))
 
     def test_update_observer_data(self):
         self.assertNotEqual(self.observer.limiting_magnitude, 11)
