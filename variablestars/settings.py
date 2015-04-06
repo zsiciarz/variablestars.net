@@ -24,7 +24,6 @@ SECRET_KEY = 'not-defined-here'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['.variablestars.net']
 
@@ -99,22 +98,30 @@ USE_L10N = True
 USE_TZ = True
 
 # Templates
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.request',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.contrib.messages.context_processors.messages',
-    'allauth.account.context_processors.account',
-    'observers.context_processors.get_current_observer',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': (
+            os.path.join(BASE_DIR, 'templates'),
+        ),
+        'OPTIONS': {
+            'context_processors': (
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.debug',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.media',
+                'django.core.context_processors.request',
+                'django.core.context_processors.static',
+                'django.core.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                'allauth.account.context_processors.account',
+                'observers.context_processors.get_current_observer',
+            ),
+            'debug': DEBUG,
+        },
+    },
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
