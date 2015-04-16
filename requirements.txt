@@ -17,7 +17,7 @@ djet==0.0.10
 frogress==0.9.1
 gunicorn==19.3
 ipython==3.1.0
-lxml==3.4.2
+lxml==3.4.3
 psycopg2==2.6
 pyaavso==0.1.5
 pyephem==3.7.5.3
