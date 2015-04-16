@@ -63,7 +63,7 @@ class StarSearchView(StarListView):
     template_name = "stars/star_search.html"
 
     def get_queryset(self):
-        q = self.request.REQUEST.get('q', '').strip()
+        q = self.request.GET.get('q', '').strip()
         queryset = super(StarSearchView, self).get_queryset()
         self.exact_match = None
         try:
