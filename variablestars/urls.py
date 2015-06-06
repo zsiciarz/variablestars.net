@@ -1,9 +1,6 @@
 from django.conf.urls import include, url
 from django.views.generic import TemplateView
 
-import autocomplete_light
-autocomplete_light.autodiscover()
-
 from django.contrib import admin
 admin.autodiscover()
 
