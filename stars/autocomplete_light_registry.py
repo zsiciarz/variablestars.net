@@ -1,11 +1,11 @@
 from django.utils.translation import ugettext_lazy as _
 
-import autocomplete_light
+import autocomplete_light.shortcuts as al
 
 from .models import Star
 
 
-class StarAutocomplete(autocomplete_light.AutocompleteModelTemplate):
+class StarAutocomplete(al.AutocompleteModelTemplate):
     search_fields = ['name']
     autocomplete_template = "stars/autocomplete.html"
     autocomplete_js_attributes = {
@@ -13,4 +13,4 @@ class StarAutocomplete(autocomplete_light.AutocompleteModelTemplate):
     }
 
 
-autocomplete_light.register(Star, StarAutocomplete)
+al.register(Star, StarAutocomplete)

@@ -2,7 +2,7 @@ from django import forms
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 
-import autocomplete_light
+import autocomplete_light.shortcuts as al
 from pyaavso.formats.visual import VisualFormatReader
 
 from .models import Observation
@@ -10,7 +10,7 @@ from stars.models import Star
 from observers.models import Observer
 
 
-class ObservationForm(autocomplete_light.ModelForm):
+class ObservationForm(al.ModelForm):
     class Meta:
         model = Observation
         fields = (
