@@ -2,8 +2,11 @@ sudo: false
 language: python
 python:
   - "3.4"
+cache:
+  directories:
+    - $HOME/.cache/pip
 install:
-  - pip install pip setuptools --upgrade
+  - pip install pip setuptools wheel --upgrade
   - pip install -r requirements.txt
   - pip install coveralls
 script:
