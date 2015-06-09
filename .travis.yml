@@ -1,8 +1,6 @@
 language: python
 python:
   - "3.4"
-before_install:
-  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 install:
   - pip install pip setuptools --upgrade
   - pip install -r requirements.txt
