@@ -101,6 +101,7 @@
   <script defer type="text/coffeescript" src="{% static 'js/script.coffee' %}"></script>
     {% block extra-script %}{% endblock %}
   {% endcompress %}
+    {% block extra-script-uncompressed %}{% endblock %}
   {% if debug %}
   <script defer src="{% static 'js/libs/coffee-script.js' %}"></script>
   {% endif %}
