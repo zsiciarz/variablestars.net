@@ -4,8 +4,10 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 admin.autodiscover()
 
+from .views import index
+
 urlpatterns = [
-    url(r'^$', 'variablestars.views.index', name='main'),
+    url(r'^$', index, name='main'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
     url(r'^stars/', include('stars.urls', namespace='stars')),
