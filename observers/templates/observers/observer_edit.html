@@ -34,4 +34,19 @@
 {% block extra-script-uncompressed %}
 {{ block.super }}
 {{ form.media.js }}
+<script>
+$(function () {
+    $('.geoposition-widget').on('geoposition.geocoder.finished', function (event, results, status) {
+        var components = results[0].address_components;
+        var city = "";
+        for (var i = 0; i < components.length; ++i) {
+            if (components[i].types[0] == "locality") {
+                city = components[i].long_name;
+                break;
+            }
+        }
+        console.log(city);
+    });
+});
+</script>
 {% endblock %}
