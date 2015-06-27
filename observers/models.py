@@ -45,6 +45,9 @@ class Observer(TimeStampedModel):
         help_text=_("The magnitude of the faintest stars you can see with your eyes/binoculars/telescope. Setting this value will affect which stars will have their brightness value(s) grayed out.")
     )
     location = GeopositionField(blank=True)
+    city = models.CharField(
+        max_length=255, blank=True, default='',
+    )
 
     objects = ObserverQuerySet.as_manager()
 
