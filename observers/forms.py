@@ -10,7 +10,7 @@ class ObserverForm(forms.ModelForm):
 
     class Meta:
         model = Observer
-        fields = ['first_name', 'last_name', 'aavso_code', 'limiting_magnitude', 'location']
+        fields = ['first_name', 'last_name', 'aavso_code', 'limiting_magnitude', 'location', 'city']
 
     def __init__(self, *args, **kwargs):
         super(ObserverForm, self).__init__(*args, **kwargs)
