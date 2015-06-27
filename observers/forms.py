@@ -16,6 +16,7 @@ class ObserverForm(forms.ModelForm):
         super(ObserverForm, self).__init__(*args, **kwargs)
         self.fields['first_name'].initial = self.instance.user.first_name
         self.fields['last_name'].initial = self.instance.user.last_name
+        self.fields['city'].widget = forms.HiddenInput()
 
     def save(self, *args, **kwargs):
         observer = super(ObserverForm, self).save(*args, **kwargs)
