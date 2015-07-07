@@ -21,6 +21,6 @@ psycopg2==2.6.1
 pyaavso==0.1.5
 pyephem==3.7.5.3
 pygcvs==0.1.4
-raven==5.3.1
+raven==5.4.0
 requests==2.7.0
 six==1.9.0
