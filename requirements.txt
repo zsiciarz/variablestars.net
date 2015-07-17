@@ -15,7 +15,7 @@ django-twitter-bootstrap==3.3.0
 djet==0.0.10
 frogress==0.9.1
 gunicorn==19.3
-ipython==3.2.0
+ipython==3.2.1
 lxml==3.4.4
 psycopg2==2.6.1
 pyaavso==0.1.5
