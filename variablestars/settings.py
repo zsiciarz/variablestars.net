@@ -115,7 +115,6 @@ TEMPLATES = [
                 'django.core.context_processors.static',
                 'django.core.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                'allauth.account.context_processors.account',
                 'observers.context_processors.get_current_observer',
             ),
             'debug': DEBUG,
