@@ -42,7 +42,7 @@ def dict_to_observation(row, observer):
     observation.magnitude = magnitude
     observation.fainter_than = fainter_than
     observation.comp1 = row['comp1']
-    observation.comp2 = row['comp2']
+    observation.comp2 = row.get('comp2', '')
     observation.chart = row['chart']
     observation.comment_code = row['comment_code']
     observation.notes = row['notes']
