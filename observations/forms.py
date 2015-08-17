@@ -6,8 +6,7 @@ import autocomplete_light.shortcuts as al
 from pyaavso.formats.visual import VisualFormatReader
 
 from .models import Observation
-from .utils import normalize_star_name
-from stars.models import Star
+from .utils import dict_to_observation
 from observers.models import Observer
 
 
@@ -35,34 +34,7 @@ class BatchUploadForm(forms.Form):
         with transaction.atomic():
             for row in reader:
                 try:
-                    observation = self.process_row(row, observer)
+                    observation = dict_to_observation(row, observer)
                     observation.save()
                 except Exception:
                     continue
-
-    def process_row(self, row, observer):
-        name = normalize_star_name(row['name'])
-        star = Star.objects.get(name=name)
-        fainter_than = '<' in row['magnitude']
-        magnitude = float(row['magnitude'].replace('<', ''))
-        jd = float(row['date'])
-        try:
-            observation = Observation.objects.get(
-                observer=observer,
-                star=star,
-                jd=jd,
-            )
-        except Observation.DoesNotExist:
-            observation = Observation(
-                observer=observer,
-                star=star,
-                jd=jd,
-            )
-        observation.magnitude = magnitude
-        observation.fainter_than = fainter_than
-        observation.comp1 = row['comp1']
-        observation.comp2 = row['comp2']
-        observation.chart = row['chart']
-        observation.comment_code = row['comment_code']
-        observation.notes = row['notes']
-        return observation
