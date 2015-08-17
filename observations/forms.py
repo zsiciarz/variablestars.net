@@ -6,6 +6,7 @@ import autocomplete_light.shortcuts as al
 from pyaavso.formats.visual import VisualFormatReader
 
 from .models import Observation
+from .utils import normalize_star_name
 from stars.models import Star
 from observers.models import Observer
 
@@ -40,7 +41,7 @@ class BatchUploadForm(forms.Form):
                     continue
 
     def process_row(self, row, observer):
-        name = self.normalize_star_name(row['name'])
+        name = normalize_star_name(row['name'])
         star = Star.objects.get(name=name)
         fainter_than = '<' in row['magnitude']
         magnitude = float(row['magnitude'].replace('<', ''))
@@ -65,12 +66,3 @@ class BatchUploadForm(forms.Form):
         observation.comment_code = row['comment_code']
         observation.notes = row['notes']
         return observation
-
-    def normalize_star_name(self, name):
-        """
-        Normalize star name with GCVS names, for example: V339 -> V0339.
-        """
-        digits = '123456789'
-        if name[0] == 'V' and name[1] in digits and name[4] not in digits:
-            name = 'V0' + name[1:]
-        return name

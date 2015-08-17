@@ -2,7 +2,6 @@ from unittest.mock import patch
 
 from ..forms import BatchUploadForm
 from ..utils import jd_now
-from observers.models import Observer
 from stars.models import Star
 from variablestars.tests.base import BaseTestCase
 
@@ -24,15 +23,6 @@ class BatchUploadFormTestCase(BaseTestCase):
             'comment_code': '',
             'notes': 'test2',
         }
-
-    def test_normalize_star_name(self):
-        """
-        Check that Vxxx star names are normalized to GCVS version.
-        """
-        form = BatchUploadForm()
-        self.assertEqual(form.normalize_star_name('RR LYR'), 'RR LYR')
-        self.assertEqual(form.normalize_star_name('V1339 CYG'), 'V1339 CYG')
-        self.assertEqual(form.normalize_star_name('V838 MON'), 'V0838 MON')
 
     def test_parse_row(self):
         """
