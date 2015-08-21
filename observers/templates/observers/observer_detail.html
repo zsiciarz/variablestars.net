@@ -75,24 +75,7 @@
         </div>
         <div class="col-sm-9">
             <h2>{% trans "Recent observations" %}</h2>
-            <table class="table table-condensed table-striped">
-                <thead>
-                    <tr>
-                        <th>{% trans "Star" %}</th>
-                        <th>{% trans "Julian Date" %}</th>
-                        <th>{% trans "Brightness" %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for observation in observer.recent_observations|slice:":5"%}
-                    <tr>
-                        <td><a href="{{ observation.star.get_absolute_url }}">{{ observation.star }}</a></td>
-                        <td>{{ observation.jd|floatformat:4 }}</td>
-                        <td>{{ observation.magnitude }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% include "observations/recent_observations.html" %}
         </div>
     </div>
 
