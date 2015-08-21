@@ -14,13 +14,13 @@ django-model-utils==2.3.1
 django-pagination-py3==1.1.1
 django-twitter-bootstrap==3.3.0
 djet==0.0.10
+ephem==3.7.6.0
 frogress==0.9.1
 gunicorn==19.3
 ipython==4.0.0
 lxml==3.4.4
 psycopg2==2.6.1
 pyaavso==0.1.5
-pyephem==3.7.5.3
 pygcvs==1.0
 raven==5.5.0
 requests==2.7.0
