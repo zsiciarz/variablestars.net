@@ -80,6 +80,15 @@ class StarListViewTestCase(BaseTestCase):
         self.assertNotContains(response, self.star_without_observations.name)
 
 
+class ConstellationListView(BaseTestCase):
+    def test_response(self):
+        self._create_stars()
+        url = reverse('stars:constellation_list')
+        response = self.client.get(url)
+        self.assertTemplateUsed(response, "stars/constellation_list.html")
+        self.assertContains(response, self.star.constellation)
+
+
 class StarsInConstellationListViewTestCase(BaseTestCase):
     def test_response(self):
         self._create_stars()
