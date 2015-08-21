@@ -140,6 +140,15 @@ class StarDetailViewTestCase(BaseTestCase):
             self.assertIsNone(response.context['next_rising'])
 
 
+class VariabilityTypeListView(BaseTestCase):
+    def test_response(self):
+        self._create_stars()
+        url = reverse('stars:variabilitytype_list')
+        response = self.client.get(url)
+        self.assertTemplateUsed(response, "stars/variabilitytype_list.html")
+        self.assertContains(response, self.variability_type.short_description)
+
+
 class VariabilityTypeDetailViewTestCase(BaseTestCase):
     def test_response(self):
         self._create_stars()
