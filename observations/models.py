@@ -58,6 +58,7 @@ class Observation(models.Model):
     class Meta:
         verbose_name = _("Observation")
         verbose_name_plural = _("Observations")
+        ordering = ['-jd']
 
     def __str__(self):
         return "%s %s %s" % (self.star, self.jd, self.magnitude)
