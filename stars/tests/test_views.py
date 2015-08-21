@@ -80,7 +80,7 @@ class StarListViewTestCase(BaseTestCase):
         self.assertNotContains(response, self.star_without_observations.name)
 
 
-class ConstellationListViewTestCase(BaseTestCase):
+class StarsInConstellationListViewTestCase(BaseTestCase):
     def test_response(self):
         self._create_stars()
         url = reverse('stars:constellation_list', kwargs={

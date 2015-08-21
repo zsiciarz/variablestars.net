@@ -43,16 +43,16 @@ class StarListView(SelectRelatedMixin, ListView):
         return context
 
 
-class ConstellationListView(StarListView):
+class StarsInConstellationListView(StarListView):
     """
     List all stars in a given constellation.
     """
     def get_queryset(self):
-        queryset = super(ConstellationListView, self).get_queryset()
+        queryset = super(StarsInConstellationListView, self).get_queryset()
         return queryset.filter(constellation=self.kwargs['constellation'])
 
     def get_context_data(self, **kwargs):
-        context = super(ConstellationListView, self).get_context_data(**kwargs)
+        context = super(StarsInConstellationListView, self).get_context_data(**kwargs)
         name = CONSTELLATIONS_DICT.get(self.kwargs['constellation'])
         context['constellation'] = name
         return context
