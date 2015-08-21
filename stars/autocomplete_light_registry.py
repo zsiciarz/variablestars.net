@@ -1,3 +1,4 @@
+from django.db.models.functions import Length
 from django.utils.translation import ugettext_lazy as _
 
 import autocomplete_light.shortcuts as al
@@ -11,6 +12,9 @@ class StarAutocomplete(al.AutocompleteModelTemplate):
     autocomplete_js_attributes = {
         'placeholder': _("Enter star name"),
     }
+
+    def order_choices(self, choices):
+        return choices.order_by(Length('name').asc(), 'name')
 
 
 al.register(Star, StarAutocomplete)
