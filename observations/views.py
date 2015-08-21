@@ -8,12 +8,26 @@ from braces.views import LoginRequiredMixin
 
 from .forms import ObservationForm, BatchUploadForm
 from .models import Observation
+from observers.models import Observer
 from stars.models import Star
 
 
 class ObservationListView(ListView):
     queryset = Observation.objects.all()
     template_name = "observations/observation_list.html"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not self.kwargs.get('observer_id'):
+            return queryset
+        return queryset.filter(observer_id=self.kwargs['observer_id'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if not self.kwargs.get('observer_id'):
+            return context
+        context['observer'] = get_object_or_404(Observer, pk=self.kwargs['observer_id'])
+        return context
 
 
 class AddObservationView(LoginRequiredMixin, FormView):

@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load pagination_tags %}
 
-{% block title %}{% trans "List of observations" %} | {{ block.super }}{% endblock %}
+{% block title %}{% trans "List of observations" %}{% if observer %} {% trans "by" %} {{ observer.aavso_code }}{% endif %} | {{ block.super }}{% endblock %}
 
 {% block content %}
     {% autopaginate observation_list 50 %}
