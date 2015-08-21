@@ -24,7 +24,7 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, MessagesAssertionsMixi
     ]
 
     def setUp(self):
-        super(AddObservationViewTestCase, self).setUp()
+        super().setUp()
         self._create_users()
 
     def test_response(self):
@@ -82,7 +82,7 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, MessagesAssertions
     ]
 
     def setUp(self):
-        super(UploadObservationsViewTestCase, self).setUp()
+        super().setUp()
         self._create_users()
         self._create_stars()
         self.lines = [

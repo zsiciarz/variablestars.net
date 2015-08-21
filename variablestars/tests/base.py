@@ -24,7 +24,7 @@ class ObserverClient(Client):
         self.user = user
         self.observer = user.observer
         self.password = password
-        super(ObserverClient, self).__init__()
+        super().__init__()
 
     def login_observer(self):
         return self.login(username=self.user.username, password=self.password)

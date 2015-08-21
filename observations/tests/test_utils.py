@@ -34,7 +34,7 @@ class NormalizeStarNameTestCase(unittest.TestCase):
 
 class DictToObservationTestCase(BaseTestCase):
     def setUp(self):
-        super(DictToObservationTestCase, self).setUp()
+        super().setUp()
         self._create_stars()
         self.row = {
             'name': self.star.name,

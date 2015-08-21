@@ -26,7 +26,7 @@ class ObserverEditViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTes
     view_class = views.ObserverEditView
 
     def setUp(self):
-        super(ObserverEditViewTestCase, self).setUp()
+        super().setUp()
         self._create_users()
 
     def test_anonymous_user(self):

@@ -22,7 +22,7 @@ class StarListView(SelectRelatedMixin, ListView):
     select_related = ('variability_type',)
 
     def get_queryset(self):
-        queryset = super(StarListView, self).get_queryset()
+        queryset = super().get_queryset()
         try:
             magnitude = float(self.request.session['limiting_magnitude'])
             queryset = queryset.filter(max_magnitude__lt=magnitude)
@@ -37,7 +37,7 @@ class StarListView(SelectRelatedMixin, ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        context = super(StarListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         queryset = self.get_queryset()
         context.update(queryset.get_total_stats(self.request.observer))
         return context
@@ -48,11 +48,11 @@ class StarsInConstellationListView(StarListView):
     List all stars in a given constellation.
     """
     def get_queryset(self):
-        queryset = super(StarsInConstellationListView, self).get_queryset()
+        queryset = super().get_queryset()
         return queryset.filter(constellation=self.kwargs['constellation'])
 
     def get_context_data(self, **kwargs):
-        context = super(StarsInConstellationListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         name = CONSTELLATIONS_DICT.get(self.kwargs['constellation'])
         context['constellation'] = name
         return context
@@ -66,7 +66,7 @@ class StarSearchView(StarListView):
 
     def get_queryset(self):
         q = self.request.GET.get('q', '').strip()
-        queryset = super(StarSearchView, self).get_queryset()
+        queryset = super().get_queryset()
         self.exact_match = None
         try:
             self.exact_match = queryset.filter(name__iexact=q)[0]
@@ -79,7 +79,7 @@ class StarSearchView(StarListView):
     def render_to_response(self, context, **kwargs):
         if self.exact_match:
             return redirect(self.exact_match)
-        return super(StarSearchView, self).render_to_response(context, **kwargs)
+        return super().render_to_response(context, **kwargs)
 
 
 class StarDetailView(DetailView):
@@ -89,7 +89,7 @@ class StarDetailView(DetailView):
     model = Star
 
     def get_context_data(self, **kwargs):
-        context = super(StarDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         star = context['star']
         body = dict_to_body(model_to_dict(star))
         observer = self.request.observer
@@ -129,11 +129,11 @@ class VariabilityTypeDetailView(StarListView):
     template_name = "stars/variabilitytype_detail.html"
 
     def get_queryset(self):
-        queryset = super(VariabilityTypeDetailView, self).get_queryset()
+        queryset = super().get_queryset()
         return queryset.filter(variability_type_id=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
-        context = super(VariabilityTypeDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['variabilitytype'] = VariabilityType.objects.get(pk=self.kwargs['pk'])
         return context
 

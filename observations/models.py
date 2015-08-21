@@ -66,9 +66,9 @@ class Observation(models.Model):
         if self.pk is None:
             self.star.observations_count += 1
             self.star.save()
-        super(Observation, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         self.star.observations_count -= 1
         self.star.save()
-        super(Observation, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)

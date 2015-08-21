@@ -12,7 +12,7 @@ class ObserverMiddlewareTestCase(TestCase):
     Tests for ``observers.middleware.ObserverMiddleware`` class.
     """
     def setUp(self):
-        super(ObserverMiddlewareTestCase, self).setUp()
+        super().setUp()
         self.request = MagicMock()
         self.user = self.request.user = User.objects.create_user(
             username='stargazer',

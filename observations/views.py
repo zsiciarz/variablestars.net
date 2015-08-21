@@ -32,7 +32,7 @@ class AddObservationView(LoginRequiredMixin, FormView):
         observation.observer = self.request.observer
         observation.save()
         messages.success(self.request, _("Observation added successfully!"))
-        return super(AddObservationView, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class UploadObservationsView(LoginRequiredMixin, FormView):
@@ -46,4 +46,4 @@ class UploadObservationsView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         form.process_file()
         messages.success(self.request, _("File uploaded successfully!"))
-        return super(UploadObservationsView, self).form_valid(form)
+        return super().form_valid(form)

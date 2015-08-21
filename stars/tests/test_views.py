@@ -14,7 +14,7 @@ class StarAdminTestCase(BaseTestCase):
     Tests for Star-related admin customizations.
     """
     def setUp(self):
-        super(StarAdminTestCase, self).setUp()
+        super().setUp()
         self.site = AdminSite()
 
     def test_queries_count(self):
@@ -34,7 +34,7 @@ class StarListViewTestCase(BaseTestCase):
     Tests for ``stars.views.StarListView`` class.
     """
     def setUp(self):
-        super(StarListViewTestCase, self).setUp()
+        super().setUp()
         self._create_stars()
         self.star_without_observations = Star.objects.create(
             constellation='LEP',
@@ -160,7 +160,7 @@ class VariabilityTypeDetailViewTestCase(BaseTestCase):
 
 class RecentObservationsTestCase(BaseTestCase):
     def setUp(self):
-        super(RecentObservationsTestCase, self).setUp()
+        super().setUp()
         self._create_stars()
         self._create_observations()
         self.url = reverse('stars:recent_observations', kwargs={'pk': self.star.pk})

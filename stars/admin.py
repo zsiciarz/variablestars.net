@@ -11,7 +11,7 @@ class StarAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
 
     def get_queryset(self, request):
-        queryset = super(StarAdmin, self).get_queryset(request)
+        queryset = super().get_queryset(request)
         return queryset.select_related('variability_type')
 
 

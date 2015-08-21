@@ -9,7 +9,7 @@ class StarFilterMiddlewareTestCase(unittest.TestCase):
     Tests for ``stars.middleware.StarFilterMiddleware`` class.
     """
     def setUp(self):
-        super(StarFilterMiddlewareTestCase, self).setUp()
+        super().setUp()
         self.request = MagicMock()
         self.request.GET = {}
         self.request.session = {}

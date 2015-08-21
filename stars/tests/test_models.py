@@ -9,7 +9,7 @@ class StarQuerySetTestCase(BaseTestCase):
     Tests for ``StarQuerySet`` class.
     """
     def setUp(self):
-        super(StarQuerySetTestCase, self).setUp()
+        super().setUp()
         self._create_stars()
         self._create_observations()
 
@@ -69,7 +69,7 @@ class StarObservationsModelTestCase(BaseTestCase):
     Tests for Star model - features related to observations.
     """
     def setUp(self):
-        super(StarObservationsModelTestCase, self).setUp()
+        super().setUp()
         self._create_stars()
         self._create_observations()
 
