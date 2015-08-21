@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load pagination_tags %}
+
+{% block title %}{% trans "List of observations" %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+    {% autopaginate observation_list 50 %}
+    <div class="row">
+        <div class="col-sm-9">
+            <h1><span class="glyphicon glyphicon-star"></span> {% trans 'Observations' %}</h1>
+        </div>
+    </div>
+
+    <table class="table table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>{% trans "Star" %}</th>
+                <th>{% trans "Observer" %}</th>
+                <th>{% trans "Julian Date" %}</th>
+                <th>{% trans "Brightness" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for observation in observation_list %}
+            <tr>
+                <td><a href="{{ observation.star.get_absolute_url }}">{{ observation.star }}</a></td>
+                <td><a href="{{ observation.observer.get_absolute_url }}">{{ observation.observer.aavso_code }}</a></td>
+                <td>{{ observation.jd|floatformat:4 }}</td>
+                <td>{{ observation.magnitude }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% paginate %}
+{% endblock %}
+
+

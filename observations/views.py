@@ -2,12 +2,18 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic.edit import FormView
+from django.views.generic import FormView, ListView
 
 from braces.views import LoginRequiredMixin
 
 from .forms import ObservationForm, BatchUploadForm
+from .models import Observation
 from stars.models import Star
+
+
+class ObservationListView(ListView):
+    queryset = Observation.objects.all()
+    template_name = "observations/observation_list.html"
 
 
 class AddObservationView(LoginRequiredMixin, FormView):
