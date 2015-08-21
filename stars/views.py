@@ -1,4 +1,6 @@
 import csv
+
+from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
 from django.shortcuts import redirect, get_object_or_404
@@ -107,6 +109,17 @@ class StarDetailView(DetailView):
         observations = star.get_observations_by_observer(observer)
         context['observations_by_observer'] = observations
         return context
+
+
+class VariabilityTypeListView(ListView):
+    """
+    A list of all variability types.
+    """
+    queryset = VariabilityType.objects.all().annotate(
+        star_count=Count('star'),
+        observations_count=Sum('star__observations_count'),
+    )
+    template_name = "stars/variabilitytype_list.html"
 
 
 class VariabilityTypeDetailView(StarListView):

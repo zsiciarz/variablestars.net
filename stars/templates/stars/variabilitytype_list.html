@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load pagination_tags %}
+
+{% block title %}{% trans "List of variability types" %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+    {% autopaginate variabilitytype_list 50 %}
+    <div class="row">
+        <div class="col-sm-9">
+            <h1><span class="glyphicon glyphicon-tag"></span> {% trans 'Variability types' %}</h1>
+        </div>
+    </div>
+
+    <table class="table table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Short description" %}</th>
+                <th>{% trans "Number of stars" %}</th>
+                <th>{% trans "Number of observations" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for type in variabilitytype_list %}
+            <tr>
+                <td><a href="{{ type.get_absolute_url }}">{{ type }}</a></td>
+                <td>{{ type.short_description }}</td>
+                <td>{{ type.star_count }}</td>
+                <td>{{ type.observations_count|default:"0" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% paginate %}
+{% endblock %}
+
