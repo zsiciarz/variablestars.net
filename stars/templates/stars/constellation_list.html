@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "List of constellations" %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-9">
+            <h1><span class="glyphicon glyphicon-star-full"></span> {% trans 'Constellations' %}</h1>
+        </div>
+    </div>
+
+    <table class="table table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>{% trans "Short name" %}</th>
+                <th>{% trans "Number of stars" %}</th>
+                <th>{% trans "Number of observations" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for constellation in star_list %}
+            <tr>
+                <td><a href="{% url 'stars:constellation_list' constellation=constellation.constellation %}">{{ constellation.constellation }}</a></td>
+                <td>{{ constellation.star_count }}</td>
+                <td>{{ constellation.observations_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+

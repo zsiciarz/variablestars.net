@@ -43,6 +43,17 @@ class StarListView(SelectRelatedMixin, ListView):
         return context
 
 
+class ConstellationListView(ListView):
+    """
+    List all constellations.
+    """
+    queryset = Star.objects.values('constellation').annotate(
+        star_count=Count('constellation'),
+        observations_count=Sum('observations_count'),
+    ).distinct().order_by('constellation')
+    template_name = "stars/constellation_list.html"
+
+
 class StarsInConstellationListView(StarListView):
     """
     List all stars in a given constellation.
