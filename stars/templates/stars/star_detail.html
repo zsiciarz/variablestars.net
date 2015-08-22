@@ -116,7 +116,7 @@
                     {% for observation in star.recent_observations|slice:":5"%}
                     <tr>
                         <td><a href="{{ observation.observer.get_absolute_url }}">{{ observation.observer.aavso_code }}</a></td>
-                        <td>{{ observation.jd|floatformat:4 }}</td>
+                        <td class="julian-day">{{ observation.jd|floatformat:4 }}</td>
                         <td>{{ observation.magnitude }}</td>
                     </tr>
                     {% endfor %}
