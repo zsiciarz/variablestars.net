@@ -8,5 +8,5 @@ $ ->
     $('.julian-day').tooltip
         title: ->
             jd = Number(this.textContent)
-            new Date((jd  - 2440587.5) * 86400000)
+            date = new Date((jd  - 2440587.5) * 86400000)
             date.toString()
