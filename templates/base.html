@@ -45,11 +45,12 @@
             </nav>
         </div>
       </header>
+      {% include "modals/jd_converter.html" %}
       <div class="navbar secondary">
           <div class="container">
               <p class="navbar-text">
                   <span class="glyphicon glyphicon-time"></span>
-                  JD: <span id="current-jd"></span>
+                  JD: <a href="#" data-toggle="modal" data-target="#jd-converter" id="current-jd"></a>
               </p>
               {% if user.is_authenticated %}
                 <p class="navbar-text">
@@ -63,6 +64,7 @@
                   </div>
                   <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span> {% trans "Search" %}</button>
               </form>
+
           </div>
       </div>
 
