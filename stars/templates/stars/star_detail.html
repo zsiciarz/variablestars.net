@@ -167,5 +167,5 @@
 {% endblock %}
 
 {% block extra-script %}
-    <script defer type="text/coffeescript" src="{% static 'js/lightcurve.coffee' %}{% if debug %}?{% now "U" %}{% endif %}"></script>
+    <script defer src="{% static 'build/lightcurve.js' %}"></script>
 {% endblock %}

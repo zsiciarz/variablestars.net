@@ -36,5 +36,5 @@
 {% endblock %}
 
 {% block extra-script %}
-<script defer type="text/coffeescript" src="{% static 'js/add_observation.coffee' %}{% if debug %}?{% now "U" %}{% endif %}"></script>
+<script defer src="{% static 'build/add_observation.js' %}"></script>
 {% endblock %}

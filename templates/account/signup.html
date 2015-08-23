@@ -16,5 +16,5 @@
 
 {% block extra-script %}
 <script src="{% static 'js/libs/mailcheck.min.js' %}"></script>
-<script defer type="text/coffeescript" src="{% static 'js/registration_form.coffee' %}{% if debug %}?{% now "U" %}{% endif %}"></script>
+<script src="{% static 'build/registration_form.js' %}"></script>
 {% endblock %}
