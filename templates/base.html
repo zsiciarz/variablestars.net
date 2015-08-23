@@ -99,10 +99,7 @@
   <script defer src="{% static 'twitter_bootstrap/js/collapse.js' %}"></script>
   <script defer src="{% static 'twitter_bootstrap/js/dropdown.js' %}"></script>
   <script defer src="{% static 'twitter_bootstrap/js/tooltip.js' %}"></script>
-  {% compress js %}
     {% block extra-script %}{% endblock %}
-  {% endcompress %}
-    {% block extra-script-uncompressed %}{% endblock %}
   <script defer src="{% static 'build/app.js' %}"></script>
 </body>
 </html>
