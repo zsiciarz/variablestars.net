@@ -12,12 +12,6 @@ from .. import views
 class MainViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
     view_function = views.index
 
-    def test_redirect_to_user_profile(self):
-        self._create_users()
-        request = self.factory.get(user=self.user)
-        response = self.view(request)
-        self.assert_redirect(response, self.user.get_absolute_url())
-
     def test_stats_for_anonymous_users(self):
         """
         Check that some basic stats are displayed for anonymous users.
