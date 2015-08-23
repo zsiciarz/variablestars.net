@@ -48,7 +48,6 @@ INSTALLED_APPS = (
     'geoposition',
     'allauth',
     'allauth.account',
-    'twitter_bootstrap',
     'raven.contrib.django.raven_compat',
 
     'observations',

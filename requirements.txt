@@ -11,7 +11,6 @@ django-flat-theme==0.9.5
 https://github.com/zsiciarz/django-geoposition/archive/a803f73558ce156fdef77ce584573a15c9114915.zip#egg=geoposition
 django-model-utils==2.3.1
 django-pagination-py3==1.1.1
-django-twitter-bootstrap==3.3.0
 djet==0.0.10
 ephem==3.7.6.0
 frogress==0.9.1
