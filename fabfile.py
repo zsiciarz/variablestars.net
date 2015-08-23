@@ -3,6 +3,7 @@
 from contextlib import nested
 
 from fabric.api import *
+from fabric.contrib.project import rsync_project
 
 
 def prepare_project():
@@ -17,7 +18,7 @@ def prepare_project():
     )
 
 
-PROJECT_PATH = "$HOME/variablestars.net"
+PROJECT_PATH = "variablestars.net"
 
 env.roledefs = {
     'web': ["variablestars2@variablestars.net"],
@@ -32,6 +33,12 @@ env.use_ssh_config = True
 def git_pull():
     with cd(PROJECT_PATH):
         run("git pull origin master")
+
+
+@task
+@roles("web")
+def build_assets():
+    local("make production_assets")
 
 
 @task
@@ -53,6 +60,7 @@ def migrate():
 @task
 @roles("web")
 def collect_static():
+    rsync_project("{}/assets/build/".format(PROJECT_PATH), "assets/build/", delete=True)
     with prepare_project():
         run("python manage.py collectstatic --noinput")
 
@@ -66,6 +74,7 @@ def restart():
 @task
 @roles("web")
 def deploy():
+    build_assets()
     git_pull()
     update_requirements()
     migrate()
