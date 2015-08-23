@@ -42,7 +42,6 @@ INSTALLED_APPS = (
 
     'autocomplete_light',
     'pagination',
-    'compressor',
     'crispy_forms',
     'debug_toolbar',
     'django_extensions',
@@ -143,7 +142,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 SITE_ID = 1
@@ -169,8 +167,6 @@ SOUTH_TESTS_MIGRATE = False
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-COMPRESS_PARSER = 'compressor.parser.HtmlParser'
-
 RAVEN_CONFIG = {
     'dsn': '',
 }
@@ -179,11 +175,6 @@ try:
     from .local_settings import *  # NOQA
 except ImportError:
     pass
-
-if not DEBUG:
-    COMPRESS_PRECOMPILERS = (
-        ('text/less', '%s {infile} {outfile}' % os.path.join(BASE_DIR, 'node_modules/.bin/lessc')),
-    )
 
 if 'test' in sys.argv:
     PASSWORD_HASHERS = {
