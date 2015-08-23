@@ -100,12 +100,12 @@
   <script defer src="{% static 'twitter_bootstrap/js/dropdown.js' %}"></script>
   <script defer src="{% static 'twitter_bootstrap/js/tooltip.js' %}"></script>
   {% compress js %}
-  <script defer type="text/coffeescript" src="{% static 'js/script.coffee' %}"></script>
     {% block extra-script %}{% endblock %}
   {% endcompress %}
     {% block extra-script-uncompressed %}{% endblock %}
   {% if debug %}
   <script defer src="{% static 'js/libs/coffee-script.js' %}"></script>
   {% endif %}
+  <script defer src="{% static 'build/app.js' %}"></script>
 </body>
 </html>
