@@ -1,3 +1,5 @@
+bootstrap = require('bootstrap')
+
 $ = jQuery
 $ ->
     updateJulianDate = ->
