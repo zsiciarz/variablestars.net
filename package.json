@@ -22,8 +22,10 @@
     "coffee-script": "~1.7.1",
     "css-loader": "^0.16.0",
     "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
     "less-loader": "^2.2.0",
     "style-loader": "^0.12.3",
+    "url-loader": "^0.5.6",
     "webpack": "^1.11.0"
   }
 }
