@@ -1,19 +1,23 @@
+Mailcheck = require('mailcheck')
+
 $ = jQuery
 $ ->
     $("#id_email").on('blur', (e) =>
         removeSuggestions = (element) ->
             $(element).parent().find(".help-block").remove()
-        $(e.currentTarget).mailcheck
-            suggested: (element, suggestion) ->
-                removeSuggestions element
+        emailField = e.currentTarget
+        Mailcheck.run
+            email: emailField.value
+            suggested: (suggestion) ->
+                removeSuggestions emailField
                 suggestedLink = $("<a href='#'>").text(suggestion.full)
                 suggestedLink.on('click', =>
                     $("#id_email").val(suggestion.full)
-                    removeSuggestions element
+                    removeSuggestions emailField
                     false
                 )
                 $("<span class='help-block'/>")
                     .text("Did you mean ").append(suggestedLink).append("?")
-                    .insertAfter(element)
+                    .insertAfter(emailField)
             empty: (element) -> removeSuggestions element
         )

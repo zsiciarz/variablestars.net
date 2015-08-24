@@ -15,7 +15,8 @@
   "homepage": "http://variablestars.net",
   "dependencies": {
     "bootstrap": "^3.3.5",
-    "d3": "^3.5.6"
+    "d3": "^3.5.6",
+    "mailcheck": "^1.1.1"
   },
   "devDependencies": {
     "coffee-loader": "^0.7.2",
