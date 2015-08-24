@@ -1,3 +1,5 @@
+d3 = require('d3')
+
 $ = jQuery
 $ ->
     class LightCurve
