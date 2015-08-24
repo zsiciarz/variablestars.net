@@ -2,6 +2,7 @@
   "name": "variablestars.net",
   "version": "0.1.0",
   "description": "variablestars.net",
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +12,7 @@
     "url": "https://github.com/zsiciarz/variablestars.net.git"
   },
   "author": "Zbigniew Siciarz",
-  "homepage": "https://github.com/zsiciarz/variablestars.net",
+  "homepage": "http://variablestars.net",
   "dependencies": {
     "bootstrap": "^3.3.5",
     "less": "~2.5.1"
