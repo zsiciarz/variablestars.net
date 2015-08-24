@@ -76,6 +76,8 @@ $ ->
                     d3.select(@).transition().duration(150).attr('r', '10')
                 .on 'mouseout', ->
                     d3.select(@).transition().duration(150).attr('r', '2')
+                .append('title')
+                .text((d) -> "JD #{d.jd}:  #{d.magnitude} mag.")
             @xTitle.text 'Julian Date'
             @yTitle.text 'Magnitude'
 
