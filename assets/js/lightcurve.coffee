@@ -72,12 +72,10 @@ $ ->
                     cx: (d) => @xScale d.jd
                     cy: (d) => @yScale d.magnitude
                     r: '2'
-                .on('mouseover', ->
+                .on 'mouseover', ->
                     d3.select(@).transition().duration(150).attr('r', '10')
-                )
-                .on('mouseout', ->
+                .on 'mouseout', ->
                     d3.select(@).transition().duration(150).attr('r', '2')
-                )
             @xTitle.text 'Julian Date'
             @yTitle.text 'Magnitude'
 
@@ -114,9 +112,8 @@ $ ->
             )
         )
         d3.select('#toggle-chart')
-            .on('click', =>
+            .on 'click', =>
                 if lc.isPeriodic
                     isPhaseChart = not isPhaseChart
                     lc.updateChart isPhaseChart
                 d3.event.preventDefault()
-            )
