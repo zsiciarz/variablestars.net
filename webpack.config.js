@@ -1,4 +1,6 @@
+var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
     entry: {
         app: './assets/js/script.coffee',
@@ -23,9 +25,16 @@ module.exports = {
         {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,
             loader: 'url-loader?limit=100000'
+        }, {
+            test: require.resolve("jquery"),
+            loader: "expose?$!expose?jQuery"
         }]
     },
     plugins: [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        }),
         new ExtractTextPlugin("style.css")
     ]
 };

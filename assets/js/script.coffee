@@ -1,4 +1,6 @@
+jQuery = require('jquery')
 bootstrap = require('bootstrap')
+datetimepicker = require('eonasdan-bootstrap-datetimepicker')
 
 $ = jQuery
 $ ->
@@ -46,3 +48,6 @@ $ ->
             setConvertedDate(dt, false)
         false
     )
+
+window.$ = $
+window.jQuery = $
