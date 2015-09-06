@@ -26,16 +26,18 @@
     <table class="table table-condensed table-striped">
         <thead>
             <tr>
-                <th>{% trans "AAVSO code" %}</th>
+                <th>{% trans "Username" %}</th>
                 <th>{% trans "Name" %}</th>
+                <th>{% trans "AAVSO code" %}</th>
                 <th>{% trans "Number of observations" %}</th>
             </tr>
         </thead>
         <tbody>
             {% for observer in observer_list %}
             <tr>
-                <td><a href="{{ observer.get_absolute_url }}">{{ observer.aavso_code }}</a></td>
-                <td>{{ observer }}</td>
+                <td><a href="{{ observer.get_absolute_url }}">{{ observer.user.username }}</a></td>
+                <td>{{ observer.user.get_full_name }}</td>
+                <td>{{ observer.aavso_code }}</td>
                 <td><a href="{% url 'observations:observation_list_by_observer' observer_id=observer.id %}">{{ observer.observations_count }}</a></td>
             </tr>
             {% endfor %}

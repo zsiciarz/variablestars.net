@@ -70,11 +70,13 @@ class ObservationManagerTestCase(BaseTestCase):
         expected = [
             {
                 'observer_id': self.observer.id,
+                'observer__user__username': self.observer.user.username,
                 'observer__aavso_code': self.observer.aavso_code,
                 'observations_count': 15,
             },
             {
                 'observer_id': self.observer2.id,
+                'observer__user__username': self.observer2.user.username,
                 'observer__aavso_code': self.observer2.aavso_code,
                 'observations_count': 3,
             },

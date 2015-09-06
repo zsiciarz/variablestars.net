@@ -95,7 +95,7 @@
                 <tbody>
                     {% for observer in star.top_observers|slice:":5" %}
                     <tr>
-                        <td><a href="{% url 'observers:observer_detail' pk=observer.observer_id %}">{{ observer.observer__aavso_code }}</a></td>
+                        <td><a href="{% url 'observers:observer_detail' pk=observer.observer_id %}">{{ observer.observer__user__username }}</a></td>
                         <td>{{ observer.observations_count }}</td>
                     </tr>
                     {% endfor %}
@@ -115,7 +115,7 @@
                 <tbody>
                     {% for observation in star.recent_observations|slice:":5"%}
                     <tr>
-                        <td><a href="{{ observation.observer.get_absolute_url }}">{{ observation.observer.aavso_code }}</a></td>
+                        <td><a href="{{ observation.observer.get_absolute_url }}">{{ observation.observer.user.username }}</a></td>
                         <td class="julian-day">{{ observation.jd|floatformat:4 }}</td>
                         <td>{{ observation.magnitude }}</td>
                     </tr>

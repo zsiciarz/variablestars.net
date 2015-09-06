@@ -17,7 +17,7 @@ class ObservationListView(ListView):
     template_name = "observations/observation_list.html"
 
     def get_queryset(self):
-        queryset = super().get_queryset().select_related('star', 'observer')
+        queryset = super().get_queryset().select_related('star', 'observer', 'observer__user')
         if not self.kwargs.get('observer_id'):
             return queryset
         return queryset.filter(observer_id=self.kwargs['observer_id'])
