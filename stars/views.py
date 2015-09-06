@@ -104,7 +104,7 @@ class StarDetailView(DetailView):
         star = context['star']
         body = dict_to_body(model_to_dict(star))
         observer = self.request.observer
-        if observer:
+        if observer and observer.location:
             city = observer.get_pyephem_city()
         else:
             city = ephem.city('Warsaw')
