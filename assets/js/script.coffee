@@ -26,16 +26,23 @@ $ ->
         jd = dt.getTime() / 86400000 + 2440587.5
         $("#jd-converter .jd").val(jd.toFixed(4))
         false
-    setCurrentDate = ->
-        dt = new Date()
+    setConvertedDate = (dt, updateJD = true) ->
+        dt ?= new Date()
         $("#jd-converter .date-year").val(dt.getFullYear())
         $("#jd-converter .date-month").val(dt.getMonth() + 1)
         $("#jd-converter .date-day").val(dt.getDate())
         $("#jd-converter .date-hour").val(dt.getHours())
         $("#jd-converter .date-minute").val(dt.getMinutes())
         $("#jd-converter .date-second").val(dt.getSeconds())
-        setConvertedJD()
+        setConvertedJD() if updateJD
         false
-    setCurrentDate()
-    $("#jd-converter .now").on('click', setCurrentDate)
-    $("#jd-converter input[class^='date-']").on('change', setConvertedJD)
+    setConvertedDate()
+    $("#jd-converter .now").on('click', () => setConvertedDate())
+    $("#jd-converter input[class^='date-']").on('change', () => setConvertedJD())
+    $("#jd-converter input.jd").on('keyup', (e) =>
+        jd = +e.target.value
+        if not isNaN(jd)
+            dt = new Date((jd  - 2440587.5) * 86400000)
+            setConvertedDate(dt, false)
+        false
+    )
