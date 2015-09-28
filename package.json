@@ -21,13 +21,13 @@
   "devDependencies": {
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.10.0",
-    "css-loader": "^0.18.0",
+    "css-loader": "^0.19.0",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
-    "less": "^2.5.1",
-    "less-loader": "^2.2.0",
-    "style-loader": "^0.12.3",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.1",
+    "style-loader": "^0.12.4",
     "url-loader": "^0.5.6",
-    "webpack": "^1.12.1"
+    "webpack": "^1.12.2"
   }
 }
