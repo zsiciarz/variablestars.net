@@ -48,6 +48,3 @@ $ ->
             setConvertedDate(dt, false)
         false
     )
-
-window.$ = $
-window.jQuery = $
