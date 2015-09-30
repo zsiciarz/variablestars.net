@@ -1,8 +1,7 @@
-jQuery = require('jquery')
+$ = require('jquery')
 bootstrap = require('bootstrap')
 datetimepicker = require('eonasdan-bootstrap-datetimepicker')
 
-$ = jQuery
 $ ->
     updateJulianDate = ->
         jd = new Date().getTime() / 86400000 + 2440587.5

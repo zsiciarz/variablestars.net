@@ -87,8 +87,8 @@
         </div>
     </footer>
 
-    {% block extra-script %}{% endblock %}
   <script src="{% static 'build/app.js' %}"></script>
+  {% block extra-script %}{% endblock %}
   {% include 'autocomplete_light/static.html' %}
 </body>
 </html>

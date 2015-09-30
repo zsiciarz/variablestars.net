@@ -1,6 +1,6 @@
 Mailcheck = require('mailcheck')
+$ = require('jquery')
 
-$ = jQuery
 $ ->
     $("#id_email").on 'blur', (e) =>
         removeSuggestions = (element) ->
