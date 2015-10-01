@@ -7,6 +7,7 @@ module.exports = {
         lightcurve: './assets/js/lightcurve.coffee',
         add_observation: './assets/js/add_observation.coffee',
         registration_form: './assets/js/registration_form.coffee',
+        hello: './assets/js/hello.elm',
         style: './assets/less/style.less'
     },
     output: {
@@ -18,6 +19,10 @@ module.exports = {
             test: /\.coffee$/,
             exclude: /node_modules/,
             loader: 'coffee'
+        }, {
+            test: /\.elm$/,
+            exclude: /node_modules/,
+            loader: 'elm-webpack-loader'
         }, {
             test: /\.less$/,
             loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
