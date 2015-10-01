@@ -1,5 +1,3 @@
-$ = require("jquery")
-
-$ ->
-    current_jd = +$("#current-jd").text()
-    $("#id_jd").val(current_jd)
+document.addEventListener "DOMContentLoaded", ->
+    current_jd = +document.getElementById("current-jd").textContent
+    document.getElementById("id_jd").value = current_jd
