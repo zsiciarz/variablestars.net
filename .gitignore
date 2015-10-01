@@ -10,6 +10,7 @@ site_media/
 assets/build/
 static/
 node_modules/
+elm-stuff/
 .coverage
 *,cover
 htmlcov
