@@ -1,6 +1,9 @@
 $ = require('jquery')
 bootstrap = require('bootstrap')
 datetimepicker = require('eonasdan-bootstrap-datetimepicker')
+Elm = require('elm-webpack-loader!./hello.elm')
+
+Elm.embed(Elm.Hello, document.getElementById('elm-hello'))
 
 $ ->
     updateJulianDate = ->
