@@ -3,14 +3,9 @@ bootstrap = require('bootstrap')
 datetimepicker = require('eonasdan-bootstrap-datetimepicker')
 Elm = require('elm-webpack-loader!./hello.elm')
 
-Elm.embed(Elm.Hello, document.getElementById('elm-hello'))
+Elm.embed(Elm.Hello, document.getElementById('jd-clock'))
 
 $ ->
-    updateJulianDate = ->
-        jd = new Date().getTime() / 86400000 + 2440587.5
-        $("#current-jd").text(jd.toFixed(4))
-        setTimeout updateJulianDate, 1000
-    updateJulianDate()
     $('.julian-day').tooltip
         container: 'body'
         placement: 'left'
