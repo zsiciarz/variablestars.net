@@ -1,4 +1,4 @@
-module Hello where
+module JdClock where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

@@ -1,9 +1,9 @@
 $ = require('jquery')
 bootstrap = require('bootstrap')
 datetimepicker = require('eonasdan-bootstrap-datetimepicker')
-Elm = require('elm-webpack-loader!./hello.elm')
+Elm = require('elm-webpack-loader!./JdClock.elm')
 
-Elm.embed(Elm.Hello, document.getElementById('jd-clock'))
+Elm.embed(Elm.JdClock, document.getElementById('jd-clock'))
 
 $ ->
     $('.julian-day').tooltip
