@@ -4,17 +4,10 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Time exposing (Time, every, second)
 
-
-type alias JD = Float
-
+import Astronomy exposing (timeToJd)
 
 main =
   Signal.map jdClock (every second)
-
-
-timeToJd : Time -> JD
-timeToJd t =
-    t / 86400000 + 2440587.5
 
 
 jdClock : Time -> Html
