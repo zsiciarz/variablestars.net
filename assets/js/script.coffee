@@ -4,6 +4,7 @@ datetimepicker = require('eonasdan-bootstrap-datetimepicker')
 Elm = require('./Main.elm')
 
 Elm.embed(Elm.JdClock, document.getElementById('jd-clock'))
+Elm.embed(Elm.JdConverter, document.getElementById('elm-jd-converter'))
 
 $ ->
     $('.julian-day').tooltip
