@@ -10,6 +10,7 @@ import Astronomy exposing (timeToJd)
 main =
   Signal.map jdClock (every second)
 
+
 formatJD n x =
     let
         [s, _] = 10^n * x |> toString |> String.split "."
@@ -17,6 +18,7 @@ formatJD n x =
         p2 = String.right n s
     in
         p1 ++ "." ++ p2
+
 
 jdClock : Time -> Html
 jdClock t =
