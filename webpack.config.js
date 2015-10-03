@@ -19,6 +19,10 @@ module.exports = {
             exclude: /node_modules/,
             loader: 'coffee'
         }, {
+            test: /(?!elm-webpack-loader)(.*)\.elm$/,
+            exclude: /node_modules/,
+            loader: 'elm-webpack-loader'
+        }, {
             test: /\.less$/,
             loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
         },
