@@ -22,4 +22,4 @@ pyaavso==0.1.5
 pygcvs==1.0
 raven==5.7.2
 requests==2.8.0
-six==1.9.0
+six==1.10.0
