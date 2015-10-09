@@ -57,9 +57,16 @@ modelFromJd jd =
         }
 
 
+-- see https://en.wikipedia.org/wiki/Julian_day#Converting_Julian_or_Gregorian_calendar_date_to_Julian_Day_Number
 modelToJd : Model -> JD
 modelToJd model =
-    666.0
+    let
+        a = (14 - model.month) // 12
+        y = model.year + 4800 - a
+        m = model.month + 12 * a - 3
+        fraction = (toFloat (model.hour - 12)) / 24 + (toFloat model.minute) / 1440 + (toFloat model.second) / 86400
+    in fraction + toFloat
+       (model.day + (153 * m + 2) // 5 + 365 * y + y // 4 - y // 100 + y // 400 - 32045)
 
 
 type Action a
@@ -113,7 +120,7 @@ view : Signal.Address (Action String) -> Model -> Html
 view address model =
     div []
         [ text (toString model)
-        , label [] [text "Date and time"]
+        , label [] [text "Date and time (UTC)"]
         , div [ class "form-group row" ]
             [ div [ class "col-xs-2" ] [calendarInput address model.year SetYear]
             , div [ class "col-xs-2" ] [calendarInput address model.month SetMonth]
