@@ -3,70 +3,19 @@ module JdConverter where
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Date
 import String
 import StartApp.Simple
 
-import Astronomy exposing (JD, timeToJd, jdToTime)
+import Astronomy exposing (JD, CustomDate, timeToJd, jdToTime, dateToJd, dateFromJd)
 
 main =
     StartApp.Simple.start { model = initModel, update = update, view = view }
 
 
-type alias Model =
-    { year : Int
-    , month: Int
-    , day: Int
-    , hour: Int
-    , minute: Int
-    , second: Int
-    }
+type alias Model = CustomDate
 
 
 initModel = { year = 0,  month = 0, day = 0, hour = 0, minute = 0, second = 0 }
-
-
-monthLookup : Date.Month -> Int
-monthLookup month =
-    case month of
-        Date.Jan -> 0
-        Date.Feb -> 1
-        Date.Mar -> 2
-        Date.Apr -> 3
-        Date.May -> 4
-        Date.Jun -> 5
-        Date.Jul -> 6
-        Date.Aug -> 7
-        Date.Sep -> 8
-        Date.Oct -> 9
-        Date.Nov -> 10
-        Date.Dec -> 11
-
-
-modelFromJd : JD -> Model
-modelFromJd jd =
-    let
-        d = jdToTime jd |> Date.fromTime
-    in
-        { year = Date.year d
-        , month = monthLookup (Date.month d)
-        , day = Date.day d
-        , hour = Date.hour d
-        , minute = Date.minute d
-        , second = Date.second d
-        }
-
-
--- see https://en.wikipedia.org/wiki/Julian_day#Converting_Julian_or_Gregorian_calendar_date_to_Julian_Day_Number
-modelToJd : Model -> JD
-modelToJd model =
-    let
-        a = (14 - model.month) // 12
-        y = model.year + 4800 - a
-        m = model.month + 12 * a - 3
-        fraction = (toFloat (model.hour - 12)) / 24 + (toFloat model.minute) / 1440 + (toFloat model.second) / 86400
-    in fraction + toFloat
-       (model.day + (153 * m + 2) // 5 + 365 * y + y // 4 - y // 100 + y // 400 - 32045)
 
 
 type Action a
@@ -101,7 +50,7 @@ update action model =
             Ok value -> { model | second <- value }
             Err _ -> model
         SetJD value -> case String.toFloat value of
-            Ok value -> modelFromJd value
+            Ok value -> dateFromJd value
             Err _ -> model
 
 
@@ -133,7 +82,7 @@ view address model =
             [ label [] [text "JD"]
             , input
                 [ class "form-control"
-                , value (toString <| modelToJd model)
+                , value (toString <| dateToJd model)
                 , on "input" targetValue (\str -> Signal.message address (SetJD str))
                 ]
                 []
