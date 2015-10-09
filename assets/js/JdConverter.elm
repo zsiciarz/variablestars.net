@@ -113,16 +113,22 @@ view : Signal.Address (Action String) -> Model -> Html
 view address model =
     div []
         [ text (toString model)
-        , calendarInput address model.year SetYear
-        , calendarInput address model.month SetMonth
-        , calendarInput address model.day SetDay
-        , calendarInput address model.hour SetHour
-        , calendarInput address model.minute SetMinute
-        , calendarInput address model.second SetSecond
-        , input
-            [ class "form-control"
-            , value (toString <| modelToJd model)
-            , on "input" targetValue (\str -> Signal.message address (SetJD str))
+        , label [] [text "Date and time"]
+        , div [ class "form-group row" ]
+            [ div [ class "col-xs-2" ] [calendarInput address model.year SetYear]
+            , div [ class "col-xs-2" ] [calendarInput address model.month SetMonth]
+            , div [ class "col-xs-2" ] [calendarInput address model.day SetDay]
+            , div [ class "col-xs-2" ] [calendarInput address model.hour SetHour]
+            , div [ class "col-xs-2" ] [calendarInput address model.minute SetMinute]
+            , div [ class "col-xs-2" ] [calendarInput address model.second SetSecond]
+            ],
+        div [class "form-group" ]
+            [ label [] [text "JD"]
+            , input
+                [ class "form-control"
+                , value (toString <| modelToJd model)
+                , on "input" targetValue (\str -> Signal.message address (SetJD str))
+                ]
+                []
             ]
-            []
         ]
