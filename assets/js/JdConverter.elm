@@ -7,7 +7,7 @@ import Signal
 import String
 import Time exposing (every, second)
 
-import Astronomy exposing (JD, CustomDate, timeToJd, jdToTime, dateToJd, dateFromJd)
+import Astronomy exposing (JD, CustomDate, timeToJd, dateToJd, dateFromJd)
 import Utils exposing (formatJD)
 
 
@@ -20,6 +20,7 @@ main =
 
 tick : Signal Action
 tick = Signal.map (Tick << timeToJd) (every second)
+
 
 type alias Model =
     { date : CustomDate
@@ -50,12 +51,9 @@ actions = Signal.mailbox SetNow
 
 updateDateField : Model -> (CustomDate -> Int -> CustomDate) -> String -> Model
 updateDateField model f value =
-    let
-        d = model.date
-    in
-        case String.toInt value of
-            Ok v -> { model | date <- f d v }
-            Err _ -> model
+    case String.toInt value of
+        Ok v -> { model | date <- f (model.date) v }
+        Err _ -> model
 
 
 update : Action -> Model -> Model
