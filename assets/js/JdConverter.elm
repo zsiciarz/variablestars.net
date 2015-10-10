@@ -7,6 +7,8 @@ import String
 import StartApp.Simple
 
 import Astronomy exposing (JD, CustomDate, timeToJd, jdToTime, dateToJd, dateFromJd)
+import Utils exposing (formatJD)
+
 
 main =
     StartApp.Simple.start { model = initModel, update = update, view = view }
@@ -82,7 +84,7 @@ view address model =
             [ label [] [text "JD"]
             , input
                 [ class "form-control"
-                , value (toString <| dateToJd model)
+                , value (formatJD 4 <| dateToJd model)
                 , on "input" targetValue (\str -> Signal.message address (SetJD str))
                 ]
                 []

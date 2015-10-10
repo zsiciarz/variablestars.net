@@ -2,22 +2,14 @@ module JdClock where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import String
 import Time exposing (Time, every, second)
 
 import Astronomy exposing (timeToJd)
+import Utils exposing (formatJD)
+
 
 main =
   Signal.map jdClock (every second)
-
-
-formatJD n x =
-    let
-        [s, _] = 10^n * x |> toString |> String.split "."
-        p1 = String.dropRight n s
-        p2 = String.right n s
-    in
-        p1 ++ "." ++ p2
 
 
 jdClock : Time -> Html
