@@ -24,15 +24,16 @@ tick = Signal.map (Tick << timeToJd) (every second)
 type alias Model =
     { date : CustomDate
     , currentJD : JD
+    , useCurrentJD: Bool
     }
 
 
 initDate = { year = 0,  month = 0, day = 0, hour = 0, minute = 0, second = 0 }
-initModel = { date = initDate, currentJD = 0 }
+initModel = { date = initDate, currentJD = 0, useCurrentJD = True }
 
 
 type Action
-    = NoOp
+    = SetNow
     | SetYear String
     | SetMonth String
     | SetDay String
@@ -44,7 +45,7 @@ type Action
 
 
 actions : Signal.Mailbox Action
-actions = Signal.mailbox NoOp
+actions = Signal.mailbox SetNow
 
 
 update : Action -> Model -> Model
@@ -74,7 +75,10 @@ update action model =
         SetJD value -> case String.toFloat value of
             Ok value -> { model | date <- dateFromJd value }
             Err _ -> model
-        Tick jd -> { model | currentJD <- jd }
+        Tick jd -> if model.useCurrentJD
+            then { model | currentJD <- jd, date <- dateFromJd jd, useCurrentJD <- False }
+            else { model | currentJD <- jd }
+        SetNow -> { model | date <- dateFromJd (model.currentJD) }
 
 
 calendarInput : Signal.Address Action -> Int -> (String -> Action) -> Html
@@ -91,8 +95,10 @@ calendarInput address modelValue action =
 view : Signal.Address Action -> Model -> Html
 view address model =
     div []
-        [ text (toString model)
-        , label [] [text "Date and time (UTC)"]
+        [ label []
+            [ text "Date and time (UTC) "
+            , a [href "#", onClick address SetNow ] [ text "now" ]
+            ]
         , div [ class "form-group row" ]
             [ div [ class "col-xs-2" ] [calendarInput address model.date.year SetYear]
             , div [ class "col-xs-2" ] [calendarInput address model.date.month SetMonth]
