@@ -1,11 +1,7 @@
 module Utils (formatJD) where
 
 import String
+import Number.Format exposing (pretty)
 
 
-formatJD n x =
-    case 10^n * x |> toString |> String.split "." of
-        [s, _] -> (String.dropRight n s) ++ "." ++ (String.right n s)
-        [s] -> s
-        _ -> ""
-
+formatJD n x = pretty n ' ' x |> String.filter (\c -> c /= ' ')
