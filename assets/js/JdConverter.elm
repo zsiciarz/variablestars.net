@@ -48,30 +48,25 @@ actions : Signal.Mailbox Action
 actions = Signal.mailbox SetNow
 
 
-update : Action -> Model -> Model
-update action model =
+updateDateField : Model -> (CustomDate -> Int -> CustomDate) -> String -> Model
+updateDateField model f value =
     let
         d = model.date
     in
+        case String.toInt value of
+            Ok v -> { model | date <- f d v }
+            Err _ -> model
+
+
+update : Action -> Model -> Model
+update action model =
     case action of
-        SetYear value -> case String.toInt value of
-            Ok value -> { model | date <- { d | year <- value } }
-            Err _ -> model
-        SetMonth value -> case String.toInt value of
-            Ok value -> { model | date <- { d | month <- value - 1 } }
-            Err _ -> model
-        SetDay value -> case String.toInt value of
-            Ok value -> { model | date <- { d | day <- value } }
-            Err _ -> model
-        SetHour value -> case String.toInt value of
-            Ok value -> { model | date <- { d | hour <- value } }
-            Err _ -> model
-        SetMinute value -> case String.toInt value of
-            Ok value -> { model | date <- { d | minute <- value } }
-            Err _ -> model
-        SetSecond value -> case String.toInt value of
-            Ok value -> { model | date <- { d | second <- value } }
-            Err _ -> model
+        SetYear value -> updateDateField model (\d v -> { d | year <- v }) value
+        SetMonth value -> updateDateField model (\d v -> { d | month <- v - 1 }) value
+        SetDay value -> updateDateField model (\d v -> { d | day <- v }) value
+        SetHour value -> updateDateField model (\d v -> { d | hour <- v }) value
+        SetMinute value -> updateDateField model (\d v -> { d | minute <- v }) value
+        SetSecond value -> updateDateField model (\d v -> { d | second <- v }) value
         SetJD value -> case String.toFloat value of
             Ok value -> { model | date <- dateFromJd value }
             Err _ -> model
