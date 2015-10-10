@@ -20,17 +20,17 @@ type alias Model = CustomDate
 initModel = { year = 0,  month = 0, day = 0, hour = 0, minute = 0, second = 0 }
 
 
-type Action a
-    = SetYear a
-    | SetMonth a
-    | SetDay a
-    | SetHour a
-    | SetMinute a
-    | SetSecond a
-    | SetJD a
+type Action
+    = SetYear String
+    | SetMonth String
+    | SetDay String
+    | SetHour String
+    | SetMinute String
+    | SetSecond String
+    | SetJD String
 
 
-update : Action String -> Model -> Model
+update : Action -> Model -> Model
 update action model =
     case action of
         SetYear value -> case String.toInt value of
@@ -56,7 +56,7 @@ update action model =
             Err _ -> model
 
 
-calendarInput : Signal.Address (Action String) -> Int -> (String -> Action String) -> Html
+calendarInput : Signal.Address Action -> Int -> (String -> Action) -> Html
 calendarInput address modelValue action =
     input
         [ class "form-control"
@@ -67,7 +67,7 @@ calendarInput address modelValue action =
         []
 
 
-view : Signal.Address (Action String) -> Model -> Html
+view : Signal.Address Action -> Model -> Html
 view address model =
     div []
         [ text (toString model)
