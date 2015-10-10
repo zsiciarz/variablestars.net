@@ -58,7 +58,7 @@ update action model =
             Ok value -> { model | date <- { d | year <- value } }
             Err _ -> model
         SetMonth value -> case String.toInt value of
-            Ok value -> { model | date <- { d | month <- value } }
+            Ok value -> { model | date <- { d | month <- value - 1 } }
             Err _ -> model
         SetDay value -> case String.toInt value of
             Ok value -> { model | date <- { d | day <- value } }
@@ -101,7 +101,7 @@ view address model =
             ]
         , div [ class "form-group row" ]
             [ div [ class "col-xs-2" ] [calendarInput address model.date.year SetYear]
-            , div [ class "col-xs-2" ] [calendarInput address model.date.month SetMonth]
+            , div [ class "col-xs-2" ] [calendarInput address (model.date.month + 1) SetMonth]
             , div [ class "col-xs-2" ] [calendarInput address model.date.day SetDay]
             , div [ class "col-xs-2" ] [calendarInput address model.date.hour SetHour]
             , div [ class "col-xs-2" ] [calendarInput address model.date.minute SetMinute]

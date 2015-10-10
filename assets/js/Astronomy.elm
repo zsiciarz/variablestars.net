@@ -62,9 +62,10 @@ dateFromJd jd =
 dateToJd : CustomDate -> JD
 dateToJd date =
     let
-        a = (14 - date.month) // 12
+        month' = date.month + 1
+        a = (14 - month') // 12
         y = date.year + 4800 - a
-        m = date.month + 12 * a - 3
+        m = month' + 12 * a - 3
         fraction = (toFloat (date.hour - 12)) / 24 + (toFloat date.minute) / 1440 + (toFloat date.second) / 86400
     in fraction + toFloat
        (date.day + (153 * m + 2) // 5 + 365 * y + y // 4 - y // 100 + y // 400 - 32045)
