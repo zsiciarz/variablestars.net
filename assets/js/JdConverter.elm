@@ -3,15 +3,15 @@ module JdConverter where
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Signal
 import String
-import StartApp.Simple
 
 import Astronomy exposing (JD, CustomDate, timeToJd, jdToTime, dateToJd, dateFromJd)
 import Utils exposing (formatJD)
 
 
 main =
-    StartApp.Simple.start { model = initModel, update = update, view = view }
+    Signal.map (view actions.address) (Signal.foldp update initModel actions.signal)
 
 
 type alias Model = CustomDate
@@ -21,13 +21,18 @@ initModel = { year = 0,  month = 0, day = 0, hour = 0, minute = 0, second = 0 }
 
 
 type Action
-    = SetYear String
+    = NoOp
+    | SetYear String
     | SetMonth String
     | SetDay String
     | SetHour String
     | SetMinute String
     | SetSecond String
     | SetJD String
+
+
+actions : Signal.Mailbox Action
+actions = Signal.mailbox NoOp
 
 
 update : Action -> Model -> Model
