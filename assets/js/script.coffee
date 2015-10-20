@@ -1,6 +1,5 @@
 $ = require('jquery')
 bootstrap = require('bootstrap')
-datetimepicker = require('eonasdan-bootstrap-datetimepicker')
 Elm = require('./Main.elm')
 
 Elm.embed(Elm.JdClock, document.getElementById('jd-clock'))
