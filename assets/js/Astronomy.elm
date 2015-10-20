@@ -59,6 +59,7 @@ dateFromJd jd =
 
 
 -- see https://en.wikipedia.org/wiki/Julian_day#Converting_Julian_or_Gregorian_calendar_date_to_Julian_Day_Number
+-- TODO: fix timezone offsets
 dateToJd : CustomDate -> JD
 dateToJd date =
     let
