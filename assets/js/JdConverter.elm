@@ -11,7 +11,7 @@ import Astronomy exposing (JD, CustomDate, timeToJd, dateToJd, dateFromJd)
 import Utils exposing (formatJD)
 
 
-port timezoneOffset : Signal Float
+port timezoneOffset : Float
 
 
 main =
@@ -24,7 +24,7 @@ main =
 tick : Signal Action
 tick =
     let
-        localClock = (Signal.map2 (+) (every second) timezoneOffset)
+        localClock = (Signal.map (\time -> time + timezoneOffset) (every second))
     in
         Signal.map (Tick << timeToJd) localClock
 
