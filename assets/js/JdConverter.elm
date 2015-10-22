@@ -73,7 +73,7 @@ update action model =
         SetMinute value -> updateDateField model (\d v -> { d | minute <- v }) value
         SetSecond value -> updateDateField model (\d v -> { d | second <- v }) value
         SetJD value -> case String.toFloat value of
-            Ok value -> { model | date <- dateFromJd value }
+            Ok value -> { model | date <- dateFromJd (value + timezoneOffset / 86400000) }
             Err _ -> model
         Tick jd -> if model.useCurrentJD
             then { model | currentJD <- jd, date <- dateFromJd jd, useCurrentJD <- False }
