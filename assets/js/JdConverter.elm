@@ -111,7 +111,7 @@ view address model =
             [ label [] [text "JD"]
             , input
                 [ class "form-control"
-                , value (formatJD 4 <| dateToJd model.date)
+                , value (dateToJd model.date |> formatJD 4)
                 , on "input" targetValue (\str -> Signal.message address (SetJD str))
                 ]
                 []
