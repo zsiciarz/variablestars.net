@@ -16,7 +16,7 @@ ephem==3.7.6.0
 frogress==0.9.1
 gunicorn==19.3
 ipython==4.0.0
-lxml==3.4.4
+lxml==3.5.0
 psycopg2==2.6.1
 pyaavso==0.1.5
 pygcvs==1.0
