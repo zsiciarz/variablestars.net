@@ -2,7 +2,7 @@
 
 WEBPACK = ./node_modules/.bin/webpack
 WEBPACK_ARGS = --colors --progress
-ELM_PACKAGE = ./node_modules/.bin/elm-package
+ELM_PACKAGE = elm-package
 
 test:
 	coverage run manage.py test --keepdb
@@ -10,7 +10,7 @@ test:
 production_assets: node_modules
 	$(WEBPACK) $(WEBPACK_ARGS)
 
-watch: node_modules elm-stuff
+watch: elm-stuff
 	$(WEBPACK) $(WEBPACK_ARGS) --watch
 
 node_modules: package.json
