@@ -59,26 +59,26 @@ actions = Signal.mailbox SetNow
 updateDateField : Model -> (CustomDate -> Int -> CustomDate) -> String -> Model
 updateDateField model f value =
     case String.toInt value of
-        Ok v -> { model | date <- f (model.date) v }
+        Ok v -> { model | date = f (model.date) v }
         Err _ -> model
 
 
 update : Action -> Model -> Model
 update action model =
     case action of
-        SetYear value -> updateDateField model (\d v -> { d | year <- v }) value
-        SetMonth value -> updateDateField model (\d v -> { d | month <- v - 1 }) value
-        SetDay value -> updateDateField model (\d v -> { d | day <- v }) value
-        SetHour value -> updateDateField model (\d v -> { d | hour <- v }) value
-        SetMinute value -> updateDateField model (\d v -> { d | minute <- v }) value
-        SetSecond value -> updateDateField model (\d v -> { d | second <- v }) value
+        SetYear value -> updateDateField model (\d v -> { d | year = v }) value
+        SetMonth value -> updateDateField model (\d v -> { d | month = v - 1 }) value
+        SetDay value -> updateDateField model (\d v -> { d | day = v }) value
+        SetHour value -> updateDateField model (\d v -> { d | hour = v }) value
+        SetMinute value -> updateDateField model (\d v -> { d | minute = v }) value
+        SetSecond value -> updateDateField model (\d v -> { d | second = v }) value
         SetJD value -> case String.toFloat value of
-            Ok value -> { model | date <- dateFromJd (value + timezoneOffset / 86400000) }
+            Ok value -> { model | date = dateFromJd (value + timezoneOffset / 86400000) }
             Err _ -> model
         Tick jd -> if model.useCurrentJD
-            then { model | currentJD <- jd, date <- dateFromJd jd, useCurrentJD <- False }
-            else { model | currentJD <- jd }
-        SetNow -> { model | date <- dateFromJd (model.currentJD) }
+            then { model | currentJD = jd, date = dateFromJd jd, useCurrentJD = False }
+            else { model | currentJD = jd }
+        SetNow -> { model | date = dateFromJd (model.currentJD) }
 
 
 calendarInput : Signal.Address Action -> Int -> (String -> Action) -> Html
