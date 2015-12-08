@@ -9,7 +9,7 @@ django-debug-toolbar==1.4
 django-extensions==1.5.9
 django-flat-theme==1.1.1
 https://github.com/zsiciarz/django-geoposition/archive/a803f73558ce156fdef77ce584573a15c9114915.zip#egg=geoposition
-django-model-utils==2.3.1
+django-model-utils==2.4
 django-pagination-py3==1.1.1
 djet==0.1.0
 ephem==3.7.6.0
