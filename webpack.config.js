@@ -32,7 +32,8 @@ module.exports = {
         }, {
             test: require.resolve("jquery"),
             loader: "expose?$!expose?jQuery"
-        }]
+        }],
+        noParse: [/\.elm$/]
     },
     plugins: [
         new webpack.ProvidePlugin({
