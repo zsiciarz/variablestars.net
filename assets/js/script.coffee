@@ -1,10 +1,9 @@
 $ = require('jquery')
 bootstrap = require('bootstrap')
-ElmJdClock = require('./JdClock.elm')
-ElmJdConverter = require('./JdConverter.elm')
+Elm = require('./Main.elm')
 
-ElmJdClock.embed(ElmJdClock.JdClock, document.getElementById('jd-clock'))
-ElmJdConverter.embed(ElmJdConverter.JdConverter, document.getElementById('elm-jd-converter'),
+Elm.embed(Elm.JdClock, document.getElementById('jd-clock'))
+Elm.embed(Elm.JdConverter, document.getElementById('elm-jd-converter'),
  {timezoneOffset: new Date().getTimezoneOffset() * 60000})
 
 $ ->
