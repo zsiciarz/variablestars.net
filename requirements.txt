@@ -4,7 +4,7 @@ django-allauth==0.24.1
 django-appconf==1.0.1
 django-autocomplete-light==2.3.1
 django-braces==1.8.1
-django-crispy-forms==1.5.2
+django-crispy-forms==1.6.0
 django-debug-toolbar==1.4
 django-extensions==1.6.1
 django-flat-theme==1.1.3
