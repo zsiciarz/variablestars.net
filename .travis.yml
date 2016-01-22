@@ -9,7 +9,9 @@ install:
   - pip install pip setuptools wheel --upgrade
   - pip install -r requirements.txt
   - pip install coveralls
+  - npm install -g elm elm-test
 script:
-    coverage run manage.py test
+  - make coverage
+  - make elm-test
 after_success:
   - coveralls
