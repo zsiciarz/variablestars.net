@@ -1,6 +1,7 @@
 module Astronomy (JD, CustomDate, timeToJd, jdToTime, dateFromJd, dateToJd) where
 
 import Date
+import Date.Core exposing (monthToInt)
 import Time exposing (Time)
 
 
@@ -27,30 +28,13 @@ type alias CustomDate =
     }
 
 
-monthLookup : Date.Month -> Int
-monthLookup month =
-    case month of
-        Date.Jan -> 0
-        Date.Feb -> 1
-        Date.Mar -> 2
-        Date.Apr -> 3
-        Date.May -> 4
-        Date.Jun -> 5
-        Date.Jul -> 6
-        Date.Aug -> 7
-        Date.Sep -> 8
-        Date.Oct -> 9
-        Date.Nov -> 10
-        Date.Dec -> 11
-
-
 dateFromJd : JD -> CustomDate
 dateFromJd jd =
     let
         d = jdToTime jd |> Date.fromTime
     in
         { year = Date.year d
-        , month = monthLookup (Date.month d)
+        , month = monthToInt (Date.month d)
         , day = Date.day d
         , hour = Date.hour d
         , minute = Date.minute d
