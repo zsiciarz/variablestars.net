@@ -1,4 +1,4 @@
-Django==1.8.8
+Django==1.8.9
 coverage==4.0.3
 django-allauth==0.24.1
 django-appconf==1.0.1
