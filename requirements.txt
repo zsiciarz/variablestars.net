@@ -2,7 +2,7 @@ Django==1.8.9
 coverage==4.0.3
 django-allauth==0.24.1
 django-appconf==1.0.1
-django-autocomplete-light==2.3.2
+django-autocomplete-light==2.3.3
 django-braces==1.8.1
 django-crispy-forms==1.6.0
 django-debug-toolbar==1.4
