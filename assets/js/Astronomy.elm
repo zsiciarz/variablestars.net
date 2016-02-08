@@ -12,7 +12,7 @@ type alias JD = Float
 
 
 intToMonth : Int -> Date.Month
-intToMonth m = head (drop m monthList) |> withDefault Date.Jan
+intToMonth m = head (drop (m - 1) monthList) |> withDefault Date.Jan
 
 
 timeToJd : Time -> JD
@@ -34,7 +34,7 @@ dateFromJd jd = jdToTime jd |> Date.fromTime
 dateToJd : Date.Date -> JD
 dateToJd date =
     let
-        month' = monthToInt (Date.month date) + 1
+        month' = monthToInt (Date.month date)
         a = (14 - month') // 12
         y = (Date.year date) + 4800 - a
         m = month' + 12 * a - 3

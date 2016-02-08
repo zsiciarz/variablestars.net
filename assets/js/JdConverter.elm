@@ -112,7 +112,7 @@ view address model =
             ]
         , div [ class "form-group row" ]
             [ div [ class "col-xs-2" ] [calendarInput address (Date.year model.date) SetYear]
-            , div [ class "col-xs-2" ] [calendarInput address (monthToInt (Date.month model.date) + 1) SetMonth]
+            , div [ class "col-xs-2" ] [calendarInput address (monthToInt (Date.month model.date)) SetMonth]
             , div [ class "col-xs-2" ] [calendarInput address (Date.day model.date) SetDay]
             , div [ class "col-xs-2" ] [calendarInput address (Date.hour model.date) SetHour]
             , div [ class "col-xs-2" ] [calendarInput address (Date.minute model.date) SetMinute]
