@@ -1,11 +1,18 @@
-module Astronomy (JD, CustomDate, timeToJd, jdToTime, dateFromJd, dateToJd) where
+module Astronomy (JD, intToMonth, timeToJd, jdToTime, dateFromJd, dateToJd) where
 
 import Date
-import Date.Core exposing (monthToInt)
+import Date.Core exposing (monthList, monthToInt)
+import Date.Utils exposing (dateFromFields)
+import List exposing (drop, head)
+import Maybe exposing (withDefault)
 import Time exposing (Time)
 
 
 type alias JD = Float
+
+
+intToMonth : Int -> Date.Month
+intToMonth m = head (drop m monthList) |> withDefault Date.Jan
 
 
 timeToJd : Time -> JD
@@ -18,40 +25,20 @@ jdToTime jd =
     (jd - 2440587.5) * 86400000
 
 
-type alias CustomDate =
-    { year : Int
-    , month: Int
-    , day: Int
-    , hour: Int
-    , minute: Int
-    , second: Int
-    }
-
-
-dateFromJd : JD -> CustomDate
-dateFromJd jd =
-    let
-        d = jdToTime jd |> Date.fromTime
-    in
-        { year = Date.year d
-        , month = monthToInt (Date.month d)
-        , day = Date.day d
-        , hour = Date.hour d
-        , minute = Date.minute d
-        , second = Date.second d
-        }
+dateFromJd : JD -> Date.Date
+dateFromJd jd = jdToTime jd |> Date.fromTime
 
 
 -- see https://en.wikipedia.org/wiki/Julian_day#Converting_Julian_or_Gregorian_calendar_date_to_Julian_Day_Number
 -- TODO: fix timezone offsets
-dateToJd : CustomDate -> JD
+dateToJd : Date.Date -> JD
 dateToJd date =
     let
-        month' = date.month + 1
+        month' = monthToInt (Date.month date) + 1
         a = (14 - month') // 12
-        y = date.year + 4800 - a
+        y = (Date.year date) + 4800 - a
         m = month' + 12 * a - 3
-        fraction = (toFloat (date.hour - 12)) / 24 + (toFloat date.minute) / 1440 + (toFloat date.second) / 86400
+        fraction = (toFloat ((Date.hour date) - 12)) / 24 + (toFloat (Date.minute date)) / 1440 + (toFloat (Date.second date)) / 86400
     in fraction + toFloat
-       (date.day + (153 * m + 2) // 5 + 365 * y + y // 4 - y // 100 + y // 400 - 32045)
+       ((Date.day date) + (153 * m + 2) // 5 + 365 * y + y // 4 - y // 100 + y // 400 - 32045)
 
