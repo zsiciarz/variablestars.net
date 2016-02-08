@@ -39,7 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'autocomplete_light',
+    'dal',
+    'dal_select2',
     'linaro_django_pagination',
     'crispy_forms',
     'debug_toolbar',
