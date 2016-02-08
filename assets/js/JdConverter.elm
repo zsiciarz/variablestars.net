@@ -59,30 +59,32 @@ actions : Signal.Mailbox Action
 actions = Signal.mailbox SetNow
 
 
-updateDateField : Model -> (Date -> Int -> Date) -> String -> Model
-updateDateField model f value =
-    case String.toInt value of
-        Ok v -> { model | date = f (model.date) v }
-        Err _ -> model
-
-
-replaceYear d v = dateFromFields v (Date.month d) (Date.day d) (Date.hour d) (Date.minute d) (Date.second d) 0
-replaceMonth d v = dateFromFields (Date.year d) (intToMonth v) (Date.day d) (Date.hour d) (Date.minute d) (Date.second d) 0
-replaceDay d v = dateFromFields (Date.year d) (Date.month d) v (Date.hour d) (Date.minute d) (Date.second d) 0
-replaceHour d v = dateFromFields (Date.year d) (Date.month d) (Date.day d) v (Date.minute d) (Date.second d) 0
-replaceMinute d v = dateFromFields (Date.year d) (Date.month d) (Date.day d) (Date.hour d) v (Date.second d) 0
-replaceSecond d v = dateFromFields (Date.year d) (Date.month d) (Date.day d) (Date.hour d) (Date.minute d) v 0
+updateDateField : Action -> String -> Model -> Model
+updateDateField action value model =
+    let
+        f action d v = case action of
+            (SetYear _) -> dateFromFields v (Date.month d) (Date.day d) (Date.hour d) (Date.minute d) (Date.second d) 0
+            (SetMonth _) -> dateFromFields (Date.year d) (intToMonth v) (Date.day d) (Date.hour d) (Date.minute d) (Date.second d) 0
+            (SetDay _) -> dateFromFields (Date.year d) (Date.month d) v (Date.hour d) (Date.minute d) (Date.second d) 0
+            (SetHour _) -> dateFromFields (Date.year d) (Date.month d) (Date.day d) v (Date.minute d) (Date.second d) 0
+            (SetMinute _) -> dateFromFields (Date.year d) (Date.month d) (Date.day d) (Date.hour d) v (Date.second d) 0
+            (SetSecond _) -> dateFromFields (Date.year d) (Date.month d) (Date.day d) (Date.hour d) (Date.minute d) v 0
+            _ -> d
+    in
+        case String.toInt value of
+            Ok v -> { model | date = f action (model.date) v }
+            Err _ -> model
 
 
 update : Action -> Model -> Model
 update action model =
     case action of
-        SetYear value -> updateDateField model replaceYear value
-        SetMonth value -> updateDateField model replaceMonth value
-        SetDay value -> updateDateField model replaceDay value
-        SetHour value -> updateDateField model replaceHour value
-        SetMinute value -> updateDateField model replaceMinute value
-        SetSecond value -> updateDateField model replaceSecond value
+        SetYear value -> updateDateField action value model
+        SetMonth value -> updateDateField action value model
+        SetDay value -> updateDateField action value model
+        SetHour value -> updateDateField action value model
+        SetMinute value -> updateDateField action value model
+        SetSecond value -> updateDateField action value model
         SetJD value -> case String.toFloat value of
             Ok value -> { model | date = dateFromJd (value + timezoneOffset / 86400000) }
             Err _ -> model
