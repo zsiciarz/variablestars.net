@@ -1,4 +1,4 @@
-Django==1.8.9
+Django==1.8.10
 django-allauth==0.24.1
 django-appconf==1.0.1
 django-autocomplete-light<3.0.0  # rq.filter: <3.0.0
