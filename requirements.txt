@@ -13,7 +13,7 @@ django-pagination-py3==1.1.1
 ephem==3.7.6.0
 frogress==0.9.1
 gunicorn==19.4.5
-ipython==4.1.1
+ipython==4.1.2
 lxml==3.5.0
 psycopg2==2.6.1
 pyaavso==0.1.5
