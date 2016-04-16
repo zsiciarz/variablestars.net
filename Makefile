@@ -6,7 +6,7 @@ ELM_PACKAGE = elm-package
 ELM_TEST_DIR = assets/js/tests
 
 test:
-	coverage run manage.py test --keepdb
+	py.test --cov
 
 production_assets: node_modules
 	$(WEBPACK) $(WEBPACK_ARGS)
