@@ -5,6 +5,7 @@ python:
 cache:
   directories:
     - $HOME/.cache/pip
+    - assets/js/tests/elm-stuff/build-artifacts
 install:
   - pip install pip setuptools wheel --upgrade
   - pip install -r test_requirements.txt
