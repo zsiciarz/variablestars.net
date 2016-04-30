@@ -7,10 +7,36 @@ from django.utils.translation import ugettext_lazy as _
 from djet.assertions import InstanceAssertionsMixin, MessagesAssertionsMixin, StatusCodeAssertionsMixin
 from djet.files import create_inmemory_file
 from djet.testcases import ViewTestCase
+from linaro_django_pagination.middleware import PaginationMiddleware
 
 from ..models import Observation
 from .. import views
 from variablestars.tests.base import TestDataMixin
+
+
+class ObservationListViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
+    view_class = views.ObservationListView
+    middleware_classes = [
+        PaginationMiddleware,
+    ]
+
+    def setUp(self):
+        super().setUp()
+        self._create_users()
+        self._create_stars()
+        self._create_observations()
+
+    def test_list_observations_all_observers(self):
+        request = self.factory.get()
+        response = self.view(request)
+        self.assertContains(response, str(self.observer))
+        self.assertContains(response, str(self.observer2))
+
+    def test_list_observations_single_observer(self):
+        request = self.factory.get()
+        response = self.view(request, observer_id=self.observer2.id)
+        self.assertNotContains(response, str(self.observer))
+        self.assertContains(response, str(self.observer2))
 
 
 class AddObservationViewTestCase(InstanceAssertionsMixin, MessagesAssertionsMixin, StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
