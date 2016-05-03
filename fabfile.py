@@ -37,6 +37,13 @@ def git_pull():
 
 @task
 @roles("web")
+def upgrade_pip():
+    with prepare_project():
+        run("pip install pip setuptools wheel --upgrade")
+
+
+@task
+@roles("web")
 def build_assets():
     local("make production_assets")
 
