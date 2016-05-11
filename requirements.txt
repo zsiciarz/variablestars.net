@@ -5,7 +5,7 @@ django-autocomplete-light<3.0.0  # rq.filter: <3.0.0
 django-braces==1.8.1
 django-crispy-forms==1.6.0
 django-debug-toolbar==1.4
-django-extensions==1.6.6
+django-extensions==1.6.7
 https://github.com/zsiciarz/django-geoposition/archive/a803f73558ce156fdef77ce584573a15c9114915.zip#egg=geoposition
 django-model-utils==2.5
 ephem==3.7.6.0
