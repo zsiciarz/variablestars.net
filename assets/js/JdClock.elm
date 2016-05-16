@@ -1,30 +1,55 @@
-module JdClock (..) where
+module JdClock exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.App as Html
 import Time exposing (Time, every, second)
 import Astronomy exposing (timeToJd)
 import Utils exposing (formatJD)
 
 
 main =
-  Signal.map jdClock (every second)
+    Html.program
+        { init = ( 0, Cmd.none )
+        , update = update
+        , view = view
+        , subscriptions = subscriptions
+        }
 
 
-jdClock : Time -> Html
-jdClock t =
-  let
-    jdText =
-      t |> timeToJd |> formatJD 4
-  in
-    div
-      []
-      [ span [ class "glyphicon glyphicon-time" ] []
-      , a
-          [ href "#"
-          , id "current-jd"
-          , attribute "data-toggle" "modal"
-          , attribute "data-target" "#jd-converter"
-          ]
-          [ text (" JD: " ++ jdText) ]
-      ]
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    every second Tick
+
+
+type alias Model =
+    Time
+
+
+type Msg
+    = Tick Time
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        Tick time ->
+            ( time, Cmd.none )
+
+
+view : Time -> Html a
+view t =
+    let
+        jdText =
+            t |> timeToJd |> formatJD 4
+    in
+        div []
+            [ span [ class "glyphicon glyphicon-time" ] []
+            , a
+                [ href "#"
+                , id "current-jd"
+                , attribute "data-toggle" "modal"
+                , attribute "data-target" "#jd-converter"
+                ]
+                [ text (" JD: " ++ jdText) ]
+            ]

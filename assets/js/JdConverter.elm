@@ -1,180 +1,174 @@
-module JdConverter (..) where
+module JdConverter exposing (..)
 
 import Date exposing (Date, Month)
-import Date.Core exposing (monthToInt)
-import Date.Utils exposing (dateFromFields)
+import Date.Extra.Core exposing (monthToInt)
+import Date.Extra.Create exposing (dateFromFields)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Signal
+import Html.App as Html
+import Json.Decode
 import String
 import Time exposing (every, second)
 import Astronomy exposing (JD, timeToJd, dateToJd, dateFromJd, intToMonth)
 import Utils exposing (formatJD)
 
 
-port timezoneOffset : Float
+--port timezoneOffset : Float
+
+
+timezoneOffset =
+    0.0
+
+
 main =
-  Signal.map
-    (view actions.address)
-    (Signal.foldp
-      update
-      initModel
-      (Signal.merge tick actions.signal)
-    )
+    Html.program
+        { init = init
+        , view = view
+        , update = update
+        , subscriptions = tick
+        }
 
 
-tick : Signal Action
-tick =
-  let
-    localClock =
-      (Signal.map (\time -> time + timezoneOffset) (every second))
-  in
-    Signal.map (Tick << timeToJd) localClock
+tick : Model -> Sub Msg
+tick model =
+    every second (Tick << (\time -> timeToJd time + timezoneOffset))
 
 
 type alias Model =
-  { date : Date
-  , currentJD : JD
-  , useCurrentJD : Bool
-  }
+    { date : Date
+    , currentJD : JD
+    , useCurrentJD : Bool
+    }
 
 
 initDate =
-  dateFromFields 0 Date.Jan 0 0 0 0 0
+    dateFromFields 0 Date.Jan 0 0 0 0 0
 
 
-initModel =
-  { date = initDate, currentJD = 0, useCurrentJD = True }
+init : ( Model, Cmd Msg )
+init =
+    ( { date = initDate, currentJD = 0, useCurrentJD = True }, Cmd.none )
 
 
-type Action
-  = SetNow
-  | SetYear String
-  | SetMonth String
-  | SetDay String
-  | SetHour String
-  | SetMinute String
-  | SetSecond String
-  | SetJD String
-  | Tick JD
+type Msg
+    = SetNow
+    | SetYear String
+    | SetMonth String
+    | SetDay String
+    | SetHour String
+    | SetMinute String
+    | SetSecond String
+    | SetJD String
+    | Tick JD
 
 
-actions : Signal.Mailbox Action
-actions =
-  Signal.mailbox SetNow
+updateDateField : Msg -> String -> Model -> ( Model, Cmd Msg )
+updateDateField msg value model =
+    let
+        f msg d v =
+            case msg of
+                SetYear _ ->
+                    dateFromFields v (Date.month d) (Date.day d) (Date.hour d) (Date.minute d) (Date.second d) 0
+
+                SetMonth _ ->
+                    dateFromFields (Date.year d) (intToMonth v) (Date.day d) (Date.hour d) (Date.minute d) (Date.second d) 0
+
+                SetDay _ ->
+                    dateFromFields (Date.year d) (Date.month d) v (Date.hour d) (Date.minute d) (Date.second d) 0
+
+                SetHour _ ->
+                    dateFromFields (Date.year d) (Date.month d) (Date.day d) v (Date.minute d) (Date.second d) 0
+
+                SetMinute _ ->
+                    dateFromFields (Date.year d) (Date.month d) (Date.day d) (Date.hour d) v (Date.second d) 0
+
+                SetSecond _ ->
+                    dateFromFields (Date.year d) (Date.month d) (Date.day d) (Date.hour d) (Date.minute d) v 0
+
+                _ ->
+                    d
+    in
+        case String.toInt value of
+            Ok v ->
+                ( { model | date = f msg (model.date) v }, Cmd.none )
+
+            Err _ ->
+                ( model, Cmd.none )
 
 
-updateDateField : Action -> String -> Model -> Model
-updateDateField action value model =
-  let
-    f action d v =
-      case action of
-        SetYear _ ->
-          dateFromFields v (Date.month d) (Date.day d) (Date.hour d) (Date.minute d) (Date.second d) 0
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        SetYear value ->
+            updateDateField msg value model
 
-        SetMonth _ ->
-          dateFromFields (Date.year d) (intToMonth v) (Date.day d) (Date.hour d) (Date.minute d) (Date.second d) 0
+        SetMonth value ->
+            updateDateField msg value model
 
-        SetDay _ ->
-          dateFromFields (Date.year d) (Date.month d) v (Date.hour d) (Date.minute d) (Date.second d) 0
+        SetDay value ->
+            updateDateField msg value model
 
-        SetHour _ ->
-          dateFromFields (Date.year d) (Date.month d) (Date.day d) v (Date.minute d) (Date.second d) 0
+        SetHour value ->
+            updateDateField msg value model
 
-        SetMinute _ ->
-          dateFromFields (Date.year d) (Date.month d) (Date.day d) (Date.hour d) v (Date.second d) 0
+        SetMinute value ->
+            updateDateField msg value model
 
-        SetSecond _ ->
-          dateFromFields (Date.year d) (Date.month d) (Date.day d) (Date.hour d) (Date.minute d) v 0
+        SetSecond value ->
+            updateDateField msg value model
 
-        _ ->
-          d
-  in
-    case String.toInt value of
-      Ok v ->
-        { model | date = f action (model.date) v }
+        SetJD value ->
+            case String.toFloat value of
+                Ok value ->
+                    ( { model | date = dateFromJd (value + timezoneOffset / 86400000) }, Cmd.none )
 
-      Err _ ->
-        model
+                Err _ ->
+                    ( model, Cmd.none )
 
+        Tick jd ->
+            if model.useCurrentJD then
+                ( { model | currentJD = jd, date = dateFromJd jd, useCurrentJD = False }, Cmd.none )
+            else
+                ( { model | currentJD = jd }, Cmd.none )
 
-update : Action -> Model -> Model
-update action model =
-  case action of
-    SetYear value ->
-      updateDateField action value model
-
-    SetMonth value ->
-      updateDateField action value model
-
-    SetDay value ->
-      updateDateField action value model
-
-    SetHour value ->
-      updateDateField action value model
-
-    SetMinute value ->
-      updateDateField action value model
-
-    SetSecond value ->
-      updateDateField action value model
-
-    SetJD value ->
-      case String.toFloat value of
-        Ok value ->
-          { model | date = dateFromJd (value + timezoneOffset / 86400000) }
-
-        Err _ ->
-          model
-
-    Tick jd ->
-      if model.useCurrentJD then
-        { model | currentJD = jd, date = dateFromJd jd, useCurrentJD = False }
-      else
-        { model | currentJD = jd }
-
-    SetNow ->
-      { model | date = dateFromJd (model.currentJD) }
+        SetNow ->
+            ( { model | date = dateFromJd (model.currentJD) }, Cmd.none )
 
 
-calendarInput : Signal.Address Action -> Int -> (String -> Action) -> Html
-calendarInput address modelValue action =
-  input
-    [ class "form-control"
-    , type' "number"
-    , value (toString modelValue)
-    , on "input" targetValue (\str -> Signal.message address (action str))
-    ]
-    []
-
-
-view : Signal.Address Action -> Model -> Html
-view address model =
-  div
-    []
-    [ label
+calendarInput : Int -> (String -> Msg) -> Html Msg
+calendarInput modelValue msg =
+    input
+        [ class "form-control"
+        , type' "number"
+        , value (toString modelValue)
+        , onInput msg
+        ]
         []
-        [ text "Date and time (UTC) "
-        , a [ href "#", onClick address SetNow ] [ text "now" ]
-        ]
-    , div
-        [ class "form-group row" ]
-        [ div [ class "col-xs-2" ] [ calendarInput address (Date.year model.date) SetYear ]
-        , div [ class "col-xs-2" ] [ calendarInput address (monthToInt (Date.month model.date)) SetMonth ]
-        , div [ class "col-xs-2" ] [ calendarInput address (Date.day model.date) SetDay ]
-        , div [ class "col-xs-2" ] [ calendarInput address (Date.hour model.date) SetHour ]
-        , div [ class "col-xs-2" ] [ calendarInput address (Date.minute model.date) SetMinute ]
-        , div [ class "col-xs-2" ] [ calendarInput address (Date.second model.date) SetSecond ]
-        ]
-    , div
-        [ class "form-group" ]
-        [ label [] [ text "JD" ]
-        , input
-            [ class "form-control"
-            , value (dateToJd model.date |> formatJD 4)
-            , on "input" targetValue (\str -> Signal.message address (SetJD str))
+
+
+view : Model -> Html Msg
+view model =
+    div []
+        [ label []
+            [ text "Date and time (UTC) "
+            , a [ href "#", onClick SetNow ] [ text "now" ]
             ]
-            []
+        , div [ class "form-group row" ]
+            [ div [ class "col-xs-2" ] [ calendarInput (Date.year model.date) SetYear ]
+            , div [ class "col-xs-2" ] [ calendarInput (monthToInt (Date.month model.date)) SetMonth ]
+            , div [ class "col-xs-2" ] [ calendarInput (Date.day model.date) SetDay ]
+            , div [ class "col-xs-2" ] [ calendarInput (Date.hour model.date) SetHour ]
+            , div [ class "col-xs-2" ] [ calendarInput (Date.minute model.date) SetMinute ]
+            , div [ class "col-xs-2" ] [ calendarInput (Date.second model.date) SetSecond ]
+            ]
+        , div [ class "form-group" ]
+            [ label [] [ text "JD" ]
+            , input
+                [ class "form-control"
+                , value (dateToJd model.date |> formatJD 4)
+                , onInput SetJD
+                ]
+                []
+            ]
         ]
-    ]
