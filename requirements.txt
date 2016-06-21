@@ -6,7 +6,7 @@ django-braces==1.9.0
 django-crispy-forms==1.6.0
 django-debug-toolbar==1.4
 django-extensions==1.6.7
-https://github.com/zsiciarz/django-geoposition/archive/a803f73558ce156fdef77ce584573a15c9114915.zip#egg=geoposition
+https://github.com/zsiciarz/django-geoposition/archive/a803f73558ce156fdef77ce584573a15c9114915.zip#egg=django-geoposition
 django-model-utils==2.5
 ephem==3.7.6.0
 frogress==0.9.1
