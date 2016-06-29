@@ -21,7 +21,7 @@ module.exports = {
         }, {
             test: /\.elm$/,
             exclude: [/elm-stuff/, /node_modules/],
-            loader: 'elm-webpack'
+            loader: 'elm-webpack?pathToMake=node_modules/.bin/elm-make'
         }, {
             test: /\.less$/,
             loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")

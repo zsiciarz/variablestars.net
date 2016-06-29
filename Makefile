@@ -2,7 +2,7 @@
 
 WEBPACK = ./node_modules/.bin/webpack
 WEBPACK_ARGS = --colors --progress
-ELM_PACKAGE = elm-package
+ELM_PACKAGE = ./node_modules/.bin/elm-package
 ELM_TEST_DIR = assets/js/tests
 
 test:
