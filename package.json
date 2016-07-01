@@ -25,6 +25,7 @@
     "coffee-script": "^1.10.0",
     "css-loader": "^0.23.1",
     "elm": "^0.16.0",
+    "elm-test": "^0.16.1-alpha4",
     "elm-webpack-loader": "^2.0.1",
     "expose-loader": "^0.7.0",
     "extract-text-webpack-plugin": "^1.0.1",
