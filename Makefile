@@ -3,6 +3,7 @@
 BASE_DIR = $(shell pwd)
 WEBPACK = ${BASE_DIR}/node_modules/.bin/webpack
 WEBPACK_ARGS = --colors --progress
+ELM_MAKE = ${BASE_DIR}/node_modules/.bin/elm-make
 ELM_PACKAGE = ${BASE_DIR}/node_modules/.bin/elm-package
 ELM_TEST = ${BASE_DIR}/node_modules/.bin/elm-test
 ELM_TEST_DIR = assets/js/tests
@@ -26,4 +27,4 @@ $(ELM_TEST_DIR)/elm-stuff: $(ELM_TEST_DIR)/elm-package.json
 	cd $(ELM_TEST_DIR) && $(ELM_PACKAGE) install -y
 
 elm-test: $(ELM_TEST_DIR)/elm-stuff
-	cd $(ELM_TEST_DIR) && $(ELM_PACKAGE) install -y && ${ELM_TEST} TestRunner.elm
+	cd $(ELM_TEST_DIR) && $(ELM_PACKAGE) install -y && ${ELM_TEST} TestRunner.elm --compiler ${ELM_MAKE}
