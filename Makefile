@@ -1,8 +1,10 @@
 .PHONY: test watch elm-test
 
-WEBPACK = ./node_modules/.bin/webpack
+BASE_DIR = $(shell pwd)
+WEBPACK = ${BASE_DIR}/node_modules/.bin/webpack
 WEBPACK_ARGS = --colors --progress
-ELM_PACKAGE = ./node_modules/.bin/elm-package
+ELM_PACKAGE = ${BASE_DIR}/node_modules/.bin/elm-package
+ELM_TEST = ${BASE_DIR}/node_modules/.bin/elm-test
 ELM_TEST_DIR = assets/js/tests
 
 test:
