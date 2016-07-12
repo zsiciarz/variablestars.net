@@ -6,11 +6,12 @@ cache:
   directories:
     - $HOME/.cache/pip
     - assets/js/tests/elm-stuff/build-artifacts
+    - $HOME/.nvm/versions
 install:
   - pip install pip setuptools wheel --upgrade
   - pip install -r test_requirements.txt
   - pip install coveralls
-  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 5.0.0
+  - nvm install v6
   - npm install
 script:
   - make test
