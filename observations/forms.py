@@ -2,7 +2,7 @@ from django import forms
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 
-import autocomplete_light.shortcuts as al
+from dal import autocomplete
 from pyaavso.formats.visual import VisualFormatReader
 
 from .models import Observation
@@ -10,14 +10,16 @@ from .utils import dict_to_observation
 from observers.models import Observer
 
 
-class ObservationForm(al.ModelForm):
+class ObservationForm(forms.ModelForm):
     class Meta:
         model = Observation
         fields = (
             'star', 'jd', 'magnitude', 'fainter_than', 'comp1', 'comp2',
             'comment_code', 'chart', 'notes',
         )
-        autocomplete_fields = ('star',)
+        widgets = {
+            'star': autocomplete.ModelSelect2(url='stars:star_autocomplete'),
+        }
 
 
 class BatchUploadForm(forms.Form):
