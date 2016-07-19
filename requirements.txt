@@ -1,4 +1,4 @@
-Django==1.9.7
+Django==1.9.8
 django-allauth==0.25.2
 django-appconf==1.0.2
 django-autocomplete-light==3.1.6
