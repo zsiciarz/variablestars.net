@@ -14,7 +14,7 @@ gunicorn==19.6.0
 ipython==5.0.0
 # linaro-django-pagination==2.0.3
 https://github.com/zyga/django-pagination/archive/86caf150984733eb5a0bb07af26cd8fc0a8d8496.zip#egg=linaro_django_pagination
-lxml==3.6.0
+lxml==3.6.1
 psycopg2==2.6.2
 pyaavso==0.1.5
 pygcvs==1.0
