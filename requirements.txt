@@ -18,6 +18,6 @@ lxml==3.6.4
 psycopg2==2.6.2
 pyaavso==0.1.5
 pygcvs==1.0
-raven==5.25.0
+raven==5.26.0
 requests==2.11.1
 six==1.10.0
