@@ -17,7 +17,7 @@ https://github.com/zyga/django-pagination/archive/86caf150984733eb5a0bb07af26cd8
 lxml==3.6.4
 psycopg2==2.6.2
 pyaavso==0.2
-pygcvs==1.0
+pygcvs==1.1
 raven==5.27.1
 requests==2.12.4
 six==1.10.0
