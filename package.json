@@ -17,13 +17,13 @@
     "bootstrap": "^3.3.7",
     "bootswatch": "^3.3.7",
     "d3": "^3.5.17",
-    "jquery": "^3.1.0",
+    "jquery": "^3.1.1",
     "mailcheck": "^1.1.1"
   },
   "devDependencies": {
     "coffee-loader": "^0.7.2",
-    "coffee-script": "^1.10.0",
-    "css-loader": "^0.23.1",
+    "coffee-script": "^1.12.2",
+    "css-loader": "^0.26.1",
     "elm": "^0.16.0",
     "elm-test": "^0.16.1-alpha4",
     "elm-webpack-loader": "^2.0.1",
@@ -34,6 +34,6 @@
     "less-loader": "^2.2.3",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.1"
+    "webpack": "^1.14.0"
   }
 }
