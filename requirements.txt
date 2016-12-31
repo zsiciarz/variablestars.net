@@ -16,7 +16,7 @@ ipython==5.1.0
 https://github.com/zyga/django-pagination/archive/86caf150984733eb5a0bb07af26cd8fc0a8d8496.zip#egg=linaro_django_pagination
 lxml==3.6.4
 psycopg2==2.6.2
-pyaavso==0.1.5
+pyaavso==0.2
 pygcvs==1.0
 raven==5.27.1
 requests==2.12.4
