@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from djet.assertions import StatusCodeAssertionsMixin
 from djet.testcases import ViewTestCase
 from djet.utils import refresh
-from linaro_django_pagination.middleware import PaginationMiddleware
+from dj_pagination.middleware import PaginationMiddleware
 
 from .. import views
 from variablestars.tests.base import TestDataMixin

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from djet.assertions import InstanceAssertionsMixin, MessagesAssertionsMixin, StatusCodeAssertionsMixin
 from djet.files import create_inmemory_file
 from djet.testcases import ViewTestCase
-from linaro_django_pagination.middleware import PaginationMiddleware
+from dj_pagination.middleware import PaginationMiddleware
 
 from ..models import Observation
 from .. import views

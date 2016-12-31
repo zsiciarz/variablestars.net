@@ -41,7 +41,7 @@ INSTALLED_APPS = (
 
     'dal',
     'dal_select2',
-    'linaro_django_pagination',
+    'dj_pagination',
     'crispy_forms',
     'debug_toolbar',
     'django_extensions',
@@ -63,7 +63,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'linaro_django_pagination.middleware.PaginationMiddleware',
+    'dj_pagination.middleware.PaginationMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'observers.middleware.ObserverMiddleware',
     'stars.middleware.StarFilterMiddleware',
