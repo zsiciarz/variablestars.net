@@ -1,9 +1,9 @@
-class StarFilterMiddleware(object):
+def star_filter_middleware(get_response):
     """
     Stores star filter data in user's session.
     """
-    def process_request(self, request):
-        assert hasattr(request, 'session'), "StarFilterMiddleware requires session middleware to be installed."
+    def middleware(request):
+        assert hasattr(request, 'session'), "star_filter_middleware requires session middleware to be installed."
         limiting_magnitude = request.GET.get('limiting_magnitude')
         if limiting_magnitude:
             if limiting_magnitude == 'None':
@@ -16,3 +16,5 @@ class StarFilterMiddleware(object):
             else:
                 stars_with_observations = False
             request.session['stars_with_observations'] = stars_with_observations
+        return get_response(request)
+    return middleware

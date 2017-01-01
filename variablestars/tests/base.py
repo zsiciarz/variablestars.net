@@ -10,6 +10,13 @@ from observations.utils import jd_now
 from stars.models import Star, VariabilityType
 
 
+def get_response(request):
+    """
+    Fake view-like callback to use in middleware tests.
+    """
+    return None
+
+
 class ObserverClient(Client):
     """
     An extended test client customized for this site.

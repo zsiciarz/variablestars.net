@@ -3,13 +3,14 @@ from unittest.mock import MagicMock, patch
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import TestCase
 
-from ..middleware import ObserverMiddleware
+from variablestars.tests.base import get_response
+from ..middleware import observer_middleware
 from ..models import Observer
 
 
 class ObserverMiddlewareTestCase(TestCase):
     """
-    Tests for ``observers.middleware.ObserverMiddleware`` class.
+    Tests for ``observers.middleware.observer_middleware`` function.
     """
     def setUp(self):
         super().setUp()
@@ -26,10 +27,10 @@ class ObserverMiddlewareTestCase(TestCase):
         for authenticated users.
         """
         observer = Observer(user=self.user, aavso_code='XYZ')
-        middleware = ObserverMiddleware()
+        middleware = observer_middleware(get_response)
         with patch.object(Observer.objects, 'get') as mock_get:
             mock_get.return_value = observer
-            middleware.process_request(self.request)
+            middleware(self.request)
             mock_get.assert_called_once_with(user=self.user)
         self.assertEqual(self.request.observer, observer)
 
@@ -38,6 +39,6 @@ class ObserverMiddlewareTestCase(TestCase):
         Check that request.observer is None for anonymous users.
         """
         self.request.user = AnonymousUser()
-        middleware = ObserverMiddleware()
-        middleware.process_request(self.request)
+        middleware = observer_middleware(get_response)
+        middleware(self.request)
         self.assertIsNone(self.request.observer)

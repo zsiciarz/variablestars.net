@@ -55,7 +55,7 @@ INSTALLED_APPS = (
     'stars',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -65,8 +65,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'observers.middleware.ObserverMiddleware',
-    'stars.middleware.StarFilterMiddleware',
+    'observers.middleware.observer_middleware',
+    'stars.middleware.star_filter_middleware',
 )
 
 ROOT_URLCONF = 'variablestars.urls'
