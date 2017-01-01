@@ -1,6 +1,8 @@
 import warnings
 from decimal import Decimal
 
+from geoposition import Geoposition
+
 from django.contrib.admin.sites import AdminSite
 from django.core.urlresolvers import reverse
 
@@ -130,7 +132,7 @@ class StarDetailViewTestCase(BaseTestCase):
 
     def test_observer_location(self):
         self._create_stars()
-        self.observer.location = [Decimal('-89'), Decimal('21')]
+        self.observer.location = Geoposition(Decimal('-89'), Decimal('21'))
         self.observer.save()
         self.client.login_observer()
         url = self.star.get_absolute_url()
