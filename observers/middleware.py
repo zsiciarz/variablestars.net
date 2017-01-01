@@ -8,7 +8,7 @@ class ObserverMiddleware(object):
     """
     def process_request(self, request):
         assert hasattr(request, 'user'), "ObserverMiddleware requires auth middleware to be installed."
-        if request.user and request.user.is_authenticated():
+        if request.user and request.user.is_authenticated:
             request.observer = Observer.objects.get(user=request.user)
         else:
             request.observer = None
