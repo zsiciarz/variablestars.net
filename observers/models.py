@@ -32,7 +32,7 @@ class ObserverQuerySet(QuerySet):
 
 class Observer(TimeStampedModel):
     user = models.OneToOneField(
-        'auth.User', editable=False, related_name='observer'
+        'auth.User', editable=False, related_name='observer', on_delete=models.CASCADE,
     )
     aavso_code = models.CharField(
         max_length=10, blank=True, default='',

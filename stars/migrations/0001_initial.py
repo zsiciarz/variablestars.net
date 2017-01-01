@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='star',
             name='variability_type',
-            field=models.ForeignKey(verbose_name='Type of variability', blank=True, to='stars.VariabilityType', null=True),
+            field=models.ForeignKey(verbose_name='Type of variability', blank=True, to='stars.VariabilityType', null=True, on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

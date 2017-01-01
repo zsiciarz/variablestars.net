@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('aavso_code', models.CharField(default='', help_text='This is the code that is officially assigned to you by AAVSO.', max_length=10, verbose_name='AAVSO observer code', blank=True)),
                 ('limiting_magnitude', models.FloatField(default=6.0, help_text='The magnitude of the faintest stars you can see with your eyes/binoculars/telescope. Setting this value will affect which stars will have their brightness value(s) grayed out.', null=True, verbose_name='Limiting magnitude of your equipment', blank=True)),
                 ('location', geoposition.fields.GeopositionField(max_length=42, blank=True)),
-                ('user', models.OneToOneField(related_name='observer', editable=False, to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(related_name='observer', editable=False, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('-created',),

@@ -131,6 +131,7 @@ class Star(models.Model):
     variability_type = models.ForeignKey(
         'stars.VariabilityType', null=True, blank=True,
         verbose_name=_("Type of variability"),
+        on_delete=models.CASCADE,
     )
     max_magnitude = models.FloatField(_("Maximum brightness"), null=True)
     min_magnitude = models.FloatField(_("Minimum brightness"), null=True)

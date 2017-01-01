@@ -21,8 +21,8 @@ class Migration(migrations.Migration):
                 ('comment_code', models.CharField(default='', max_length=10, verbose_name='Comment code', blank=True)),
                 ('chart', models.CharField(default='', max_length=20, verbose_name='Chart', blank=True)),
                 ('notes', models.CharField(default='', max_length=100, verbose_name='Additional notes', blank=True)),
-                ('observer', models.ForeignKey(related_name='observations', verbose_name='Observer', to='observers.Observer')),
-                ('star', models.ForeignKey(related_name='observations', verbose_name='Star', to='stars.Star')),
+                ('observer', models.ForeignKey(related_name='observations', verbose_name='Observer', to='observers.Observer', on_delete=models.CASCADE)),
+                ('star', models.ForeignKey(related_name='observations', verbose_name='Star', to='stars.Star', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Observation',

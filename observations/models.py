@@ -24,10 +24,12 @@ class Observation(models.Model):
     """
     observer = models.ForeignKey(
         'observers.Observer', related_name='observations',
-        verbose_name=_("Observer")
+        verbose_name=_("Observer"),
+        on_delete=models.CASCADE,
     )
     star = models.ForeignKey(
-        'stars.Star', related_name='observations', verbose_name=_("Star")
+        'stars.Star', related_name='observations', verbose_name=_("Star"),
+        on_delete=models.CASCADE,
     )
     jd = models.FloatField(verbose_name=_("Julian Date"))
     magnitude = models.FloatField(verbose_name=_("Brightness"))
