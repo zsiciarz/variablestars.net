@@ -171,6 +171,8 @@ RAVEN_CONFIG = {
     'dsn': '',
 }
 
+GEOPOSITION_GOOGLE_MAPS_API_KEY = ''
+
 try:
     from .local_settings import *  # NOQA
 except ImportError:
