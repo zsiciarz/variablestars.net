@@ -4,7 +4,7 @@ from decimal import Decimal
 from geoposition import Geoposition
 
 from django.contrib.admin.sites import AdminSite
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from ..admin import StarAdmin
 from ..models import Star
