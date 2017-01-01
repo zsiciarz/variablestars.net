@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^stars/', include('stars.urls', namespace='stars')),
     url(r'^observers/', include('observers.urls', namespace='observers')),
     url(r'^observations/', include('observations.urls', namespace='observations')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^404/', TemplateView.as_view(template_name='404.html')),
 ]
 

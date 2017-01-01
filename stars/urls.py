@@ -6,6 +6,7 @@ from .views import StarListView, StarsInConstellationListView, StarSearchView, \
 from .autocomplete_views import StarAutocomplete
 
 
+app_name = 'stars'
 urlpatterns = [
     url(r'^$', StarListView.as_view(), name='star_list'),
     url(r'^variability_types/$', VariabilityTypeListView.as_view(), name='variabilitytype_list'),

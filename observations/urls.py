@@ -3,6 +3,7 @@ from django.conf.urls import url
 from .views import ObservationListView, AddObservationView, UploadObservationsView
 
 
+app_name = 'observations'
 urlpatterns = [
     url(r'^$', ObservationListView.as_view(), name='observation_list'),
     url(r'^(?P<observer_id>\d+)/$', ObservationListView.as_view(), name='observation_list_by_observer'),
