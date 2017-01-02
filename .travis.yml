@@ -15,6 +15,6 @@ install:
   - npm install
 script:
   - make test
-  - make elm-test
+#  - make elm-test
 after_success:
   - coveralls
