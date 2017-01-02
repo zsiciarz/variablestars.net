@@ -40,17 +40,17 @@ dateFromJd jd =
 dateToJd : Date.Date -> JD
 dateToJd date =
     let
-        month' =
+        month_ =
             monthToInt (Date.month date)
 
         a =
-            (14 - month') // 12
+            (14 - month_) // 12
 
         y =
             (Date.year date) + 4800 - a
 
         m =
-            month' + 12 * a - 3
+            month_ + 12 * a - 3
 
         fraction =
             (toFloat ((Date.hour date) - 12)) / 24 + (toFloat (Date.minute date)) / 1440 + (toFloat (Date.second date)) / 86400

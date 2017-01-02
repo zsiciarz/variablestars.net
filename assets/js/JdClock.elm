@@ -2,7 +2,6 @@ module JdClock exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.App as Html
 import Time exposing (Time, every, second)
 import Astronomy exposing (timeToJd)
 import Utils exposing (formatJD)

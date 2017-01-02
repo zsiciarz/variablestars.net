@@ -6,7 +6,6 @@ import Date.Extra.Create exposing (dateFromFields)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Html.App as Html
 import Json.Decode
 import String
 import Time exposing (every, second)
@@ -140,7 +139,7 @@ calendarInput : Int -> (String -> Msg) -> Html Msg
 calendarInput modelValue msg =
     input
         [ class "form-control"
-        , type' "number"
+        , type_ "number"
         , value (toString modelValue)
         , onInput msg
         ]
