@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var WebpackShellPlugin = require("webpack-shell-plugin");
 
 module.exports = {
     entry: {
@@ -40,6 +41,9 @@ module.exports = {
             $: "jquery",
             jQuery: "jquery"
         }),
-        new ExtractTextPlugin("style.css")
+        new ExtractTextPlugin("style.css"),
+        new WebpackShellPlugin({
+            onBuildEnd: ["sed -i s/variablestars.net/variablestars_net/g assets/build/app.js"]
+        })
     ]
 };
