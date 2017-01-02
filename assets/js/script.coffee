@@ -4,7 +4,7 @@ ElmJdClock = require('./JdClock.elm')
 ElmJdConverter = require('./JdConverter.elm')
 
 ElmJdClock.JdClock.embed(document.getElementById('jd-clock'))
-ElmJdConverter.JdConverter.embed(document.getElementById('elm-jd-converter'), {timezoneOffset: new Date().getTimezoneOffset() * 60000})
+ElmJdConverter.JdConverter.embed(document.getElementById('elm-jd-converter'))
 
 $ ->
     $('.julian-day').tooltip
