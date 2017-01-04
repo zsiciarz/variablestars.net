@@ -165,7 +165,7 @@ view model =
             [ label [] [ text "JD" ]
             , input
                 [ class "form-control"
-                , value (dateToJd model.date |> formatJD 4)
+                , value (dateToJd model.date |> formatJD)
                 , onInput SetJD
                 ]
                 []

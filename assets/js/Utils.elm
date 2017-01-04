@@ -1,11 +1,7 @@
 module Utils exposing (formatJD)
 
-import String
+import Numeral exposing (format)
 
 
---import Number.Format exposing (pretty)
-
-
-formatJD n x =
-    --pretty n ' ' x |> String.filter (\c -> c /= ' ')
-    toString x
+formatJD x =
+    format "0.0000" x

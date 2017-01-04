@@ -40,7 +40,7 @@ view : Time -> Html a
 view t =
     let
         jdText =
-            t |> timeToJd |> formatJD 4
+            t |> timeToJd |> formatJD
     in
         div []
             [ span [ class "glyphicon glyphicon-time" ] []
