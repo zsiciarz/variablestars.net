@@ -4,10 +4,10 @@ var WebpackShellPlugin = require("webpack-shell-plugin");
 
 module.exports = {
     entry: {
-        app: './assets/js/script.coffee',
-        lightcurve: './assets/js/lightcurve.coffee',
-        add_observation: './assets/js/add_observation.coffee',
-        registration_form: './assets/js/registration_form.coffee',
+        app: './assets/js/script.js',
+        lightcurve: './assets/js/lightcurve.js',
+        add_observation: './assets/js/add_observation.js',
+        registration_form: './assets/js/registration_form.js',
         style: './assets/less/style.less'
     },
     output: {
@@ -16,9 +16,12 @@ module.exports = {
     },
     module: {
         loaders: [{
-            test: /\.coffee$/,
+            test: /\.js$/,
             exclude: /node_modules/,
-            loader: 'coffee'
+            loader: 'babel-loader',
+            query: {
+                presets: ['es2015']
+            }
         }, {
             test: /\.elm$/,
             exclude: [/elm-stuff/, /node_modules/],
