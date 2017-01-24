@@ -1,4 +1,4 @@
-import d3 from 'd3'
+import * as d3 from 'd3'
 
 class LightCurve {
     constructor(selector, epoch, period) {
@@ -21,38 +21,29 @@ class LightCurve {
         this.height = 0.3 * this.width
         this.width = this.width - this.margin.left - this.margin.right
         this.height = this.height - this.margin.top - this.margin.bottom
-        this.xScale = d3.scale.linear().range([0, this.width]).nice()
-        this.yScale = d3.scale.linear().range([0, this.height]).nice()
-        this.xAxis = d3.svg.axis().scale(this.xScale).orient('bottom').ticks(10).tickSize(-this.height, 0, 0)
-        this.yAxis = d3.svg.axis().scale(this.yScale).orient('left').ticks(10).tickSize(-this.width, 0, 0)
+        this.xScale = d3.scaleLinear().range([0, this.width]).nice()
+        this.yScale = d3.scaleLinear().range([0, this.height]).nice()
+        this.xAxis = d3.axisBottom().scale(this.xScale).ticks(10).tickSize(-this.height, 0, 0)
+        this.yAxis = d3.axisLeft().scale(this.yScale).ticks(10).tickSize(-this.width, 0, 0)
     }
 
     getSvg(selector) {
         this.svg = d3.select(selector).append('svg')
-            .attr({
-                width: this.width + this.margin.left + this.margin.right,
-                height: this.height + this.margin.top + this.margin.bottom
-            })
+            .attr('width', this.width + this.margin.left + this.margin.right)
+            .attr('height', this.height + this.margin.top + this.margin.bottom)
             .append('g')
-            .attr({
-                transform: `translate(${this.margin.left},${this.margin.top})`
-            })
+            .attr('transform', `translate(${this.margin.left},${this.margin.top})`)
         this.svg.append('g')
-            .attr({
-                class: 'x axis',
-                transform: `translate(0,${this.height})`
-            })
+            .attr('class', 'x axis')
+            .attr('transform', `translate(0,${this.height})`)
+        this.svg.append('g')
+            .attr('class', 'y axis')
         this.xTitle = this.svg.append('text')
-            .attr({
-                class: 'axisTitle',
-                transform: `translate(${this.width / 2},${this.height + this.margin.bottom})`
-            })
+            .attr('class', 'axisTitle')
+            .attr('transform', `translate(${this.width / 2},${this.height + this.margin.bottom})`)
         this.yTitle = this.svg.append('text')
-            .attr({
-                class: 'axisTitle',
-                transform: `rotate(-90) translate(-${this.height / 2}, -${this.margin.left / 1.3})`
-            })
-        this.svg.append('g').attr({class: 'y axis'})
+            .attr('class', 'axisTitle')
+            .attr('transform', `rotate(-90) translate(-${this.height / 2}, -${this.margin.left / 1.3})`)
         return this.svg
     }
 
@@ -79,11 +70,9 @@ class LightCurve {
             .data(this.data)
             .enter()
             .append('circle')
-            .attr({
-                cx: d => this.xScale(d.jd),
-                cy: d => this.yScale(d.magnitude),
-                r: '2'
-            })
+            .attr('cx', d => this.xScale(d.jd))
+            .attr('cy', d => this.yScale(d.magnitude))
+            .attr('r', '2')
             .on('mouseover', function () {
                 d3.select(this).transition().duration(150).attr('r', '10')
             })
@@ -106,9 +95,7 @@ class LightCurve {
         this.svg.selectAll('circle')
             .transition()
             .duration(1000)
-            .attr({
-                cx: d => this.xScale(isPhaseChart ? d.phase : d.jd)
-            })
+            .attr('cx', d => this.xScale(isPhaseChart ? d.phase : d.jd))
         this.xTitle.text(isPhaseChart ? 'Phase' : 'Julian Date')
     }
 }
