@@ -1,6 +1,7 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var WebpackShellPlugin = require("webpack-shell-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const WebpackShellPlugin = require("webpack-shell-plugin");
 
 module.exports = {
     entry: {
@@ -11,31 +12,49 @@ module.exports = {
         style: './assets/less/style.less'
     },
     output: {
-        path: './assets/build',
+        path: path.resolve(__dirname, './assets/build'),
         filename: '[name].js'
     },
     module: {
-        loaders: [{
+        rules: [{
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
-            query: {
+            options: {
                 presets: ['es2015']
             }
         }, {
             test: /\.elm$/,
             exclude: [/elm-stuff/, /node_modules/],
-            loader: 'elm-webpack?pathToMake=node_modules/.bin/elm-make'
+            loader: 'elm-webpack-loader',
+            options: {
+                'pathToMake': 'node_modules/.bin/elm-make'
+            },
         }, {
             test: /\.less$/,
-            loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+            loader: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: 'css-loader!less-loader'
+            })
         },
         {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-            loader: 'url-loader?limit=100000'
+            loader: 'url-loader',
+            options: {
+                'limit': 100000
+            }
         }, {
-            test: require.resolve("jquery"),
-            loader: "expose?$!expose?jQuery"
+            test: require.resolve('jquery'),
+            use: [
+                {
+                    loader: 'expose-loader',
+                    query: 'jQuery'
+                },
+                {
+                    loader: 'expose-loader',
+                    query: '$'
+                }
+            ]
         }],
         noParse: [/\.elm$/]
     },
