@@ -13,7 +13,7 @@ frogress==0.9.1
 gunicorn==19.6.0
 ipython==5.2.2
 lxml==3.7.2
-psycopg2==2.6.2
+psycopg2==2.7.1
 pyaavso==0.2
 pygcvs==1.1
 raven==5.32.0
