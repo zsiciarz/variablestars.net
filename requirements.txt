@@ -4,7 +4,7 @@ django-autocomplete-light==3.2.1
 django-braces==1.11.0
 django-crispy-forms==1.6.1
 django-debug-toolbar==1.6
-django-extensions==1.7.6
+django-extensions==1.7.8
 https://github.com/zsiciarz/django-geoposition/archive/0e3210655bc6b19a85511d8d97e54a903cc1f6c1.zip#egg=django-geoposition
 django-model-utils==2.6.1
 dj-pagination==2.2.1
