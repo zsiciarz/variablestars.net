@@ -1,6 +1,6 @@
 Django==1.11.4
 django-allauth==0.32.0
-django-autocomplete-light==3.2.9
+django-autocomplete-light==3.2.10
 django-braces==1.11.0
 django-crispy-forms==1.6.1
 django-debug-toolbar==1.8
