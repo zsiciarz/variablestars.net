@@ -16,7 +16,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "bootswatch": "^3.3.7",
-    "d3": "^4.10.0",
+    "d3": "^4.10.2",
     "d3-axis": "^1.0.8",
     "d3-scale": "^1.0.6",
     "jquery": "^3.1.1",
@@ -26,7 +26,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
-    "css-loader": "^0.28.5",
+    "css-loader": "^0.28.7",
     "elm": "^0.18.0",
     "elm-webpack-loader": "^4.3.1",
     "expose-loader": "^0.7.3",
