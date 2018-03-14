@@ -2,7 +2,7 @@ Django==1.11.11
 django-allauth==0.35.0
 django-autocomplete-light==3.2.10
 django-braces==1.12.0
-django-crispy-forms==1.7.0
+django-crispy-forms==1.7.2
 django-debug-toolbar==1.9.1
 django-extensions==2.0.0
 https://github.com/zsiciarz/django-geoposition/archive/0e3210655bc6b19a85511d8d97e54a903cc1f6c1.zip#egg=django-geoposition
