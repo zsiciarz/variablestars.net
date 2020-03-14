@@ -1,5 +1,5 @@
 Django==1.11.29
-django-allauth==0.36.0
+django-allauth==0.38.0
 django-autocomplete-light==3.2.10
 django-braces==1.13.0
 django-crispy-forms==1.7.2
