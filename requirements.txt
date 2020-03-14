@@ -8,7 +8,7 @@ django-extensions==2.0.7
 https://github.com/zsiciarz/django-geoposition/archive/0e3210655bc6b19a85511d8d97e54a903cc1f6c1.zip#egg=django-geoposition
 django-model-utils==3.1.2
 dj-pagination==2.3.2
-ephem==3.7.6.0
+ephem==3.7.7.1
 frogress==0.9.1
 gunicorn==19.10.0
 ipython==6.4.0
