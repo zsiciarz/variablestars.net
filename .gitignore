@@ -14,3 +14,4 @@ elm-stuff/
 .coverage
 *,cover
 htmlcov
+.mypy_cache
