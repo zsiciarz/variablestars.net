@@ -7,7 +7,7 @@ django-debug-toolbar==2.1
 django-extensions==2.2.9
 https://github.com/zsiciarz/django-geoposition/archive/0e3210655bc6b19a85511d8d97e54a903cc1f6c1.zip#egg=django-geoposition
 django-model-utils==4.0.0
-dj-pagination==2.3.2
+dj-pagination==2.4.0
 ephem==3.7.7.1
 frogress==0.9.1
 gunicorn==19.10.0
