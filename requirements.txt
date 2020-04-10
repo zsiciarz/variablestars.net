@@ -1,4 +1,4 @@
-Django==1.11.29
+Django==2.0.13
 django-allauth==0.38.0
 django-autocomplete-light==3.2.10
 django-braces==1.13.0
