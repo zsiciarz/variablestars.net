@@ -11,6 +11,7 @@ class ObserverListView(ListView):
     """
     Display a list of observers.
     """
+
     queryset = Observer.objects.with_observations_count()
 
     def get_context_data(self, **kwargs):
@@ -24,6 +25,7 @@ class ObserverDetailView(DetailView):
     """
     Public profile of an observer.
     """
+
     model = Observer
 
 
@@ -31,9 +33,10 @@ class ObserverEditView(LoginRequiredMixin, UpdateView):
     """
     Edit current user's observer profile.
     """
+
     model = Observer
     form_class = ObserverForm
-    template_name_suffix = '_edit'
+    template_name_suffix = "_edit"
 
     def get_object(self):
         return Observer.objects.get(user=self.request.user)

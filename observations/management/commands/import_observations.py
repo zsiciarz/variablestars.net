@@ -11,16 +11,13 @@ from observers.models import Observer
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option(
-            '--observer',
-            action='store',
-            dest='observer',
-            help='AAVSO observer code'
+            "--observer", action="store", dest="observer", help="AAVSO observer code"
         ),
     )
 
     def handle(self, *args, **options):
-        observer = Observer.objects.get(aavso_code=options['observer'])
-        observations = download_observations(options['observer'])
+        observer = Observer.objects.get(aavso_code=options["observer"])
+        observations = download_observations(options["observer"])
         for observation in observations:
             try:
                 observation = dict_to_observation(observation, observer)
@@ -28,4 +25,4 @@ class Command(BaseCommand):
             except Exception as e:
                 print(e)
                 continue
-        self.stdout.write('Imported %d observations.' % len(observations))
+        self.stdout.write("Imported %d observations." % len(observations))

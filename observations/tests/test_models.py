@@ -12,14 +12,17 @@ class ObservationModelTestCase(TestCase):
     """
     Tests for Observation model.
     """
+
     def test_str(self):
         """
         Check for string representation of an observation.
         """
-        star = Star.objects.create(name='R LEO')
+        star = Star.objects.create(name="R LEO")
         observation = Observation(star=star, jd=2456567.2550, magnitude=8.5)
         expected = "%s %s %s" % (
-            observation.star, observation.jd, observation.magnitude,
+            observation.star,
+            observation.jd,
+            observation.magnitude,
         )
         self.assertEqual(str(observation), expected)
 
@@ -28,9 +31,9 @@ class ObservationModelTestCase(TestCase):
         Check that creating new observation adds 1 to star's
         ``observations_count`` denormalized field.
         """
-        star = Star.objects.create(name='R LEO', observations_count=10)
+        star = Star.objects.create(name="R LEO", observations_count=10)
         observation = Observation(star=star)
-        with patch.object(star, 'save'), patch.object(models.Model, 'save'):
+        with patch.object(star, "save"), patch.object(models.Model, "save"):
             observation.save()
         self.assertEqual(star.observations_count, 11)
 
@@ -39,9 +42,9 @@ class ObservationModelTestCase(TestCase):
         Check that deleting an observation subtracts 1 from star's
         ``observations_count`` denormalized field.
         """
-        star = Star.objects.create(name='R LEO', observations_count=10)
+        star = Star.objects.create(name="R LEO", observations_count=10)
         observation = Observation(star=star)
-        with patch.object(star, 'save'), patch.object(models.Model, 'delete'):
+        with patch.object(star, "save"), patch.object(models.Model, "delete"):
             observation.delete()
         self.assertEqual(star.observations_count, 9)
 
@@ -54,8 +57,16 @@ class ObservationManagerTestCase(BaseTestCase):
         self._create_stars()
         self._create_observations()
         expected = [
-            {'star_id': self.star.id, 'star__name': self.star.name, 'observations_count': 10},
-            {'star_id': self.periodic_star.id, 'star__name': self.periodic_star.name, 'observations_count': 8},
+            {
+                "star_id": self.star.id,
+                "star__name": self.star.name,
+                "observations_count": 10,
+            },
+            {
+                "star_id": self.periodic_star.id,
+                "star__name": self.periodic_star.name,
+                "observations_count": 8,
+            },
         ]
         top_stars = list(Observation.objects.top_stars())
         self.assertEqual(top_stars, expected)
@@ -69,16 +80,16 @@ class ObservationManagerTestCase(BaseTestCase):
         self._create_observations()
         expected = [
             {
-                'observer_id': self.observer.id,
-                'observer__user__username': self.observer.user.username,
-                'observer__aavso_code': self.observer.aavso_code,
-                'observations_count': 15,
+                "observer_id": self.observer.id,
+                "observer__user__username": self.observer.user.username,
+                "observer__aavso_code": self.observer.aavso_code,
+                "observations_count": 15,
             },
             {
-                'observer_id': self.observer2.id,
-                'observer__user__username': self.observer2.user.username,
-                'observer__aavso_code': self.observer2.aavso_code,
-                'observations_count': 3,
+                "observer_id": self.observer2.id,
+                "observer__user__username": self.observer2.user.username,
+                "observer__aavso_code": self.observer2.aavso_code,
+                "observations_count": 3,
             },
         ]
         top_observers = list(Observation.objects.top_observers())

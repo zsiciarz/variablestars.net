@@ -12,13 +12,12 @@ class ObserverMiddlewareTestCase(TestCase):
     """
     Tests for ``observers.middleware.observer_middleware`` function.
     """
+
     def setUp(self):
         super().setUp()
         self.request = MagicMock()
         self.user = self.request.user = User.objects.create_user(
-            username='stargazer',
-            email='stargazer@example.com',
-            password='123456',
+            username="stargazer", email="stargazer@example.com", password="123456",
         )
 
     def test_authenticated_user(self):
@@ -26,9 +25,9 @@ class ObserverMiddlewareTestCase(TestCase):
         Check that the middleware attaches an Observer instance to the request
         for authenticated users.
         """
-        observer = Observer(user=self.user, aavso_code='XYZ')
+        observer = Observer(user=self.user, aavso_code="XYZ")
         middleware = observer_middleware(get_response)
-        with patch.object(Observer.objects, 'get') as mock_get:
+        with patch.object(Observer.objects, "get") as mock_get:
             mock_get.return_value = observer
             middleware(self.request)
             mock_get.assert_called_once_with(user=self.user)

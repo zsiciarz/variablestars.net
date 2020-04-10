@@ -15,6 +15,7 @@ class StarAdminTestCase(BaseTestCase):
     """
     Tests for Star-related admin customizations.
     """
+
     def setUp(self):
         super().setUp()
         self.site = AdminSite()
@@ -35,14 +36,15 @@ class StarListViewTestCase(BaseTestCase):
     """
     Tests for ``stars.views.StarListView`` class.
     """
+
     def setUp(self):
         super().setUp()
         self._create_stars()
         self.star_without_observations = Star.objects.create(
-            constellation='LEP',
-            name='R LEP',
-            ra='04:59:36.4',
-            dec='-14:48:23',
+            constellation="LEP",
+            name="R LEP",
+            ra="04:59:36.4",
+            dec="-14:48:23",
             variability_type=self.variability_type,
             max_magnitude=5.5,
             min_magnitude=11.7,
@@ -50,10 +52,10 @@ class StarListViewTestCase(BaseTestCase):
         # log in as some user and send a dummy request so that
         # client.session is a real session
         self.client.login_observer()
-        self.client.get('/')
+        self.client.get("/")
 
     def test_response(self):
-        url = reverse('stars:star_list')
+        url = reverse("stars:star_list")
         response = self.client.get(url)
         self.assertContains(response, self.star.name)
         self.assertContains(response, self.periodic_star.name)
@@ -62,9 +64,9 @@ class StarListViewTestCase(BaseTestCase):
 
     def test_only_with_observations(self):
         self._create_observations()
-        url = reverse('stars:star_list')
+        url = reverse("stars:star_list")
         session = self.client.session
-        session['stars_with_observations'] = True
+        session["stars_with_observations"] = True
         session.save()
         response = self.client.get(url)
         self.assertContains(response, self.star.name)
@@ -72,9 +74,9 @@ class StarListViewTestCase(BaseTestCase):
         self.assertNotContains(response, self.star_without_observations.name)
 
     def test_limiting_magnitude(self):
-        url = reverse('stars:star_list')
+        url = reverse("stars:star_list")
         session = self.client.session
-        session['limiting_magnitude'] = 5.0
+        session["limiting_magnitude"] = 5.0
         session.save()
         response = self.client.get(url)
         self.assertContains(response, self.star.name)
@@ -85,7 +87,7 @@ class StarListViewTestCase(BaseTestCase):
 class ConstellationListView(BaseTestCase):
     def test_response(self):
         self._create_stars()
-        url = reverse('stars:constellation_list')
+        url = reverse("stars:constellation_list")
         response = self.client.get(url)
         self.assertTemplateUsed(response, "stars/constellation_list.html")
         self.assertContains(response, self.star.constellation)
@@ -94,16 +96,17 @@ class ConstellationListView(BaseTestCase):
 class StarsInConstellationListViewTestCase(BaseTestCase):
     def test_response(self):
         self._create_stars()
-        url = reverse('stars:constellation_list', kwargs={
-            'constellation': self.star.constellation,
-        })
+        url = reverse(
+            "stars:constellation_list",
+            kwargs={"constellation": self.star.constellation,},
+        )
         response = self.client.get(url)
         self.assertContains(response, self.star.get_constellation_display())
         self.assertTemplateUsed(response, "stars/star_list.html")
 
     def test_filtered_stars(self):
         self._create_stars()
-        url = reverse('stars:constellation_list', kwargs={'constellation': 'LEO'})
+        url = reverse("stars:constellation_list", kwargs={"constellation": "LEO"})
         response = self.client.get(url)
         self.assertContains(response, self.star.name)
         self.assertNotContains(response, self.periodic_star.name)
@@ -128,33 +131,33 @@ class StarDetailViewTestCase(BaseTestCase):
         url = self.star.get_absolute_url()
         response = self.client.get(url)
         self.assertTemplateUsed(response, "stars/star_detail.html")
-        self.assertIsNotNone(response.context['next_rising'])
+        self.assertIsNotNone(response.context["next_rising"])
 
     def test_observer_location(self):
         self._create_stars()
-        self.observer.location = Geoposition(Decimal('-89'), Decimal('21'))
+        self.observer.location = Geoposition(Decimal("-89"), Decimal("21"))
         self.observer.save()
         self.client.login_observer()
         url = self.star.get_absolute_url()
         response = self.client.get(url)
         self.assertTemplateUsed(response, "stars/star_detail.html")
-        self.assertIsNone(response.context['next_rising'])
+        self.assertIsNone(response.context["next_rising"])
 
     def test_circumpolar_star(self):
         self._create_stars()
-        self.star.dec = '+89:00:00'
+        self.star.dec = "+89:00:00"
         self.star.save()
         url = self.star.get_absolute_url()
         with warnings.catch_warnings():
-            warnings.filterwarnings('ignore', category=DeprecationWarning)
+            warnings.filterwarnings("ignore", category=DeprecationWarning)
             response = self.client.get(url)
-            self.assertIsNone(response.context['next_rising'])
+            self.assertIsNone(response.context["next_rising"])
 
 
 class VariabilityTypeListView(BaseTestCase):
     def test_response(self):
         self._create_stars()
-        url = reverse('stars:variabilitytype_list')
+        url = reverse("stars:variabilitytype_list")
         response = self.client.get(url)
         self.assertTemplateUsed(response, "stars/variabilitytype_list.html")
         self.assertContains(response, self.variability_type.short_description)
@@ -174,8 +177,8 @@ class RecentObservationsTestCase(BaseTestCase):
         super().setUp()
         self._create_stars()
         self._create_observations()
-        self.url = reverse('stars:recent_observations', kwargs={'pk': self.star.pk})
+        self.url = reverse("stars:recent_observations", kwargs={"pk": self.star.pk})
 
     def test_csv_response(self):
         response = self.client.get(self.url)
-        self.assertEqual(response['Content-Type'], 'text/csv')
+        self.assertEqual(response["Content-Type"], "text/csv")

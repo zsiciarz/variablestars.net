@@ -13,16 +13,13 @@ def prepare_project():
     I know ``nested`` is deprecated, but what a nice shortcut it is here ;)
     """
     return nested(
-        cd(PROJECT_PATH),
-        prefix("source ../.virtualenvs/variablestars/bin/activate")
+        cd(PROJECT_PATH), prefix("source ../.virtualenvs/variablestars/bin/activate")
     )
 
 
 PROJECT_PATH = "variablestars.net"
 
-env.roledefs = {
-    'web': ["variablestars2@variablestars.net"],
-}
+env.roledefs = {"web": ["variablestars2@variablestars.net"]}
 env.color = True
 env.forward_agent = True
 env.use_ssh_config = True

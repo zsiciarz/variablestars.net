@@ -4,7 +4,11 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from djet.assertions import InstanceAssertionsMixin, MessagesAssertionsMixin, StatusCodeAssertionsMixin
+from djet.assertions import (
+    InstanceAssertionsMixin,
+    MessagesAssertionsMixin,
+    StatusCodeAssertionsMixin,
+)
 from djet.files import create_inmemory_file
 from djet.testcases import ViewTestCase
 from dj_pagination.middleware import PaginationMiddleware
@@ -14,7 +18,9 @@ from .. import views
 from variablestars.tests.base import TestDataMixin
 
 
-class ObservationListViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
+class ObservationListViewTestCase(
+    StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase
+):
     view_class = views.ObservationListView
     middleware_classes = [
         PaginationMiddleware,
@@ -39,10 +45,17 @@ class ObservationListViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, View
         self.assertContains(response, str(self.observer2))
 
 
-class AddObservationViewTestCase(InstanceAssertionsMixin, MessagesAssertionsMixin, StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
+class AddObservationViewTestCase(
+    InstanceAssertionsMixin,
+    MessagesAssertionsMixin,
+    StatusCodeAssertionsMixin,
+    TestDataMixin,
+    ViewTestCase,
+):
     """
     Tests for ``observations.views.AddObservationView`` class.
     """
+
     view_class = views.AddObservationView
     middleware_classes = [
         SessionMiddleware,
@@ -75,32 +88,41 @@ class AddObservationViewTestCase(InstanceAssertionsMixin, MessagesAssertionsMixi
         """
         Check that invalid observation form displays meaningful errors.
         """
-        request = self.factory.post(data={
-        }, user=self.user)
+        request = self.factory.post(data={}, user=self.user)
         response = self.view(request)
-        self.assertContains(response, _('This field is required.'))
+        self.assertContains(response, _("This field is required."))
 
     def test_form_valid(self):
         """
         A valid form creates new observation and redirects back to the form.
         """
         self._create_stars()
-        with self.assert_instance_created(Observation, star=self.star, jd=2456634.1154, magnitude=7.1):
-            request = self.factory.post(data={
-                'star': self.star.id,
-                'jd': '2456634.1154',
-                'magnitude': '7.1',
-            }, user=self.user)
+        with self.assert_instance_created(
+            Observation, star=self.star, jd=2456634.1154, magnitude=7.1
+        ):
+            request = self.factory.post(
+                data={"star": self.star.id, "jd": "2456634.1154", "magnitude": "7.1",},
+                user=self.user,
+            )
             request.observer = self.observer
             response = self.view(request)
-            self.assert_redirect(response, reverse('observations:add_observation'))
-            self.assert_message_exists(request, messages.SUCCESS, _("Observation added successfully!"))
+            self.assert_redirect(response, reverse("observations:add_observation"))
+            self.assert_message_exists(
+                request, messages.SUCCESS, _("Observation added successfully!")
+            )
 
 
-class UploadObservationsViewTestCase(InstanceAssertionsMixin, MessagesAssertionsMixin, StatusCodeAssertionsMixin, TestDataMixin, ViewTestCase):
+class UploadObservationsViewTestCase(
+    InstanceAssertionsMixin,
+    MessagesAssertionsMixin,
+    StatusCodeAssertionsMixin,
+    TestDataMixin,
+    ViewTestCase,
+):
     """
     Tests for ``observations.views.UploadObservationsView`` class.
     """
+
     view_class = views.UploadObservationsView
     middleware_classes = [
         SessionMiddleware,
@@ -131,9 +153,7 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, MessagesAssertions
         """
         If no file is selected, the form displays an error.
         """
-        request = self.factory.post(data={
-            'aavso_file': '',
-        }, user=self.user)
+        request = self.factory.post(data={"aavso_file": "",}, user=self.user)
         response = self.view(request)
         self.assertContains(response, _("This field is required."))
 
@@ -142,15 +162,17 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, MessagesAssertions
         If the file is valid, observations are created.
         """
         contents = "\n".join(self.lines)
-        aavso_file = create_inmemory_file('data.txt', contents.encode('utf-8'))
-        with self.assert_instance_created(Observation, star=self.star, notes='test3'):
-            request = self.factory.post(data={
-                'aavso_file': aavso_file,
-            }, user=self.user)
+        aavso_file = create_inmemory_file("data.txt", contents.encode("utf-8"))
+        with self.assert_instance_created(Observation, star=self.star, notes="test3"):
+            request = self.factory.post(
+                data={"aavso_file": aavso_file,}, user=self.user
+            )
             request.observer = self.observer
             response = self.view(request)
             self.assert_redirect(response)
-            self.assert_message_exists(request, messages.SUCCESS, _("File uploaded successfully!"))
+            self.assert_message_exists(
+                request, messages.SUCCESS, _("File uploaded successfully!")
+            )
 
     def test_malformed_file(self):
         """
@@ -159,13 +181,13 @@ class UploadObservationsViewTestCase(InstanceAssertionsMixin, MessagesAssertions
         observations_count_before = Observation.objects.count()
         self.lines[-1] = "%s,2450702.1234,ASDF,na,110,113,070613,test3" % self.star.name
         contents = "\n".join(self.lines)
-        aavso_file = create_inmemory_file('data.txt', contents.encode('utf-8'))
-        request = self.factory.post(data={
-            'aavso_file': aavso_file,
-        }, user=self.user)
+        aavso_file = create_inmemory_file("data.txt", contents.encode("utf-8"))
+        request = self.factory.post(data={"aavso_file": aavso_file,}, user=self.user)
         request.observer = self.observer
         response = self.view(request)
         self.assert_redirect(response)
-        self.assert_message_exists(request, messages.SUCCESS, _("File uploaded successfully!"))
+        self.assert_message_exists(
+            request, messages.SUCCESS, _("File uploaded successfully!")
+        )
         observations_count_after = Observation.objects.count()
         self.assertEqual(observations_count_after, observations_count_before)

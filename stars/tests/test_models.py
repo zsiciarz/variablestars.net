@@ -8,6 +8,7 @@ class StarQuerySetTestCase(BaseTestCase):
     """
     Tests for ``StarQuerySet`` class.
     """
+
     def setUp(self):
         super().setUp()
         self._create_stars()
@@ -15,59 +16,61 @@ class StarQuerySetTestCase(BaseTestCase):
 
     def test_total_stats(self):
         stats = Star.objects.get_total_stats()
-        self.assertEqual(stats['total_star_count'], 2)
-        self.assertEqual(stats['observed_last_month_count'], 2)
-        self.assertEqual(stats['observed_by_you_count'], 0)
+        self.assertEqual(stats["total_star_count"], 2)
+        self.assertEqual(stats["observed_last_month_count"], 2)
+        self.assertEqual(stats["observed_by_you_count"], 0)
 
     def test_total_stats_with_observer(self):
         stats = Star.objects.get_total_stats(self.observer)
-        self.assertEqual(stats['observed_by_you_count'], 2)
+        self.assertEqual(stats["observed_by_you_count"], 2)
 
 
 class StarModelBasicPropertiesTestCase(unittest.TestCase):
     """
     Tests for Star model - basic properties.
     """
+
     def test_str(self):
         """
         String representation of a star is just its name.
         """
-        star = Star(name='R LEO')
+        star = Star(name="R LEO")
         self.assertEqual(str(star), star.name)
 
     def test_is_not_periodic(self):
         """
         Star without period or epoch is not periodic.
         """
-        star = Star(name='R LEO', period=None, epoch=None)
+        star = Star(name="R LEO", period=None, epoch=None)
         self.assertFalse(star.is_periodic())
 
     def test_is_not_periodic_only_period(self):
         """
         Period alone is not enough to consider the star periodic.
         """
-        star = Star(name='R LEO', period=309.95, epoch=None)
+        star = Star(name="R LEO", period=309.95, epoch=None)
         self.assertFalse(star.is_periodic())
 
     def test_is_periodic(self):
         """
         Star is periodic only when it has a defined period and epoch.
         """
-        star = Star(name='T CEP', period=388.14, epoch=2444177.0)
+        star = Star(name="T CEP", period=388.14, epoch=2444177.0)
         self.assertTrue(star.is_periodic())
 
     def test_gcvs_name(self):
         """
         Check that space is replaced by + in GCVS search name.
         """
-        star = Star(name='R LEO')
-        self.assertEqual(star.get_gcvs_search_name(), 'R+LEO')
+        star = Star(name="R LEO")
+        self.assertEqual(star.get_gcvs_search_name(), "R+LEO")
 
 
 class StarObservationsModelTestCase(BaseTestCase):
     """
     Tests for Star model - features related to observations.
     """
+
     def setUp(self):
         super().setUp()
         self._create_stars()
@@ -79,16 +82,16 @@ class StarObservationsModelTestCase(BaseTestCase):
         """
         expected = [
             {
-                'observer_id': self.observer.id,
-                'observer__user__username': self.observer.user.username,
-                'observer__aavso_code': self.observer.aavso_code,
-                'observations_count': 5,
+                "observer_id": self.observer.id,
+                "observer__user__username": self.observer.user.username,
+                "observer__aavso_code": self.observer.aavso_code,
+                "observations_count": 5,
             },
             {
-                'observer_id': self.observer2.id,
-                'observer__user__username': self.observer2.user.username,
-                'observer__aavso_code': self.observer2.aavso_code,
-                'observations_count': 3,
+                "observer_id": self.observer2.id,
+                "observer__user__username": self.observer2.user.username,
+                "observer__aavso_code": self.observer2.aavso_code,
+                "observations_count": 3,
             },
         ]
         top_observers = list(self.periodic_star.top_observers())
@@ -113,12 +116,10 @@ class VariabilityTypeModelTestCase(unittest.TestCase):
     """
     Tests for VariabilityType model.
     """
+
     def test_str(self):
         """
         String representation of variability type is its short GCVS code.
         """
-        variability_type = VariabilityType(
-            code='M',
-            long_description='Mira stars',
-        )
+        variability_type = VariabilityType(code="M", long_description="Mira stars",)
         self.assertEqual(str(variability_type), variability_type.code)

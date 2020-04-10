@@ -22,7 +22,7 @@ def magnitude(context, value):
     """
     Grays out magnitude value if it is below current observer's limit.
     """
-    observer = context.get('current_observer')
+    observer = context.get("current_observer")
     if not observer:
         return value
     if value > observer.limiting_magnitude:

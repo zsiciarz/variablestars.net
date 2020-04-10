@@ -9,5 +9,7 @@ class StarAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         stars = Star.objects.all()
         if self.q:
-            stars = stars.filter(name__icontains=self.q).order_by(Length('name').asc(), 'name')
+            stars = stars.filter(name__icontains=self.q).order_by(
+                Length("name").asc(), "name"
+            )
         return stars

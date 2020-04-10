@@ -18,18 +18,19 @@ class StarListView(SelectRelatedMixin, ListView):
     """
     Display a list of variable stars.
     """
+
     model = Star
-    select_related = ('variability_type',)
+    select_related = ("variability_type",)
 
     def get_queryset(self):
         queryset = super().get_queryset()
         try:
-            magnitude = float(self.request.session['limiting_magnitude'])
+            magnitude = float(self.request.session["limiting_magnitude"])
             queryset = queryset.filter(max_magnitude__lt=magnitude)
         except Exception:
             pass
         try:
-            stars_with_observations = self.request.session['stars_with_observations']
+            stars_with_observations = self.request.session["stars_with_observations"]
             if stars_with_observations:
                 queryset = queryset.filter(observations_count__gt=0)
         except Exception:
@@ -47,10 +48,16 @@ class ConstellationListView(ListView):
     """
     List all constellations.
     """
-    queryset = Star.objects.values('constellation').annotate(
-        star_count=Count('constellation'),
-        observations_count=Sum('observations_count'),
-    ).distinct().order_by('constellation')
+
+    queryset = (
+        Star.objects.values("constellation")
+        .annotate(
+            star_count=Count("constellation"),
+            observations_count=Sum("observations_count"),
+        )
+        .distinct()
+        .order_by("constellation")
+    )
     template_name = "stars/constellation_list.html"
 
 
@@ -58,14 +65,15 @@ class StarsInConstellationListView(StarListView):
     """
     List all stars in a given constellation.
     """
+
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(constellation=self.kwargs['constellation'])
+        return queryset.filter(constellation=self.kwargs["constellation"])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        name = CONSTELLATIONS_DICT.get(self.kwargs['constellation'])
-        context['constellation'] = name
+        name = CONSTELLATIONS_DICT.get(self.kwargs["constellation"])
+        context["constellation"] = name
         return context
 
 
@@ -73,10 +81,11 @@ class StarSearchView(StarListView):
     """
     Display a list of all stars matching submitted query.
     """
+
     template_name = "stars/star_search.html"
 
     def get_queryset(self):
-        q = self.request.GET.get('q', '').strip()
+        q = self.request.GET.get("q", "").strip()
         queryset = super().get_queryset()
         self.exact_match = None
         try:
@@ -97,28 +106,29 @@ class StarDetailView(DetailView):
     """
     Detailed information about a variable star.
     """
+
     model = Star
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        star = context['star']
+        star = context["star"]
         body = dict_to_body(model_to_dict(star))
         observer = self.request.observer
         if observer and observer.location:
             city = observer.get_pyephem_city()
         else:
-            city = ephem.city('Warsaw')
+            city = ephem.city("Warsaw")
         body.compute(city)
-        context['star_altitude'] = body.alt
-        context['star_azimuth'] = body.az
+        context["star_altitude"] = body.alt
+        context["star_azimuth"] = body.az
         try:
             next_rising = city.next_rising(body)
         except ephem.CircumpolarError:
             next_rising = None
-        context['body'] = body
-        context['next_rising'] = next_rising
+        context["body"] = body
+        context["next_rising"] = next_rising
         observations = star.get_observations_by_observer(observer)
-        context['observations_by_observer'] = observations
+        context["observations_by_observer"] = observations
         return context
 
 
@@ -126,9 +136,9 @@ class VariabilityTypeListView(ListView):
     """
     A list of all variability types.
     """
+
     queryset = VariabilityType.objects.all().annotate(
-        star_count=Count('star'),
-        observations_count=Sum('star__observations_count'),
+        star_count=Count("star"), observations_count=Sum("star__observations_count"),
     )
     template_name = "stars/variabilitytype_list.html"
 
@@ -137,15 +147,16 @@ class VariabilityTypeDetailView(StarListView):
     """
     Detailed view about a variability type.
     """
+
     template_name = "stars/variabilitytype_detail.html"
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(variability_type_id=self.kwargs['pk'])
+        return queryset.filter(variability_type_id=self.kwargs["pk"])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['variabilitytype'] = VariabilityType.objects.get(pk=self.kwargs['pk'])
+        context["variabilitytype"] = VariabilityType.objects.get(pk=self.kwargs["pk"])
         return context
 
 
@@ -158,9 +169,9 @@ def recent_observations(request, pk):
     star = get_object_or_404(Star, pk=pk)
     min_jd = jd_now() - 5000.0  # TODO: would be nice to customize this
     observations = star.observations.filter(jd__gt=min_jd)
-    response = HttpResponse(content_type='text/csv')
+    response = HttpResponse(content_type="text/csv")
     writer = csv.writer(response)
-    writer.writerow(['jd', 'magnitude'])
+    writer.writerow(["jd", "magnitude"])
     for observation in observations:
         writer.writerow([observation.jd, observation.magnitude])
     return response
