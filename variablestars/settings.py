@@ -59,7 +59,6 @@ MIDDLEWARE = (
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "dj_pagination.middleware.PaginationMiddleware",
@@ -116,7 +115,7 @@ TEMPLATES = [
             ),
             "debug": DEBUG,
         },
-    },
+    }
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -147,9 +146,7 @@ LOGIN_URL = reverse_lazy("account_login")
 LOGOUT_URL = reverse_lazy("account_logout")
 LOGIN_REDIRECT_URL = reverse_lazy("main")
 
-ABSOLUTE_URL_OVERRIDES = {
-    "auth.user": lambda u: u.observer.get_absolute_url(),
-}
+ABSOLUTE_URL_OVERRIDES = {"auth.user": lambda u: u.observer.get_absolute_url()}
 
 INTERNAL_IPS = ("127.0.0.1",)
 
@@ -160,13 +157,9 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_PASSWORD_MIN_LENGTH = 2
 
-SOUTH_TESTS_MIGRATE = False
-
 CRISPY_TEMPLATE_PACK = "bootstrap3"
 
-RAVEN_CONFIG = {
-    "dsn": "",
-}
+RAVEN_CONFIG = {"dsn": ""}
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = ""
 
@@ -176,6 +169,4 @@ except ImportError:
     pass
 
 if "test" in sys.argv:
-    PASSWORD_HASHERS = {
-        "django.contrib.auth.hashers.MD5PasswordHasher",
-    }
+    PASSWORD_HASHERS = {"django.contrib.auth.hashers.MD5PasswordHasher"}
