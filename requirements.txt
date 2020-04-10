@@ -17,4 +17,4 @@ psycopg2==2.7.5
 pyaavso==0.2
 pygcvs==1.1
 raven==6.10.0
-requests==2.21.0
+requests==2.23.0
