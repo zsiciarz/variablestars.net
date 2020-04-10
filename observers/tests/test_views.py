@@ -3,7 +3,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from djet.assertions import StatusCodeAssertionsMixin
 from djet.testcases import ViewTestCase
-from djet.utils import refresh
 from dj_pagination.middleware import PaginationMiddleware
 
 from .. import views
@@ -42,16 +41,16 @@ class ObserverEditViewTestCase(StatusCodeAssertionsMixin, TestDataMixin, ViewTes
 
     def test_update_observer_data(self):
         self.assertNotEqual(self.observer.limiting_magnitude, 11)
-        request = self.factory.post(data={"limiting_magnitude": 11,}, user=self.user)
+        request = self.factory.post(data={"limiting_magnitude": 11}, user=self.user)
         response = self.view(request)
         self.assert_redirect(response, self.observer.get_absolute_url())
-        observer = refresh(self.observer)
-        self.assertEqual(observer.limiting_magnitude, 11)
+        self.observer.refresh_from_db()
+        self.assertEqual(self.observer.limiting_magnitude, 11)
 
     def test_update_user_data(self):
         self.assertNotEqual(self.user.first_name, "Aaron")
-        request = self.factory.post(data={"first_name": "Aaron",}, user=self.user)
+        request = self.factory.post(data={"first_name": "Aaron"}, user=self.user)
         response = self.view(request)
         self.assert_redirect(response, self.observer.get_absolute_url())
-        user = refresh(self.user)
-        self.assertEqual(user.first_name, "Aaron")
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.first_name, "Aaron")
