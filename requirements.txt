@@ -16,5 +16,5 @@ lxml==3.8.0
 psycopg2-binary==2.8.5
 pyaavso==0.2
 pygcvs==1.1
-raven==6.10.0
 requests==2.23.0
+sentry-sdk==0.14.3

@@ -7,12 +7,15 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+import os
 import sys
 
+import sentry_sdk
 from django.urls import reverse_lazy
+from sentry_sdk.integrations.django import DjangoIntegration
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -48,7 +51,6 @@ INSTALLED_APPS = (
     "geoposition",
     "allauth",
     "allauth.account",
-    "raven.contrib.django.raven_compat",
     "observations",
     "observers",
     "stars",
@@ -159,7 +161,7 @@ ACCOUNT_PASSWORD_MIN_LENGTH = 2
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
 
-RAVEN_CONFIG = {"dsn": ""}
+SENTRY_DSN = ""
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = ""
 
@@ -170,3 +172,6 @@ except ImportError:
 
 if "test" in sys.argv:
     PASSWORD_HASHERS = {"django.contrib.auth.hashers.MD5PasswordHasher"}
+
+if SENTRY_DSN:
+    sentry_sdk.init(dsn=SENTRY_DSN, integrations=[DjangoIntegration()])
