@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Count
 from django.db.models.query import QuerySet
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from model_utils import Choices
@@ -154,9 +155,8 @@ class Star(models.Model):
     def __str__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ("stars:star_detail", [], {"pk": self.pk})
+        return reverse("stars:star_detail", kwargs={"pk": self.pk})
 
     def is_periodic(self):
         """
@@ -202,6 +202,5 @@ class VariabilityType(models.Model):
     def __str__(self):
         return self.code
 
-    @models.permalink
     def get_absolute_url(self):
-        return ("stars:variabilitytype_detail", [], {"pk": self.pk})
+        return reverse("stars:variabilitytype_detail", kwargs={"pk": self.pk})

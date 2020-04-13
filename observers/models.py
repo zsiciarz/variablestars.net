@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models import Count
 from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -71,9 +72,8 @@ class Observer(TimeStampedModel):
         else:
             return str(self.user)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ("observers:observer_detail", [], {"pk": self.pk})
+        return reverse("observers:observer_detail", kwargs={"pk": self.pk})
 
     def top_stars(self):
         return Observation.objects.top_stars().filter(observer=self)
