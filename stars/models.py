@@ -149,10 +149,7 @@ class Star(models.Model):
     class Meta:
         verbose_name = _("Variable star")
         verbose_name_plural = _("Variable stars")
-        ordering = (
-            "constellation",
-            "name",
-        )
+        ordering = ("constellation", "name")
 
     def __str__(self):
         return self.name

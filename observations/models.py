@@ -43,10 +43,10 @@ class Observation(models.Model):
         default=False, verbose_name=_("Fainter than given magnitude")
     )
     comp1 = models.CharField(
-        max_length=5, blank=True, default="", verbose_name=_("First comparison star"),
+        max_length=5, blank=True, default="", verbose_name=_("First comparison star")
     )
     comp2 = models.CharField(
-        max_length=5, blank=True, default="", verbose_name=_("Second comparison star"),
+        max_length=5, blank=True, default="", verbose_name=_("Second comparison star")
     )
     comment_code = models.CharField(
         max_length=10, blank=True, default="", verbose_name=_("Comment code")

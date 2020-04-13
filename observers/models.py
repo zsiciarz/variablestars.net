@@ -36,7 +36,7 @@ class ObserverQuerySet(QuerySet):
 
 class Observer(TimeStampedModel):
     user = models.OneToOneField(
-        "auth.User", editable=False, related_name="observer", on_delete=models.CASCADE,
+        "auth.User", editable=False, related_name="observer", on_delete=models.CASCADE
     )
     aavso_code = models.CharField(
         max_length=10,
@@ -55,7 +55,7 @@ class Observer(TimeStampedModel):
         ),
     )
     location = GeopositionField(blank=True)
-    city = models.CharField(max_length=255, blank=True, default="",)
+    city = models.CharField(max_length=255, blank=True, default="")
 
     objects = ObserverQuerySet.as_manager()
 
