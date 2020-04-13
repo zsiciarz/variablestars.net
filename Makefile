@@ -1,4 +1,4 @@
-.PHONY: test watch elm-test
+.PHONY: test watch elm-test deploy
 
 BASE_DIR = $(shell pwd)
 WEBPACK = ${BASE_DIR}/node_modules/.bin/webpack
@@ -28,3 +28,6 @@ $(ELM_TEST_DIR)/elm-stuff: $(ELM_TEST_DIR)/elm-package.json
 
 elm-test: $(ELM_TEST_DIR)/elm-stuff
 	cd $(ELM_TEST_DIR) && $(ELM_PACKAGE) install -y && ${ELM_TEST} TestRunner.elm --compiler ${ELM_MAKE}
+
+deploy:
+	ansible-playbook -i hosts playbook.yml
