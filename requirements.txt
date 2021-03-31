@@ -12,7 +12,7 @@ ephem==3.7.7.1
 frogress==0.9.1
 gunicorn==19.10.0
 ipython==7.14.0
-lxml==3.8.0
+lxml==4.6.3
 psycopg2-binary==2.8.5
 pyaavso==0.2
 pygcvs==1.1
