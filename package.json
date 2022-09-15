@@ -14,7 +14,7 @@
   "author": "Zbigniew Siciarz",
   "homepage": "http://variablestars.net",
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "bootswatch": "^3.3.7",
     "d3": "^4.12.0",
     "d3-axis": "^1.0.8",
